@@ -54,19 +54,11 @@
     "tag": "Fansite",
     "tagColor": "text-pink-400 bg-pink-400/10",
     "title": "Airport fashion — Departure for overseas schedule",
-    "body": "Fansite photos of the members departing Incheon Airport. Wonyoung and the rest of the members greeted fans brightly.",
+    "body": "Fansite photos of the members departing Incheon Airport.",
     "images": [
       {
         "src": "/images/2026-04-20/wonyoung_airport_departure.jpg",
         "alt": "Wonyoung airport fashion"
-      },
-      {
-        "src": "/images/2026-04-20/member_airport_preview_1.jpg",
-        "alt": "Member airport preview"
-      },
-      {
-        "src": "/images/2026-04-20/member_airport_preview_2.jpg",
-        "alt": "Member airport preview"
       }
     ]
   },
