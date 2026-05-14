@@ -36,8 +36,8 @@ async function askAI(posts) {
     Your job is to read the latest social media and Reddit posts and decide if they are worth adding to the timeline.
     
     RULES FOR INCLUSION:
-    - STRICT FILTERING: DO NOT include minor updates, random fan chats, small TikToks, or repetitive individual member updates (e.g., standard Instagram photo drops or minor brand posts). Only include if it is a huge milestone.
-    - ONLY include MASSIVE updates: Group news (comebacks, MV releases), MAJOR member sponsorships (like global ambassador announcements or major magazine covers), concert date pictures/fansite previews, or major awards.
+    - FILTERING: DO NOT include minor updates, random fan chats, small TikToks, or generic daily selfies.
+    - DO INCLUDE: Group news (comebacks, MV releases), member magazine pictorials/covers, official brand ambassador photos, concert/fansite previews, major awards, and official YouTube content.
     - If the post contains a YouTube link (e.g. MV, behind-the-scenes), do not use an image. Instead, extract the YouTube video ID.
     - If a post qualifies, format it into a timeline entry.
 
