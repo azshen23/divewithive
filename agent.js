@@ -132,8 +132,10 @@ async function enrichPost(post) {
   const { url: postUrl, title, text } = post;
   const cleanUrl = postUrl.replace(/\/$/, '');
 
-  // Try www.reddit.com first, then old.reddit.com as fallback
+  // Use api.reddit.com which doesn't have the strict browser bot protection
+  // that www.reddit.com and old.reddit.com use.
   const jsonUrls = [
+    cleanUrl.replace('www.reddit.com', 'api.reddit.com') + '.json',
     cleanUrl + '.json',
     cleanUrl.replace('www.reddit.com', 'old.reddit.com') + '.json',
   ];
@@ -348,7 +350,8 @@ async function run() {
       const media = await enrichPost(sourcePost || { url: update.post_url, title: update.title, text: '' });
 
       // --- Images ---
-      const imageUrls = media.image_urls || [];
+      // The user requested to only do 1 photo per post from now on
+      const imageUrls = (media.image_urls || []).slice(0, 1);
       let localImagePaths = [];
       if (imageUrls.length > 0) {
         console.log(`   Found ${imageUrls.length} image(s) to download.`);
