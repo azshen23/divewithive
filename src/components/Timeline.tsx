@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import timelineData from '../data/timeline.json';
 
 interface TimelineEntry {
@@ -28,6 +30,8 @@ const tourDates = [
 ];
 
 export default function Timeline() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10">
@@ -64,16 +68,24 @@ export default function Timeline() {
                 {/* Photo grid */}
                 {entry.images && (
                   <div className={`grid gap-2 mb-1 ${
-                    entry.images.length === 1 ? 'grid-cols-1 max-w-sm' :
-                    entry.images.length === 2 ? 'grid-cols-2 max-w-lg' :
-                    'grid-cols-3 max-w-2xl'
+                    entry.images.length === 1 ? 'grid-cols-1' :
+                    entry.images.length === 2 ? 'grid-cols-2' :
+                    'grid-cols-3'
                   }`}>
                     {entry.images.map((img) => (
-                      <div key={img.alt} className="rounded-lg overflow-hidden aspect-[3/4]">
-                        <img
+                      <div 
+                        key={img.alt} 
+                        className="rounded-lg overflow-hidden w-full max-h-[500px] cursor-pointer group/img relative"
+                        onClick={() => setSelectedImage(img.src)}
+                      >
+                        <div className="absolute inset-0 bg-white/0 group-hover/img:bg-white/10 transition-colors duration-300 z-10" />
+                        <motion.img
+                          layoutId={`image-${img.src}`}
                           src={img.src}
                           alt={img.alt}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full max-h-[500px] object-cover"
+                          whileHover={{ scale: 1.02 }}
+                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
                           loading="lazy"
                         />
                       </div>
@@ -83,7 +95,7 @@ export default function Timeline() {
 
                 {/* Video embed */}
                 {entry.videoId && (
-                  <div className="max-w-lg rounded-lg overflow-hidden aspect-video">
+                  <div className="w-full rounded-lg overflow-hidden aspect-video">
                     <iframe
                       className="w-full h-full"
                       src={`https://www.youtube.com/embed/${entry.videoId}?rel=0`}
@@ -104,29 +116,60 @@ export default function Timeline() {
           {/* Tour Dates */}
           <div className="card rounded-xl p-5 sticky top-20">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-1.5 h-1.5 rounded-full bg-pink-400" />
-              <h3 className="font-outfit font-semibold text-sm text-white/70">
-                SHOW WHAT I AM — Tour
-              </h3>
-            </div>
+               <div className="w-1.5 h-1.5 rounded-full bg-pink-400" />
+               <h3 className="font-outfit font-semibold text-sm text-white/70">
+                 SHOW WHAT I AM — Tour
+               </h3>
+             </div>
 
-            <div className="space-y-2.5">
-              {tourDates.map((show) => (
-                <div key={`${show.city}-${show.date}`} className="flex items-center gap-3">
-                  <span className="w-14 text-right font-inter text-[11px] text-pink-400/70 font-medium shrink-0">
-                    {show.date}
-                  </span>
-                  <div className="min-w-0">
-                    <p className="font-inter text-xs text-white/70 font-medium truncate">{show.city}</p>
-                    <p className="font-inter text-[11px] text-white/25 truncate">{show.venue}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+             <div className="space-y-2.5">
+               {tourDates.map((show) => (
+                 <div key={`${show.city}-${show.date}`} className="flex items-center gap-3">
+                   <span className="w-14 text-right font-inter text-[11px] text-pink-400/70 font-medium shrink-0">
+                     {show.date}
+                   </span>
+                   <div className="min-w-0">
+                     <p className="font-inter text-xs text-white/70 font-medium truncate">{show.city}</p>
+                     <p className="font-inter text-[11px] text-white/25 truncate">{show.venue}</p>
+                   </div>
+                 </div>
+               ))}
+             </div>
+           </div>
 
-        </aside>
-      </div>
+         </aside>
+       </div>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 sm:p-8"
+            onClick={() => setSelectedImage(null)}
+          >
+            <button 
+              className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors"
+              onClick={() => setSelectedImage(null)}
+            >
+              <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <motion.img 
+              layoutId={`image-${selectedImage}`}
+              src={selectedImage} 
+              alt="Enlarged view" 
+              className="max-w-full max-h-full rounded-md shadow-2xl cursor-default"
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

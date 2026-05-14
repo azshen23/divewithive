@@ -61,7 +61,7 @@ async function askAI(posts) {
         "body": "A 1-2 sentence description of the news.",
         "tag": "Member",
         "tagColor": "text-violet-400 bg-violet-400/10",
-        "raw_image_url": "extract the image url from the post if it ends in .jpg or .png. Leave null if no image."
+        "raw_image_url": "extract the image url from the post if it ends in .jpg or .png. Set to null if there is no image, OR if the update (like Brand Reputation, announcements, or text news) does not inherently need a picture."
       }
     ]
     Return [] if no posts qualify.

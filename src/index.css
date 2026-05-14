@@ -44,3 +44,21 @@
     background: rgba(255, 255, 255, 0.05);
   }
 }
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popup {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fadein {
+  animation: fadein 0.2s ease-out forwards;
+}
+
+.animate-popup {
+  animation: popup 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
