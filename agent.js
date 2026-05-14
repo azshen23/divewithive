@@ -36,7 +36,7 @@ async function askAI(posts) {
     Your job is to read the latest social media and Reddit posts and decide if they are worth adding to the timeline.
     
     RULES FOR INCLUSION:
-    - FILTERING: DO NOT include minor updates, random fan chats, small TikToks, or generic daily selfies.
+    - FILTERING: DO NOT include minor updates, random fan chats, TikToks, Instagram Reels/Videos, or generic daily selfies. Only include major updates.
     - DO INCLUDE: Group news (comebacks, MV releases), member magazine pictorials/covers, official brand ambassador photos, concert/fansite previews, major awards, and official YouTube content.
     - If the post contains a YouTube link (e.g. MV, behind-the-scenes), do not use an image. Instead, extract the YouTube video ID.
     - If a post qualifies, format it into a timeline entry.
@@ -87,7 +87,8 @@ async function downloadImage(url, dateStr) {
   let cleanUrl = url.replace(/&amp;/g, '&');
   
   // Convert blurry preview.redd.it thumbnails to full-resolution i.redd.it images
-  if (cleanUrl.includes('preview.redd.it')) {
+  // Do NOT do this for external-preview.redd.it because they aren't native Reddit images
+  if (cleanUrl.includes('preview.redd.it') && !cleanUrl.includes('external-preview')) {
     try {
       const urlObj = new URL(cleanUrl);
       cleanUrl = `https://i.redd.it${urlObj.pathname}`;
