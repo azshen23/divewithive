@@ -1,6 +1,65 @@
 [
   {
     "date": "May 14, 2026",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE - LUCID DREAM (D-6 Pre-release Teaser Image)",
+    "body": "IVE reveals a pre-release teaser image for their upcoming track, LUCID DREAM, counting down to D-6."
+  },
+  {
+    "date": "May 14, 2026",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung - Esquire Korea x BVLGARI Pictorial Preview",
+    "body": "Wonyoung graces the cover of Esquire Korea's June 2026 issue in a collaboration with BVLGARI.",
+    "images": [
+      {
+        "src": "/images/2026-05-14/img_1778756611980.jpg",
+        "alt": "Wonyoung - Esquire Korea x BVLGARI Pictorial Preview"
+      }
+    ]
+  },
+  {
+    "date": "May 14, 2026",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Rei - DELING Magazine (May 2026 Issue Greeting)",
+    "body": "Rei shares a greeting message for her feature in the May 2026 issue of DELING Magazine.",
+    "images": [
+      {
+        "src": "/images/2026-05-14/img_1778756612156.png",
+        "alt": "Rei - DELING Magazine (May 2026 Issue Greeting)"
+      }
+    ]
+  },
+  {
+    "date": "May 14, 2026",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung - ELLE Japan Instagram Update",
+    "body": "Wonyoung features in an ELLE Japan Instagram update, showcasing new visuals.",
+    "images": [
+      {
+        "src": "/images/2026-05-14/img_1778756612174.png",
+        "alt": "Wonyoung - ELLE Japan Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "May 14, 2026",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung - FASHIONSNAP Instagram Update",
+    "body": "Wonyoung is featured in a FASHIONSNAP Instagram update, showcasing a new look or collaboration.",
+    "images": [
+      {
+        "src": "/images/2026-05-14/img_1778756612197.png",
+        "alt": "Wonyoung - FASHIONSNAP Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "May 14, 2026",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
     "title": "Leeseo - Y Magazine x TASAKI Pictorial Preview",
