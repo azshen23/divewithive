@@ -38,7 +38,14 @@ async function fetchRedditPosts() {
       const postData = data?.[0]?.data?.children?.[0]?.data;
       if (!postData) return post;
 
-      // Video post
+      // YouTube post
+      const destUrl = postData.url_overridden_by_dest || '';
+      const ytMatch = destUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+      if (ytMatch) {
+        return { ...post, youtube_id: ytMatch[1] };
+      }
+
+      // Reddit-hosted video post
       if (postData.is_video) {
         const videoUrl =
           postData.secure_media?.reddit_video?.fallback_url ||
@@ -57,10 +64,9 @@ async function fetchRedditPosts() {
         return { ...post, image_urls: imageUrls };
       }
 
-      // Single image post
-      const singleUrl = postData.url_overridden_by_dest || '';
-      if (/\.(jpg|jpeg|png|gif|webp)/i.test(singleUrl)) {
-        return { ...post, image_urls: [singleUrl] };
+      // Single image post (direct link)
+      if (/\.(jpg|jpeg|png|gif|webp)/i.test(destUrl)) {
+        return { ...post, image_urls: [destUrl] };
       }
 
       // Fallback: try preview image
@@ -86,37 +92,35 @@ async function askAI(posts, existingTitles) {
 
   const prompt = `
     You are an AI assistant managing a minimalist fansite timeline for the K-pop group IVE.
-    Your job is to read the latest social media and Reddit posts and decide if they are worth adding to the timeline.
-    
+    Your job is to read the latest Reddit posts and decide if they are worth adding to the timeline.
+
+    IMPORTANT: Do NOT include any media URLs in your output. The agent will handle all images and videos automatically.
+    Your job is ONLY to decide inclusion, write a title, a body, and pick a tag.
+
     RULES FOR INCLUSION:
     - DUPLICATE PREVENTION: Here are the titles of the most recent updates already on the timeline: ${JSON.stringify(existingTitles)}. DO NOT include any news that is already semantically covered by these existing updates!
     - FILTERING: DO NOT include random fan chat posts, low-effort memes, or totally context-free selfies with no notable occasion. Everything else is fair game.
-    - DO INCLUDE: Group comebacks/MV releases, member magazine pictorials/covers, official brand ambassador content, concert previews, major awards, official YouTube content, and Instagram updates (photos or videos) from members or official brand/magazine accounts — e.g. ELLE, Esquire, FASHIONSNAP, BVLGARI, DELING, etc.
-    - If the post has "is_video: true" and a "video_url", use that as the videoUrl. Do NOT also set raw_image_url for video posts.
-    - If the post contains a YouTube link (e.g. MV, behind-the-scenes), extract the 11-character YouTube video ID into videoId. Do NOT set raw_image_url or videoUrl for YouTube posts.
-    - If a post qualifies, format it into a timeline entry.
+    - DO INCLUDE: Group comebacks/MV releases, member magazine pictorials/covers, official brand ambassador content, concert previews, major awards, official YouTube content, Instagram updates (photos or videos) from members or official brand/magazine accounts.
 
     For the 'tag' field, use one of: "Tour", "Award", "Member", "Fansite", "Release".
-    For the 'tagColor' field, use: 
+    For the 'tagColor' field, use:
       - "Tour": "text-emerald-400 bg-emerald-400/10"
       - "Award": "text-amber-400 bg-amber-400/10"
       - "Member": "text-violet-400 bg-violet-400/10"
       - "Fansite": "text-pink-400 bg-pink-400/10"
       - "Release": "text-rose-400 bg-rose-400/10"
 
-    Here are the latest posts (posts with is_video=true have a video_url field):
-    ${JSON.stringify(posts, null, 2)}
+    Here are the latest posts:
+    ${JSON.stringify(posts.map(p => ({ title: p.title, url: p.url, text: p.text, is_video: p.is_video, youtube_id: p.youtube_id })), null, 2)}
 
-    Return ONLY a valid JSON array containing the qualified updates. It must exactly match this format:
+    Return ONLY a valid JSON array. Each element must match this format exactly:
     [
       {
         "title": "Short punchy title",
         "body": "A 1-2 sentence description of the news.",
         "tag": "Member",
         "tagColor": "text-violet-400 bg-violet-400/10",
-        "raw_image_urls": "An array of image URLs for this post. If the post has an 'image_urls' field, copy it here exactly as-is. If not, extract any image URLs you can find from the post text. Set to [] if it is a YouTube video, a Reddit video post (is_video=true), or there are no images.",
-        "videoId": "Extract the 11-character YouTube video ID if the post links to YouTube. Set to null otherwise.",
-        "videoUrl": "If the post has is_video=true and a video_url, copy the video_url here exactly. Set to null otherwise."
+        "post_url": "Copy the exact 'url' field from the post"
       }
     ]
     Return [] if no posts qualify.
@@ -136,7 +140,7 @@ async function askAI(posts, existingTitles) {
   return JSON.parse(rawResponse);
 }
 
-async function downloadImage(url, dateStr) {
+async function downloadImage(url, title, dateStr) {
   if (!url || (!url.includes('.jpg') && !url.includes('.jpeg') && !url.includes('.png') && !url.includes('.webp') && !url.includes('.gif'))) return null;
 
   // Fix HTML encoded ampersands
@@ -154,7 +158,7 @@ async function downloadImage(url, dateStr) {
   }
 
   try {
-    console.log(`🖼️ Downloading image: ${cleanUrl}`);
+    console.log(`  🖼️  [${title}] Downloading image ${++downloadImage._count}: ${cleanUrl}`);
     const response = await fetch(cleanUrl, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
@@ -186,21 +190,22 @@ async function downloadImage(url, dateStr) {
     await fs.mkdir(dirPath, { recursive: true });
     await fs.writeFile(filePath, Buffer.from(buffer));
 
+    console.log(`  ✅ [${title}] Saved image → ${filePath}`);
     return `/images/${dateStr}/${filename}`;
   } catch (error) {
-    console.error(`Failed to download ${cleanUrl}:`, error.message);
+    console.error(`  ❌ [${title}] Failed to download image ${cleanUrl}:`, error.message);
     return null;
   }
 }
 
-async function downloadVideo(url, dateStr) {
+async function downloadVideo(url, title, dateStr) {
   if (!url) return null;
 
   // Fix HTML encoded ampersands
   const cleanUrl = url.replace(/&amp;/g, '&');
 
   try {
-    console.log(`🎬 Downloading video: ${cleanUrl}`);
+    console.log(`  🎬 [${title}] Downloading video: ${cleanUrl}`);
     const response = await fetch(cleanUrl, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
@@ -227,10 +232,10 @@ async function downloadVideo(url, dateStr) {
     await fs.mkdir(dirPath, { recursive: true });
     await fs.writeFile(filePath, Buffer.from(buffer));
 
-    console.log(`✅ Video saved: ${filePath}`);
+    console.log(`  ✅ [${title}] Video saved → ${filePath} (${(buffer.byteLength / 1024 / 1024).toFixed(1)} MB)`);
     return `/videos/${dateStr}/${filename}`;
   } catch (error) {
-    console.error(`Failed to download video ${cleanUrl}:`, error.message);
+    console.error(`  ❌ [${title}] Failed to download video ${cleanUrl}:`, error.message);
     return null;
   }
 }
@@ -256,25 +261,44 @@ async function run() {
     }
 
     // 3. Download images/videos and format entries
+    // Build a lookup map: post URL → enriched post data
+    const postByUrl = {};
+    for (const p of posts) {
+      const key = p.url.replace(/\/$/, '');
+      postByUrl[key] = p;
+    }
+
     const newEntries = [];
     for (const update of updates) {
-      // Download all images in parallel
-      const imageUrls = Array.isArray(update.raw_image_urls)
-        ? update.raw_image_urls
-        : (update.raw_image_url ? [update.raw_image_url] : []); // backwards compat
+      const postKey = (update.post_url || '').replace(/\/$/, '');
+      const enrichedPost = postByUrl[postKey];
 
+      if (!enrichedPost) {
+        console.warn(`⚠️  Could not find enriched post for: "${update.title}" (${update.post_url})`);
+      }
+
+      console.log(`\n📌 Processing: "${update.title}"`);
+
+      // --- Images ---
+      const imageUrls = enrichedPost?.image_urls || [];
       let localImagePaths = [];
-      if (imageUrls.length > 0 && !update.videoUrl) {
+      if (imageUrls.length > 0) {
+        console.log(`   Found ${imageUrls.length} image(s) to download.`);
+        downloadImage._count = 0;
         const results = await Promise.all(
-          imageUrls.map(imgUrl => downloadImage(imgUrl, today))
+          imageUrls.map(imgUrl => downloadImage(imgUrl, update.title, today))
         );
         localImagePaths = results.filter(Boolean);
       }
 
+      // --- Video ---
       let localVideoPath = null;
-      if (update.videoUrl) {
-        localVideoPath = await downloadVideo(update.videoUrl, today);
+      if (enrichedPost?.is_video && enrichedPost?.video_url) {
+        localVideoPath = await downloadVideo(enrichedPost.video_url, update.title, today);
       }
+
+      // --- YouTube ---
+      const youtubeId = enrichedPost?.youtube_id || null;
 
       const entry = {
         date: dateFormatted,
@@ -286,19 +310,19 @@ async function run() {
 
       if (localImagePaths.length > 0) {
         entry.images = localImagePaths.map(src => ({ src, alt: update.title }));
+        console.log(`   🖼️  ${localImagePaths.length} image(s) saved.`);
       }
 
-      if (update.videoId) {
-        entry.videoId = update.videoId;
+      if (youtubeId) {
+        entry.videoId = youtubeId;
+        console.log(`   ▶️  YouTube embed: ${youtubeId}`);
       }
 
       if (localVideoPath) {
-        // Use downloaded local file (permanent, no expiring tokens)
         entry.videoUrl = localVideoPath;
-      } else if (update.videoUrl) {
-        // Fallback: store remote URL if download failed
-        entry.videoUrl = update.videoUrl;
-        console.warn(`⚠️ Video download failed, storing remote URL for: ${update.title}`);
+      } else if (enrichedPost?.is_video && enrichedPost?.video_url) {
+        entry.videoUrl = enrichedPost.video_url;
+        console.warn(`   ⚠️  Video download failed — storing remote URL as fallback.`);
       }
 
       newEntries.push(entry);
