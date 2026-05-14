@@ -3,86 +3,26 @@ import path from 'path';
 
 // --- CONFIGURATION ---
 const REDDIT_URL = 'https://api.rss2json.com/v1/api.json?rss_url=https://www.reddit.com/r/IVE/new/.rss';
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY; // Make sure to set this in your environment or a .env file
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const TIMELINE_PATH = './src/data/timeline.json';
 
-// Ensure you run this with: bun run agent.js
-// If using Node: node --experimental-fetch agent.js
+// Ensure you run this with: node --experimental-fetch agent.js
 
+// ─── Step 1: Fetch RSS (fast, no enrichment) ───────────────────────────────
 async function fetchRedditPosts() {
   console.log('📡 Fetching latest updates from r/IVE via RSS proxy...');
   const response = await fetch(REDDIT_URL);
-
   if (!response.ok) throw new Error(`RSS API failed: ${response.statusText}`);
-
   const json = await response.json();
-  const rssPosts = json.items.map(post => ({
+  return json.items.map(post => ({
     title: post.title,
     url: post.link,
     text: post.description || '',
     created_utc: post.pubDate
   }));
-
-  // Enrich with Reddit JSON API to detect video posts and gallery images
-  console.log('🎬 Enriching posts with Reddit JSON API for media detection...');
-  const enriched = await Promise.all(rssPosts.map(async (post) => {
-    try {
-      // Convert Reddit post URL to JSON endpoint
-      const cleanUrl = post.url.replace(/\/$/, '');
-      const jsonUrl = cleanUrl + '.json';
-      const resp = await fetch(jsonUrl, {
-        headers: { 'User-Agent': 'Mozilla/5.0 divewithive-agent/1.0' }
-      });
-      if (!resp.ok) return post;
-      const data = await resp.json();
-      const postData = data?.[0]?.data?.children?.[0]?.data;
-      if (!postData) return post;
-
-      // YouTube post
-      const destUrl = postData.url_overridden_by_dest || '';
-      const ytMatch = destUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-      if (ytMatch) {
-        return { ...post, youtube_id: ytMatch[1] };
-      }
-
-      // Reddit-hosted video post
-      if (postData.is_video) {
-        const videoUrl =
-          postData.secure_media?.reddit_video?.fallback_url ||
-          postData.media?.reddit_video?.fallback_url ||
-          null;
-        return { ...post, is_video: true, video_url: videoUrl };
-      }
-
-      // Gallery post (multiple images)
-      if (postData.is_gallery && postData.gallery_data && postData.media_metadata) {
-        const imageUrls = (postData.gallery_data.items || [])
-          .map(item => postData.media_metadata[item.media_id])
-          .filter(meta => meta && meta.status === 'valid' && meta.s)
-          .map(meta => (meta.s.u || meta.s.gif || '').replace(/&amp;/g, '&'))
-          .filter(Boolean);
-        return { ...post, image_urls: imageUrls };
-      }
-
-      // Single image post (direct link)
-      if (/\.(jpg|jpeg|png|gif|webp)/i.test(destUrl)) {
-        return { ...post, image_urls: [destUrl] };
-      }
-
-      // Fallback: try preview image
-      const previewUrl = postData.preview?.images?.[0]?.source?.url?.replace(/&amp;/g, '&');
-      if (previewUrl) {
-        return { ...post, image_urls: [previewUrl] };
-      }
-    } catch (e) {
-      // JSON fetch failed — just use RSS data
-    }
-    return post;
-  }));
-
-  return enriched;
 }
 
+// ─── Step 2: AI filters posts ──────────────────────────────────────────────
 async function askAI(posts, existingTitles) {
   console.log('🧠 Asking AI to filter and format the news...');
 
@@ -94,7 +34,7 @@ async function askAI(posts, existingTitles) {
     You are an AI assistant managing a minimalist fansite timeline for the K-pop group IVE.
     Your job is to read the latest Reddit posts and decide if they are worth adding to the timeline.
 
-    IMPORTANT: Do NOT include any media URLs in your output. The agent will handle all images and videos automatically.
+    IMPORTANT: Do NOT include any media URLs in your output. The agent handles all images and videos automatically.
     Your job is ONLY to decide inclusion, write a title, a body, and pick a tag.
 
     RULES FOR INCLUSION:
@@ -111,7 +51,7 @@ async function askAI(posts, existingTitles) {
       - "Release": "text-rose-400 bg-rose-400/10"
 
     Here are the latest posts:
-    ${JSON.stringify(posts.map(p => ({ title: p.title, url: p.url, text: p.text, is_video: p.is_video, youtube_id: p.youtube_id })), null, 2)}
+    ${JSON.stringify(posts.map(p => ({ title: p.title, url: p.url, text: p.text })), null, 2)}
 
     Return ONLY a valid JSON array. Each element must match this format exactly:
     [
@@ -120,7 +60,7 @@ async function askAI(posts, existingTitles) {
         "body": "A 1-2 sentence description of the news.",
         "tag": "Member",
         "tagColor": "text-violet-400 bg-violet-400/10",
-        "post_url": "Copy the exact 'url' field from the post"
+        "post_url": "Copy the exact 'url' field from the post — do not modify it"
       }
     ]
     Return [] if no posts qualify.
@@ -140,25 +80,103 @@ async function askAI(posts, existingTitles) {
   return JSON.parse(rawResponse);
 }
 
-async function downloadImage(url, title, dateStr) {
-  if (!url || (!url.includes('.jpg') && !url.includes('.jpeg') && !url.includes('.png') && !url.includes('.webp') && !url.includes('.gif'))) return null;
+// ─── Step 3: Enrich a single selected post with media data ─────────────────
+async function enrichPost(postUrl, title) {
+  const cleanUrl = postUrl.replace(/\/$/, '');
+  const jsonUrl = cleanUrl + '.json';
+
+  try {
+    const resp = await fetch(jsonUrl, {
+      headers: { 'User-Agent': 'Mozilla/5.0 divewithive-agent/1.0' }
+    });
+
+    if (!resp.ok) {
+      console.warn(`  ⚠️  [${title}] Reddit JSON fetch failed: HTTP ${resp.status}`);
+      return {};
+    }
+
+    const data = await resp.json();
+    const postData = data?.[0]?.data?.children?.[0]?.data;
+    if (!postData) {
+      console.warn(`  ⚠️  [${title}] Reddit JSON returned no post data`);
+      return {};
+    }
+
+    const destUrl = postData.url_overridden_by_dest || '';
+
+    // YouTube
+    const ytMatch = destUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+    if (ytMatch) {
+      console.log(`  ▶️  [${title}] Detected YouTube: ${ytMatch[1]}`);
+      return { youtube_id: ytMatch[1] };
+    }
+
+    // Reddit-hosted video
+    if (postData.is_video) {
+      const videoUrl =
+        postData.secure_media?.reddit_video?.fallback_url ||
+        postData.media?.reddit_video?.fallback_url ||
+        null;
+      console.log(`  🎬 [${title}] Detected Reddit video: ${videoUrl}`);
+      return { is_video: true, video_url: videoUrl };
+    }
+
+    // Gallery (multiple images)
+    if (postData.is_gallery && postData.gallery_data && postData.media_metadata) {
+      const imageUrls = (postData.gallery_data.items || [])
+        .map(item => postData.media_metadata[item.media_id])
+        .filter(meta => meta && meta.status === 'valid' && meta.s)
+        .map(meta => (meta.s.u || meta.s.gif || '').replace(/&amp;/g, '&'))
+        .filter(Boolean);
+      console.log(`  🖼️  [${title}] Detected gallery: ${imageUrls.length} images`);
+      return { image_urls: imageUrls };
+    }
+
+    // Single image (direct link)
+    if (/\.(jpg|jpeg|png|gif|webp)/i.test(destUrl)) {
+      console.log(`  🖼️  [${title}] Detected single image: ${destUrl}`);
+      return { image_urls: [destUrl] };
+    }
+
+    // Fallback: preview image
+    const previewUrl = postData.preview?.images?.[0]?.source?.url?.replace(/&amp;/g, '&');
+    if (previewUrl) {
+      console.log(`  🖼️  [${title}] Detected preview image (fallback)`);
+      return { image_urls: [previewUrl] };
+    }
+
+    console.log(`  ℹ️  [${title}] No media detected (text-only post)`);
+    return {};
+
+  } catch (e) {
+    console.warn(`  ⚠️  [${title}] Enrichment error: ${e.message}`);
+    return {};
+  }
+}
+
+// ─── Download helpers ──────────────────────────────────────────────────────
+async function downloadImage(url, title, index, dateStr) {
+  if (!url) return null;
 
   // Fix HTML encoded ampersands
   let cleanUrl = url.replace(/&amp;/g, '&');
 
-  // Convert blurry preview.redd.it thumbnails to full-resolution i.redd.it images
-  // Do NOT do this for external-preview.redd.it because they aren't native Reddit images
+  // Upgrade native Reddit previews to full-res i.redd.it
   if (cleanUrl.includes('preview.redd.it') && !cleanUrl.includes('external-preview')) {
     try {
       const urlObj = new URL(cleanUrl);
       cleanUrl = `https://i.redd.it${urlObj.pathname}`;
-    } catch (e) {
-      // ignore
-    }
+    } catch (e) { /* ignore */ }
+  }
+
+  // Check URL has a recognizable image path
+  if (!cleanUrl.match(/\.(jpg|jpeg|png|gif|webp)/i) && !cleanUrl.includes('i.redd.it') && !cleanUrl.includes('external-preview.redd.it')) {
+    console.warn(`  ⚠️  [${title}] Skipping non-image URL: ${cleanUrl}`);
+    return null;
   }
 
   try {
-    console.log(`  🖼️  [${title}] Downloading image ${++downloadImage._count}: ${cleanUrl}`);
+    console.log(`  🖼️  [${title}] Downloading image ${index}: ${cleanUrl}`);
     const response = await fetch(cleanUrl, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
@@ -166,34 +184,30 @@ async function downloadImage(url, title, dateStr) {
     });
 
     if (!response.ok) {
-      console.error(`Failed to download ${cleanUrl} - Status: ${response.status}`);
+      console.error(`  ❌ [${title}] Image ${index} failed: HTTP ${response.status}`);
       return null;
     }
 
-    // Check if we accidentally downloaded an HTML error page
     const contentType = response.headers.get('content-type');
     if (contentType && contentType.includes('text/html')) {
-      console.error(`Failed: URL returned an HTML page instead of an image.`);
+      console.error(`  ❌ [${title}] Image ${index} returned HTML instead of image data`);
       return null;
     }
 
     const buffer = await response.arrayBuffer();
-
-    // Safely extract extension
     const urlObj = new URL(cleanUrl);
     const ext = path.extname(urlObj.pathname) || '.jpg';
-    const filename = `img_${Date.now()}${ext}`;
-
+    const filename = `img_${Date.now()}_${index}${ext}`;
     const dirPath = `./public/images/${dateStr}`;
     const filePath = `${dirPath}/${filename}`;
 
     await fs.mkdir(dirPath, { recursive: true });
     await fs.writeFile(filePath, Buffer.from(buffer));
 
-    console.log(`  ✅ [${title}] Saved image → ${filePath}`);
+    console.log(`  ✅ [${title}] Saved image ${index} → ${filePath}`);
     return `/images/${dateStr}/${filename}`;
   } catch (error) {
-    console.error(`  ❌ [${title}] Failed to download image ${cleanUrl}:`, error.message);
+    console.error(`  ❌ [${title}] Image ${index} download error:`, error.message);
     return null;
   }
 }
@@ -201,7 +215,6 @@ async function downloadImage(url, title, dateStr) {
 async function downloadVideo(url, title, dateStr) {
   if (!url) return null;
 
-  // Fix HTML encoded ampersands
   const cleanUrl = url.replace(/&amp;/g, '&');
 
   try {
@@ -213,18 +226,17 @@ async function downloadVideo(url, title, dateStr) {
     });
 
     if (!response.ok) {
-      console.error(`Failed to download video ${cleanUrl} - Status: ${response.status}`);
+      console.error(`  ❌ [${title}] Video failed: HTTP ${response.status}`);
       return null;
     }
 
     const contentType = response.headers.get('content-type');
     if (contentType && contentType.includes('text/html')) {
-      console.error(`Failed: Video URL returned an HTML page instead of a video.`);
+      console.error(`  ❌ [${title}] Video URL returned HTML instead of video data`);
       return null;
     }
 
     const buffer = await response.arrayBuffer();
-
     const filename = `vid_${Date.now()}.mp4`;
     const dirPath = `./public/videos/${dateStr}`;
     const filePath = `${dirPath}/${filename}`;
@@ -235,11 +247,12 @@ async function downloadVideo(url, title, dateStr) {
     console.log(`  ✅ [${title}] Video saved → ${filePath} (${(buffer.byteLength / 1024 / 1024).toFixed(1)} MB)`);
     return `/videos/${dateStr}/${filename}`;
   } catch (error) {
-    console.error(`  ❌ [${title}] Failed to download video ${cleanUrl}:`, error.message);
+    console.error(`  ❌ [${title}] Video download error:`, error.message);
     return null;
   }
 }
 
+// ─── Main ──────────────────────────────────────────────────────────────────
 async function run() {
   try {
     const today = new Date().toISOString().split('T')[0];
@@ -249,57 +262,44 @@ async function run() {
     const timelineData = JSON.parse(await fs.readFile(TIMELINE_PATH, 'utf-8'));
     const existingTitles = timelineData.slice(0, 15).map(entry => entry.title);
 
-    // 2. Scrape
+    // 2. Fetch RSS (lightweight, no enrichment yet)
     const posts = await fetchRedditPosts();
 
-    // 3. Process via AI
+    // 3. AI selects which posts to include
     const updates = await askAI(posts, existingTitles);
 
     if (updates.length === 0) {
-      console.log('✅ No major updates today. Exiting.');
+      console.log('✅ No new updates found. Exiting.');
       return;
     }
 
-    // 3. Download images/videos and format entries
-    // Build a lookup map: post URL → enriched post data
-    const postByUrl = {};
-    for (const p of posts) {
-      const key = p.url.replace(/\/$/, '');
-      postByUrl[key] = p;
-    }
+    console.log(`\n🎬 Enriching ${updates.length} selected post(s) with media data...`);
 
+    // 4. Enrich ONLY the selected posts (avoids rate-limiting)
     const newEntries = [];
     for (const update of updates) {
-      const postKey = (update.post_url || '').replace(/\/$/, '');
-      const enrichedPost = postByUrl[postKey];
-
-      if (!enrichedPost) {
-        console.warn(`⚠️  Could not find enriched post for: "${update.title}" (${update.post_url})`);
-      }
-
       console.log(`\n📌 Processing: "${update.title}"`);
 
+      const media = await enrichPost(update.post_url, update.title);
+
       // --- Images ---
-      const imageUrls = enrichedPost?.image_urls || [];
+      const imageUrls = media.image_urls || [];
       let localImagePaths = [];
       if (imageUrls.length > 0) {
         console.log(`   Found ${imageUrls.length} image(s) to download.`);
-        downloadImage._count = 0;
         const results = await Promise.all(
-          imageUrls.map(imgUrl => downloadImage(imgUrl, update.title, today))
+          imageUrls.map((imgUrl, i) => downloadImage(imgUrl, update.title, i + 1, today))
         );
         localImagePaths = results.filter(Boolean);
       }
 
       // --- Video ---
       let localVideoPath = null;
-      if (enrichedPost?.is_video && enrichedPost?.video_url) {
-        localVideoPath = await downloadVideo(enrichedPost.video_url, update.title, today);
+      if (media.is_video && media.video_url) {
+        localVideoPath = await downloadVideo(media.video_url, update.title, today);
       }
 
-      // --- YouTube ---
-      const youtubeId = enrichedPost?.youtube_id || null;
-
+      // --- Build entry ---
       const entry = {
         date: dateFormatted,
         tag: update.tag,
@@ -310,52 +310,46 @@ async function run() {
 
       if (localImagePaths.length > 0) {
         entry.images = localImagePaths.map(src => ({ src, alt: update.title }));
-        console.log(`   🖼️  ${localImagePaths.length} image(s) saved.`);
+        console.log(`   🖼️  ${localImagePaths.length}/${imageUrls.length} image(s) saved.`);
       }
 
-      if (youtubeId) {
-        entry.videoId = youtubeId;
-        console.log(`   ▶️  YouTube embed: ${youtubeId}`);
+      if (media.youtube_id) {
+        entry.videoId = media.youtube_id;
+        console.log(`   ▶️  YouTube embed set: ${media.youtube_id}`);
       }
 
       if (localVideoPath) {
         entry.videoUrl = localVideoPath;
-      } else if (enrichedPost?.is_video && enrichedPost?.video_url) {
-        entry.videoUrl = enrichedPost.video_url;
+      } else if (media.is_video && media.video_url) {
+        entry.videoUrl = media.video_url;
         console.warn(`   ⚠️  Video download failed — storing remote URL as fallback.`);
       }
 
       newEntries.push(entry);
     }
 
-    // 4. Update timeline.json
-    console.log(`📝 Writing ${newEntries.length} new entries to timeline.json...`);
-
-    // Add new entries to the top
+    // 5. Update timeline.json
+    console.log(`\n📝 Writing ${newEntries.length} new entries to timeline.json...`);
     const updatedTimeline = [...newEntries, ...timelineData];
-
     await fs.writeFile(TIMELINE_PATH, JSON.stringify(updatedTimeline, null, 2));
 
-    // 5. Update index.html SEO meta tags with the latest news
+    // 6. Update index.html SEO meta tags
     const latestPost = updatedTimeline[0];
     if (latestPost) {
-      console.log('🌐 Updating index.html meta tags with latest news...');
+      console.log('🌐 Updating index.html meta tags...');
       const indexPath = './index.html';
       let html = await fs.readFile(indexPath, 'utf-8');
-      
+
       const title = latestPost.title.replace(/"/g, '&quot;');
       const desc = latestPost.body.replace(/"/g, '&quot;');
-      // Provide a default image fallback if the post has no image
-      const imagePath = (latestPost.images && latestPost.images.length > 0) 
-        ? latestPost.images[0].src 
+      const imagePath = (latestPost.images && latestPost.images.length > 0)
+        ? latestPost.images[0].src
         : '/images/2026-05-13/singapore_concert_group.jpg';
-        
       const fullImageUrl = `https://divewithive.com${imagePath}`;
 
       html = html.replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${title}" />`);
       html = html.replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${desc}" />`);
       html = html.replace(/<meta property="og:image" content="[^"]*" \/>/, `<meta property="og:image" content="${fullImageUrl}" />`);
-      
       html = html.replace(/<meta name="twitter:title" content="[^"]*" \/>/, `<meta name="twitter:title" content="${title}" />`);
       html = html.replace(/<meta name="twitter:description" content="[^"]*" \/>/, `<meta name="twitter:description" content="${desc}" />`);
       html = html.replace(/<meta name="twitter:image" content="[^"]*" \/>/, `<meta name="twitter:image" content="${fullImageUrl}" />`);
