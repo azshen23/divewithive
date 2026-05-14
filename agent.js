@@ -99,15 +99,32 @@ function parseImagesFromHtml(html) {
   if (!html) return [];
   // Match i.redd.it and external-preview.redd.it image URLs embedded in the HTML
   const matches = [...html.matchAll(/https:\/\/(?:i|external-preview|preview)\.redd\.it\/[^\s"<>]+/g)];
-  const seen = new Set();
+  const seenBase = new Set();
   return matches
     .map(m => m[0].replace(/&amp;/g, '&'))
     .filter(url => {
-      // Keep only actual image URLs (skip thumbnails / low-res duplicates)
-      if (seen.has(url)) return false;
-      seen.add(url);
+      // Deduplicate by base URL (ignore query string — same image can appear
+      // multiple times with different width/s= params)
+      const base = url.split('?')[0];
+      if (seenBase.has(base)) return false;
+      seenBase.add(base);
       return true;
     });
+}
+
+// Parse any useful media from the RSS HTML description
+function parseMediaFromRSS(text, postUrl) {
+  if (!text) return {};
+
+  // Check for YouTube links embedded in the description
+  const ytMatch = text.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  if (ytMatch) {
+    return { youtube_id: ytMatch[1] };
+  }
+
+  // Fall back to image extraction
+  const images = parseImagesFromHtml(text);
+  return images.length > 0 ? { image_urls: images } : {};
 }
 
 // ─── Step 3: Enrich a single selected post with media data ─────────────────
@@ -184,11 +201,15 @@ async function enrichPost(post) {
     }
   }
 
-  // All JSON attempts failed — parse image URLs from the RSS HTML as last resort
-  const rssImages = parseImagesFromHtml(text);
-  if (rssImages.length > 0) {
-    console.log(`  🖼️  [${title}] RSS HTML fallback: ${rssImages.length} image(s) found`);
-    return { image_urls: rssImages };
+  // All JSON attempts failed — parse media from RSS HTML as last resort
+  const rssMedia = parseMediaFromRSS(text, postUrl);
+  if (rssMedia.youtube_id) {
+    console.log(`  ▶️  [${title}] YouTube detected via RSS fallback: ${rssMedia.youtube_id}`);
+    return rssMedia;
+  }
+  if (rssMedia.image_urls?.length > 0) {
+    console.log(`  🖼️  [${title}] RSS HTML fallback: ${rssMedia.image_urls.length} image(s) found`);
+    return rssMedia;
   }
 
   console.warn(`  ⚠️  [${title}] All enrichment methods failed — entry will have no media`);
