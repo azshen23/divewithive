@@ -188,49 +188,6 @@ export default function Timeline() {
             </div>
           </div>
 
-          {/* Quick Info */}
-          <div className="card rounded-xl p-5">
-            <h3 className="font-outfit font-semibold text-sm text-white/70 mb-3">About IVE</h3>
-            <div className="space-y-2">
-              {[
-                ['Debut', 'December 1, 2021'],
-                ['Members', '6'],
-                ['Agency', 'Starship Entertainment'],
-                ['Fandom', 'DIVE'],
-                ['Latest Album', 'REVIVE+ (Feb 2026)'],
-              ].map(([label, value]) => (
-                <div key={label} className="flex items-center justify-between">
-                  <span className="font-inter text-[11px] text-white/25">{label}</span>
-                  <span className="font-inter text-[11px] text-white/50">{value}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Social Links */}
-          <div className="card rounded-xl p-5">
-            <h3 className="font-outfit font-semibold text-sm text-white/70 mb-3">Follow</h3>
-            <div className="space-y-2">
-              {[
-                ['Instagram', 'https://www.instagram.com/ivestarship/'],
-                ['Twitter / X', 'https://twitter.com/IVEstarship'],
-                ['YouTube', 'https://www.youtube.com/@IVEstarship'],
-                ['Weverse', 'https://weverse.io/ive'],
-                ['TikTok', 'https://www.tiktok.com/@ivestarship'],
-              ].map(([name, url]) => (
-                <a
-                  key={name}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between group"
-                >
-                  <span className="font-inter text-xs text-white/40 group-hover:text-white/70 transition-colors">{name}</span>
-                  <span className="font-inter text-[11px] text-white/20 group-hover:text-white/40 transition-colors">→</span>
-                </a>
-              ))}
-            </div>
-          </div>
         </aside>
       </div>
     </main>
