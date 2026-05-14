@@ -1,0 +1,40 @@
+name: Daily IVE Timeline Agent
+
+on:
+  schedule:
+    # Runs at 12:00 UTC (8:00 AM EST) every day
+    - cron: '0 12 * * *'
+  # Allows you to run the action manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  run-agent:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Grants the action permission to push commits to your repo
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run AI Agent Script
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node --experimental-fetch agent.js
+
+      - name: Commit and Push Changes
+        run: |
+          # Configure Git to act as a bot
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # Stage all new images and the updated JSON file
+          git add public/images/ src/data/timeline.json
+          
+          # Only commit and push if there are actual changes
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update timeline via AI Agent [skip ci]" && git push)

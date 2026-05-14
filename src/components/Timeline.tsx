@@ -1,9 +1,4 @@
-import fansite1 from '../assets/fansite1.jpg';
-import fansite2 from '../assets/fansite2.jpg';
-import fansite4 from '../assets/fansite4.jpg';
-import fansite5 from '../assets/fansite5.jpg';
-import fansiteGroup from '../assets/fansite_group_concert.jpg';
-import fansiteWonyoung from '../assets/fansite_wonyoung_airport.jpg';
+import timelineData from '../data/timeline.json';
 
 interface TimelineEntry {
   date: string;
@@ -15,65 +10,7 @@ interface TimelineEntry {
   videoId?: string;
 }
 
-const timeline: TimelineEntry[] = [
-  {
-    date: 'May 13, 2026',
-    tag: 'Tour',
-    tagColor: 'text-emerald-400 bg-emerald-400/10',
-    title: 'IVE wraps up Singapore shows, heads to Macao',
-    body: 'The SHOW WHAT I AM world tour continues with sold-out shows at the Singapore Indoor Stadium on May 9. Next stops: Macao (May 23-24), then Oceania in June.',
-    images: [
-      { src: fansiteGroup, alt: 'IVE members performing on stage in Singapore' },
-    ],
-  },
-  {
-    date: 'May 10, 2026',
-    tag: 'Award',
-    tagColor: 'text-amber-400 bg-amber-400/10',
-    title: 'IVE ranks #2 in May Idol Brand Reputation',
-    body: 'IVE holds strong at #2 in the May 2026 Idol Group Brand Reputation rankings, trailing only BTS. The ranking reflects continued high public interest during their world tour.',
-  },
-  {
-    date: 'May 8, 2026',
-    tag: 'Member',
-    tagColor: 'text-violet-400 bg-violet-400/10',
-    title: 'Rei confirmed as MC for ASEA 2026 in Japan',
-    body: 'Rei returns as MC for the 3rd Asia Star Entertainer Awards at Belluna Dome on May 16-17, her second consecutive year hosting the event.',
-    images: [
-      { src: fansite2, alt: 'Rei at press event' },
-    ],
-  },
-  {
-    date: 'May 2, 2026',
-    tag: 'Fansite',
-    tagColor: 'text-pink-400 bg-pink-400/10',
-    title: 'Fansite previews from recent shows',
-    body: 'Fansites captured amazing HD photos from recent tour stops. The stage production and outfits are receiving massive praise from DIVEs.',
-    images: [
-      { src: fansite1, alt: 'High quality concert fan taken photo' },
-    ],
-  },
-  {
-    date: 'Apr 20, 2026',
-    tag: 'Fansite',
-    tagColor: 'text-pink-400 bg-pink-400/10',
-    title: 'Airport fashion — Departure for overseas schedule',
-    body: 'Fansite photos of the members departing Incheon Airport. Wonyoung and the rest of the members greeted fans brightly.',
-    images: [
-      { src: fansiteWonyoung, alt: 'Wonyoung airport fashion' },
-      { src: fansite4, alt: 'Member airport preview' },
-      { src: fansite5, alt: 'Member airport preview' },
-    ],
-  },
-  {
-    date: 'Apr 15, 2026',
-    tag: 'Release',
-    tagColor: 'text-rose-400 bg-rose-400/10',
-    title: '"BANG BANG" MV passes 200M views',
-    body: 'The music video for BANG BANG from the REVIVE+ album surpasses 200 million views on YouTube, becoming one of the fastest IVE MVs to reach the milestone.',
-    videoId: '9qkpcLK422o',
-  },
-];
+const timeline: TimelineEntry[] = timelineData;
 
 const tourDates = [
   { date: 'May 23-24', city: 'Macao', venue: 'The Venetian Arena' },
