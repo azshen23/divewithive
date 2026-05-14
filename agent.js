@@ -81,9 +81,9 @@ async function askAI(posts, existingTitles) {
 }
 
 // Headers for Reddit JSON API
-// Keep it simple: too many spoofed browser headers (like mismatched sec-fetch) will trigger 403s on api.reddit.com
+// Using a dedicated API User-Agent instead of a browser spoof prevents 403 Forbidden errors
 const REDDIT_HEADERS = {
-  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+  'User-Agent': 'web:divewithive-agent:v1.0.0 (by /u/divewithive)',
   'Accept': 'application/json',
 };
 
@@ -123,7 +123,8 @@ function parseMediaFromRSS(text, postUrl) {
 // ─── Step 3: Enrich a single selected post with media data ─────────────────
 async function enrichPost(post) {
   const { url: postUrl, title, text } = post;
-  const cleanUrl = postUrl.replace(/\/$/, '');
+  // Strip trailing slash AND any query parameters to ensure clean .json append
+  const cleanUrl = postUrl.replace(/\/$/, '').split('?')[0];
 
   // Use api.reddit.com which doesn't have the strict browser bot protection
   // that www.reddit.com and old.reddit.com use.
@@ -337,6 +338,9 @@ async function run() {
     const newEntries = [];
     for (const update of updates) {
       console.log(`\n📌 Processing: "${update.title}"`);
+
+      // Add a 1.5-second delay to be kind to Reddit's API and avoid IP bans
+      await new Promise(r => setTimeout(r, 1500));
 
       // Build URL lookup for the source post
       const sourcePost = posts.find(p => p.url.replace(/\/$/, '') === (update.post_url || '').replace(/\/$/, ''));
