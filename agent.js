@@ -58,7 +58,7 @@ async function askAI(posts) {
         "body": "A 1-2 sentence description of the news.",
         "tag": "Member",
         "tagColor": "text-violet-400 bg-violet-400/10",
-        "raw_image_url": "extract the image url from the post if it ends in .jpg or .png. Set to null if there is no image, OR if the update (like Brand Reputation, announcements, or text news) does not inherently need a picture."
+        "raw_image_url": "Extract the FULL image URL EXACTLY as it appears in the post, including any query parameters like ?width=...&s=... Do not cut off the URL. Set to null if there is no image, OR if the update does not inherently need a picture."
       }
     ]
     Return [] if no posts qualify.
@@ -79,15 +79,38 @@ async function askAI(posts) {
 }
 
 async function downloadImage(url, dateStr) {
-  if (!url || (!url.endsWith('.jpg') && !url.endsWith('.png'))) return null;
+  if (!url || (!url.includes('.jpg') && !url.includes('.png'))) return null;
+  
+  // Fix HTML encoded ampersands
+  const cleanUrl = url.replace(/&amp;/g, '&');
   
   try {
-    console.log(`🖼️ Downloading image: ${url}`);
-    const response = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
-    if (!response.ok) return null;
+    console.log(`🖼️ Downloading image: ${cleanUrl}`);
+    const response = await fetch(cleanUrl, { 
+      headers: { 
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36' 
+      } 
+    });
+    
+    if (!response.ok) {
+      console.error(`Failed to download ${cleanUrl} - Status: ${response.status}`);
+      return null;
+    }
+
+    // Check if we accidentally downloaded an HTML error page
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('text/html')) {
+      console.error(`Failed: URL returned an HTML page instead of an image.`);
+      return null;
+    }
 
     const buffer = await response.arrayBuffer();
-    const filename = `img_${Date.now()}${path.extname(url)}`;
+    
+    // Safely extract extension
+    const urlObj = new URL(cleanUrl);
+    const ext = path.extname(urlObj.pathname) || '.jpg';
+    const filename = `img_${Date.now()}${ext}`;
+    
     const dirPath = `./public/images/${dateStr}`;
     const filePath = `${dirPath}/${filename}`;
 
@@ -96,7 +119,7 @@ async function downloadImage(url, dateStr) {
     
     return `/images/${dateStr}/${filename}`;
   } catch (error) {
-    console.error(`Failed to download ${url}:`, error.message);
+    console.error(`Failed to download ${cleanUrl}:`, error.message);
     return null;
   }
 }
