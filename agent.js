@@ -12,9 +12,9 @@ const TIMELINE_PATH = './src/data/timeline.json';
 async function fetchRedditPosts() {
   console.log('📡 Fetching latest updates from r/IVE via RSS proxy...');
   const response = await fetch(REDDIT_URL);
-  
+
   if (!response.ok) throw new Error(`RSS API failed: ${response.statusText}`);
-  
+
   const json = await response.json();
   return json.items.map(post => ({
     title: post.title,
@@ -26,7 +26,7 @@ async function fetchRedditPosts() {
 
 async function askAI(posts, existingTitles) {
   console.log('🧠 Asking AI to filter and format the news...');
-  
+
   if (!GEMINI_API_KEY) {
     throw new Error('Please set the GEMINI_API_KEY environment variable.');
   }
@@ -83,29 +83,30 @@ async function askAI(posts, existingTitles) {
 
 async function downloadImage(url, dateStr) {
   if (!url || (!url.includes('.jpg') && !url.includes('.png'))) return null;
-  
+
   // Fix HTML encoded ampersands
   let cleanUrl = url.replace(/&amp;/g, '&');
-  
+
   // Convert blurry preview.redd.it thumbnails to full-resolution i.redd.it images
   // Do NOT do this for external-preview.redd.it because they aren't native Reddit images
   if (cleanUrl.includes('preview.redd.it') && !cleanUrl.includes('external-preview')) {
     try {
       const urlObj = new URL(cleanUrl);
+      const fullImageUrl = `https://divewithive.com${imagePath}`;
       cleanUrl = `https://i.redd.it${urlObj.pathname}`;
     } catch (e) {
       // ignore
     }
   }
-  
+
   try {
     console.log(`🖼️ Downloading image: ${cleanUrl}`);
-    const response = await fetch(cleanUrl, { 
-      headers: { 
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36' 
-      } 
+    const response = await fetch(cleanUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
+      }
     });
-    
+
     if (!response.ok) {
       console.error(`Failed to download ${cleanUrl} - Status: ${response.status}`);
       return null;
@@ -119,18 +120,18 @@ async function downloadImage(url, dateStr) {
     }
 
     const buffer = await response.arrayBuffer();
-    
+
     // Safely extract extension
     const urlObj = new URL(cleanUrl);
     const ext = path.extname(urlObj.pathname) || '.jpg';
     const filename = `img_${Date.now()}${ext}`;
-    
+
     const dirPath = `./public/images/${dateStr}`;
     const filePath = `${dirPath}/${filename}`;
 
     await fs.mkdir(dirPath, { recursive: true });
     await fs.writeFile(filePath, Buffer.from(buffer));
-    
+
     return `/images/${dateStr}/${filename}`;
   } catch (error) {
     console.error(`Failed to download ${cleanUrl}:`, error.message);
@@ -149,7 +150,7 @@ async function run() {
 
     // 2. Scrape
     const posts = await fetchRedditPosts();
-    
+
     // 3. Process via AI
     const updates = await askAI(posts, existingTitles);
 
@@ -187,10 +188,10 @@ async function run() {
 
     // 4. Update timeline.json
     console.log(`📝 Writing ${newEntries.length} new entries to timeline.json...`);
-    
+
     // Add new entries to the top
     const updatedTimeline = [...newEntries, ...timelineData];
-    
+
     await fs.writeFile(TIMELINE_PATH, JSON.stringify(updatedTimeline, null, 2));
     console.log('🎉 Done! Timeline updated successfully.');
 
