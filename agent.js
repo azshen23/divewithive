@@ -24,7 +24,7 @@ async function fetchRedditPosts() {
   }));
 }
 
-async function askAI(posts) {
+async function askAI(posts, existingTitles) {
   console.log('🧠 Asking AI to filter and format the news...');
   
   if (!GEMINI_API_KEY) {
@@ -36,6 +36,7 @@ async function askAI(posts) {
     Your job is to read the latest social media and Reddit posts and decide if they are worth adding to the timeline.
     
     RULES FOR INCLUSION:
+    - DUPLICATE PREVENTION: Here are the titles of the most recent updates already on the timeline: ${JSON.stringify(existingTitles)}. DO NOT include any news that is already semantically covered by these existing updates!
     - FILTERING: DO NOT include minor updates, random fan chats, TikToks, Instagram Reels/Videos, or generic daily selfies. Only include major updates.
     - DO INCLUDE: Group news (comebacks, MV releases), member magazine pictorials/covers, official brand ambassador photos, concert/fansite previews, major awards, and official YouTube content.
     - If the post contains a YouTube link (e.g. MV, behind-the-scenes), do not use an image. Instead, extract the YouTube video ID.
@@ -142,11 +143,15 @@ async function run() {
     const today = new Date().toISOString().split('T')[0];
     const dateFormatted = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
-    // 1. Scrape
+    // 1. Read existing timeline to prevent duplicates
+    const timelineData = JSON.parse(await fs.readFile(TIMELINE_PATH, 'utf-8'));
+    const existingTitles = timelineData.slice(0, 15).map(entry => entry.title);
+
+    // 2. Scrape
     const posts = await fetchRedditPosts();
     
-    // 2. Process via AI
-    const updates = await askAI(posts);
+    // 3. Process via AI
+    const updates = await askAI(posts, existingTitles);
 
     if (updates.length === 0) {
       console.log('✅ No major updates today. Exiting.');
@@ -182,7 +187,6 @@ async function run() {
 
     // 4. Update timeline.json
     console.log(`📝 Writing ${newEntries.length} new entries to timeline.json...`);
-    const timelineData = JSON.parse(await fs.readFile(TIMELINE_PATH, 'utf-8'));
     
     // Add new entries to the top
     const updatedTimeline = [...newEntries, ...timelineData];
