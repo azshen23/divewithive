@@ -80,79 +80,121 @@ async function askAI(posts, existingTitles) {
   return JSON.parse(rawResponse);
 }
 
-// ─── Step 3: Enrich a single selected post with media data ─────────────────
-async function enrichPost(postUrl, title) {
-  const cleanUrl = postUrl.replace(/\/$/, '');
-  const jsonUrl = cleanUrl + '.json';
+// Browser headers that pass Reddit's bot detection
+const REDDIT_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+  'Accept': 'application/json, text/plain, */*',
+  'Accept-Language': 'en-US,en;q=0.9',
+  'Referer': 'https://www.reddit.com/',
+  'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
+  'sec-ch-ua-mobile': '?0',
+  'sec-ch-ua-platform': '"Windows"',
+  'sec-fetch-dest': 'empty',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-site': 'same-origin',
+};
 
-  try {
-    const resp = await fetch(jsonUrl, {
-      headers: { 'User-Agent': 'Mozilla/5.0 divewithive-agent/1.0' }
+// Parse image URLs from the RSS HTML description as a fallback
+function parseImagesFromHtml(html) {
+  if (!html) return [];
+  // Match i.redd.it and external-preview.redd.it image URLs embedded in the HTML
+  const matches = [...html.matchAll(/https:\/\/(?:i|external-preview|preview)\.redd\.it\/[^\s"<>]+/g)];
+  const seen = new Set();
+  return matches
+    .map(m => m[0].replace(/&amp;/g, '&'))
+    .filter(url => {
+      // Keep only actual image URLs (skip thumbnails / low-res duplicates)
+      if (seen.has(url)) return false;
+      seen.add(url);
+      return true;
     });
-
-    if (!resp.ok) {
-      console.warn(`  ⚠️  [${title}] Reddit JSON fetch failed: HTTP ${resp.status}`);
-      return {};
-    }
-
-    const data = await resp.json();
-    const postData = data?.[0]?.data?.children?.[0]?.data;
-    if (!postData) {
-      console.warn(`  ⚠️  [${title}] Reddit JSON returned no post data`);
-      return {};
-    }
-
-    const destUrl = postData.url_overridden_by_dest || '';
-
-    // YouTube
-    const ytMatch = destUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-    if (ytMatch) {
-      console.log(`  ▶️  [${title}] Detected YouTube: ${ytMatch[1]}`);
-      return { youtube_id: ytMatch[1] };
-    }
-
-    // Reddit-hosted video
-    if (postData.is_video) {
-      const videoUrl =
-        postData.secure_media?.reddit_video?.fallback_url ||
-        postData.media?.reddit_video?.fallback_url ||
-        null;
-      console.log(`  🎬 [${title}] Detected Reddit video: ${videoUrl}`);
-      return { is_video: true, video_url: videoUrl };
-    }
-
-    // Gallery (multiple images)
-    if (postData.is_gallery && postData.gallery_data && postData.media_metadata) {
-      const imageUrls = (postData.gallery_data.items || [])
-        .map(item => postData.media_metadata[item.media_id])
-        .filter(meta => meta && meta.status === 'valid' && meta.s)
-        .map(meta => (meta.s.u || meta.s.gif || '').replace(/&amp;/g, '&'))
-        .filter(Boolean);
-      console.log(`  🖼️  [${title}] Detected gallery: ${imageUrls.length} images`);
-      return { image_urls: imageUrls };
-    }
-
-    // Single image (direct link)
-    if (/\.(jpg|jpeg|png|gif|webp)/i.test(destUrl)) {
-      console.log(`  🖼️  [${title}] Detected single image: ${destUrl}`);
-      return { image_urls: [destUrl] };
-    }
-
-    // Fallback: preview image
-    const previewUrl = postData.preview?.images?.[0]?.source?.url?.replace(/&amp;/g, '&');
-    if (previewUrl) {
-      console.log(`  🖼️  [${title}] Detected preview image (fallback)`);
-      return { image_urls: [previewUrl] };
-    }
-
-    console.log(`  ℹ️  [${title}] No media detected (text-only post)`);
-    return {};
-
-  } catch (e) {
-    console.warn(`  ⚠️  [${title}] Enrichment error: ${e.message}`);
-    return {};
-  }
 }
+
+// ─── Step 3: Enrich a single selected post with media data ─────────────────
+async function enrichPost(post) {
+  const { url: postUrl, title, text } = post;
+  const cleanUrl = postUrl.replace(/\/$/, '');
+
+  // Try www.reddit.com first, then old.reddit.com as fallback
+  const jsonUrls = [
+    cleanUrl + '.json',
+    cleanUrl.replace('www.reddit.com', 'old.reddit.com') + '.json',
+  ];
+
+  for (const jsonUrl of jsonUrls) {
+    try {
+      const resp = await fetch(jsonUrl, { headers: REDDIT_HEADERS });
+
+      if (!resp.ok) {
+        console.warn(`  ⚠️  [${title}] Reddit JSON ${jsonUrl.includes('old.') ? '(old)' : ''} failed: HTTP ${resp.status}`);
+        continue; // try next URL
+      }
+
+      const data = await resp.json();
+      const postData = data?.[0]?.data?.children?.[0]?.data;
+      if (!postData) continue;
+
+      const destUrl = postData.url_overridden_by_dest || '';
+
+      // YouTube
+      const ytMatch = destUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+      if (ytMatch) {
+        console.log(`  ▶️  [${title}] YouTube: ${ytMatch[1]}`);
+        return { youtube_id: ytMatch[1] };
+      }
+
+      // Reddit-hosted video
+      if (postData.is_video) {
+        const videoUrl =
+          postData.secure_media?.reddit_video?.fallback_url ||
+          postData.media?.reddit_video?.fallback_url || null;
+        console.log(`  🎬 [${title}] Reddit video detected`);
+        return { is_video: true, video_url: videoUrl };
+      }
+
+      // Gallery (multiple images)
+      if (postData.is_gallery && postData.gallery_data && postData.media_metadata) {
+        const imageUrls = (postData.gallery_data.items || [])
+          .map(item => postData.media_metadata[item.media_id])
+          .filter(meta => meta && meta.status === 'valid' && meta.s)
+          .map(meta => (meta.s.u || meta.s.gif || '').replace(/&amp;/g, '&'))
+          .filter(Boolean);
+        console.log(`  🖼️  [${title}] Gallery: ${imageUrls.length} images`);
+        return { image_urls: imageUrls };
+      }
+
+      // Single image (direct link)
+      if (/\.(jpg|jpeg|png|gif|webp)/i.test(destUrl)) {
+        console.log(`  🖼️  [${title}] Single image`);
+        return { image_urls: [destUrl] };
+      }
+
+      // Preview image fallback
+      const previewUrl = postData.preview?.images?.[0]?.source?.url?.replace(/&amp;/g, '&');
+      if (previewUrl) {
+        console.log(`  🖼️  [${title}] Preview image (fallback)`);
+        return { image_urls: [previewUrl] };
+      }
+
+      console.log(`  ℹ️  [${title}] No media in JSON (text-only or external link)`);
+      return {};
+
+    } catch (e) {
+      console.warn(`  ⚠️  [${title}] Enrichment error: ${e.message}`);
+    }
+  }
+
+  // All JSON attempts failed — parse image URLs from the RSS HTML as last resort
+  const rssImages = parseImagesFromHtml(text);
+  if (rssImages.length > 0) {
+    console.log(`  🖼️  [${title}] RSS HTML fallback: ${rssImages.length} image(s) found`);
+    return { image_urls: rssImages };
+  }
+
+  console.warn(`  ⚠️  [${title}] All enrichment methods failed — entry will have no media`);
+  return {};
+}
+
 
 // ─── Download helpers ──────────────────────────────────────────────────────
 async function downloadImage(url, title, index, dateStr) {
@@ -280,7 +322,9 @@ async function run() {
     for (const update of updates) {
       console.log(`\n📌 Processing: "${update.title}"`);
 
-      const media = await enrichPost(update.post_url, update.title);
+      // Build URL lookup for the source post
+      const sourcePost = posts.find(p => p.url.replace(/\/$/, '') === (update.post_url || '').replace(/\/$/, ''));
+      const media = await enrichPost(sourcePost || { url: update.post_url, title: update.title, text: '' });
 
       // --- Images ---
       const imageUrls = media.image_urls || [];
