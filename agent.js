@@ -80,18 +80,11 @@ async function askAI(posts, existingTitles) {
   return JSON.parse(rawResponse);
 }
 
-// Browser headers that pass Reddit's bot detection
+// Headers for Reddit JSON API
+// Keep it simple: too many spoofed browser headers (like mismatched sec-fetch) will trigger 403s on api.reddit.com
 const REDDIT_HEADERS = {
   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-  'Accept': 'application/json, text/plain, */*',
-  'Accept-Language': 'en-US,en;q=0.9',
-  'Referer': 'https://www.reddit.com/',
-  'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
-  'sec-ch-ua-mobile': '?0',
-  'sec-ch-ua-platform': '"Windows"',
-  'sec-fetch-dest': 'empty',
-  'sec-fetch-mode': 'cors',
-  'sec-fetch-site': 'same-origin',
+  'Accept': 'application/json',
 };
 
 // Parse image URLs from the RSS HTML description as a fallback
