@@ -10,6 +10,7 @@ interface TimelineEntry {
   body: string;
   images?: { src: string; alt: string }[];
   videoId?: string;
+  videoUrl?: string;
 }
 
 const timeline: TimelineEntry[] = timelineData;
@@ -93,7 +94,7 @@ export default function Timeline() {
                   </div>
                 )}
 
-                {/* Video embed */}
+                {/* YouTube embed */}
                 {entry.videoId && (
                   <div className="w-full rounded-lg overflow-hidden aspect-video">
                     <iframe
@@ -104,6 +105,21 @@ export default function Timeline() {
                       allowFullScreen
                       loading="lazy"
                     />
+                  </div>
+                )}
+
+                {/* Reddit native video */}
+                {entry.videoUrl && (
+                  <div className="w-full rounded-lg overflow-hidden">
+                    <video
+                      className="w-full rounded-lg"
+                      controls
+                      playsInline
+                      preload="metadata"
+                      style={{ maxHeight: '600px' }}
+                    >
+                      <source src={entry.videoUrl} type="video/mp4" />
+                    </video>
                   </div>
                 )}
               </article>

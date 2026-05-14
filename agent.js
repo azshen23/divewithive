@@ -16,12 +16,65 @@ async function fetchRedditPosts() {
   if (!response.ok) throw new Error(`RSS API failed: ${response.statusText}`);
 
   const json = await response.json();
-  return json.items.map(post => ({
+  const rssPosts = json.items.map(post => ({
     title: post.title,
     url: post.link,
     text: post.description || '',
     created_utc: post.pubDate
   }));
+
+  // Enrich with Reddit JSON API to detect video posts and gallery images
+  console.log('🎬 Enriching posts with Reddit JSON API for media detection...');
+  const enriched = await Promise.all(rssPosts.map(async (post) => {
+    try {
+      // Convert Reddit post URL to JSON endpoint
+      const cleanUrl = post.url.replace(/\/$/, '');
+      const jsonUrl = cleanUrl + '.json';
+      const resp = await fetch(jsonUrl, {
+        headers: { 'User-Agent': 'Mozilla/5.0 divewithive-agent/1.0' }
+      });
+      if (!resp.ok) return post;
+      const data = await resp.json();
+      const postData = data?.[0]?.data?.children?.[0]?.data;
+      if (!postData) return post;
+
+      // Video post
+      if (postData.is_video) {
+        const videoUrl =
+          postData.secure_media?.reddit_video?.fallback_url ||
+          postData.media?.reddit_video?.fallback_url ||
+          null;
+        return { ...post, is_video: true, video_url: videoUrl };
+      }
+
+      // Gallery post (multiple images)
+      if (postData.is_gallery && postData.gallery_data && postData.media_metadata) {
+        const imageUrls = (postData.gallery_data.items || [])
+          .map(item => postData.media_metadata[item.media_id])
+          .filter(meta => meta && meta.status === 'valid' && meta.s)
+          .map(meta => (meta.s.u || meta.s.gif || '').replace(/&amp;/g, '&'))
+          .filter(Boolean);
+        return { ...post, image_urls: imageUrls };
+      }
+
+      // Single image post
+      const singleUrl = postData.url_overridden_by_dest || '';
+      if (/\.(jpg|jpeg|png|gif|webp)/i.test(singleUrl)) {
+        return { ...post, image_urls: [singleUrl] };
+      }
+
+      // Fallback: try preview image
+      const previewUrl = postData.preview?.images?.[0]?.source?.url?.replace(/&amp;/g, '&');
+      if (previewUrl) {
+        return { ...post, image_urls: [previewUrl] };
+      }
+    } catch (e) {
+      // JSON fetch failed — just use RSS data
+    }
+    return post;
+  }));
+
+  return enriched;
 }
 
 async function askAI(posts, existingTitles) {
@@ -37,9 +90,10 @@ async function askAI(posts, existingTitles) {
     
     RULES FOR INCLUSION:
     - DUPLICATE PREVENTION: Here are the titles of the most recent updates already on the timeline: ${JSON.stringify(existingTitles)}. DO NOT include any news that is already semantically covered by these existing updates!
-    - FILTERING: DO NOT include minor updates, random fan chats, TikToks, Instagram Reels/Videos, or generic daily selfies. Only include major updates.
-    - DO INCLUDE: Group news (comebacks, MV releases), member magazine pictorials/covers, official brand ambassador photos, concert/fansite previews, major awards, and official YouTube content.
-    - If the post contains a YouTube link (e.g. MV, behind-the-scenes), do not use an image. Instead, extract the YouTube video ID.
+    - FILTERING: DO NOT include random fan chat posts, low-effort memes, or totally context-free selfies with no notable occasion. Everything else is fair game.
+    - DO INCLUDE: Group comebacks/MV releases, member magazine pictorials/covers, official brand ambassador content, concert previews, major awards, official YouTube content, and Instagram updates (photos or videos) from members or official brand/magazine accounts — e.g. ELLE, Esquire, FASHIONSNAP, BVLGARI, DELING, etc.
+    - If the post has "is_video: true" and a "video_url", use that as the videoUrl. Do NOT also set raw_image_url for video posts.
+    - If the post contains a YouTube link (e.g. MV, behind-the-scenes), extract the 11-character YouTube video ID into videoId. Do NOT set raw_image_url or videoUrl for YouTube posts.
     - If a post qualifies, format it into a timeline entry.
 
     For the 'tag' field, use one of: "Tour", "Award", "Member", "Fansite", "Release".
@@ -50,7 +104,7 @@ async function askAI(posts, existingTitles) {
       - "Fansite": "text-pink-400 bg-pink-400/10"
       - "Release": "text-rose-400 bg-rose-400/10"
 
-    Here are the latest posts:
+    Here are the latest posts (posts with is_video=true have a video_url field):
     ${JSON.stringify(posts, null, 2)}
 
     Return ONLY a valid JSON array containing the qualified updates. It must exactly match this format:
@@ -60,8 +114,9 @@ async function askAI(posts, existingTitles) {
         "body": "A 1-2 sentence description of the news.",
         "tag": "Member",
         "tagColor": "text-violet-400 bg-violet-400/10",
-        "raw_image_url": "Extract the FULL image URL EXACTLY as it appears in the post, including any query parameters like ?width=...&s=... Do not cut off the URL. Set to null if there is no image, OR if the update does not inherently need a picture, OR if it is a YouTube video.",
-        "videoId": "Extract the 11-character YouTube video ID if the post links to YouTube. Set to null if it is not a YouTube video."
+        "raw_image_urls": "An array of image URLs for this post. If the post has an 'image_urls' field, copy it here exactly as-is. If not, extract any image URLs you can find from the post text. Set to [] if it is a YouTube video, a Reddit video post (is_video=true), or there are no images.",
+        "videoId": "Extract the 11-character YouTube video ID if the post links to YouTube. Set to null otherwise.",
+        "videoUrl": "If the post has is_video=true and a video_url, copy the video_url here exactly. Set to null otherwise."
       }
     ]
     Return [] if no posts qualify.
@@ -82,7 +137,7 @@ async function askAI(posts, existingTitles) {
 }
 
 async function downloadImage(url, dateStr) {
-  if (!url || (!url.includes('.jpg') && !url.includes('.png'))) return null;
+  if (!url || (!url.includes('.jpg') && !url.includes('.jpeg') && !url.includes('.png') && !url.includes('.webp') && !url.includes('.gif'))) return null;
 
   // Fix HTML encoded ampersands
   let cleanUrl = url.replace(/&amp;/g, '&');
@@ -138,6 +193,48 @@ async function downloadImage(url, dateStr) {
   }
 }
 
+async function downloadVideo(url, dateStr) {
+  if (!url) return null;
+
+  // Fix HTML encoded ampersands
+  const cleanUrl = url.replace(/&amp;/g, '&');
+
+  try {
+    console.log(`🎬 Downloading video: ${cleanUrl}`);
+    const response = await fetch(cleanUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
+      }
+    });
+
+    if (!response.ok) {
+      console.error(`Failed to download video ${cleanUrl} - Status: ${response.status}`);
+      return null;
+    }
+
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('text/html')) {
+      console.error(`Failed: Video URL returned an HTML page instead of a video.`);
+      return null;
+    }
+
+    const buffer = await response.arrayBuffer();
+
+    const filename = `vid_${Date.now()}.mp4`;
+    const dirPath = `./public/videos/${dateStr}`;
+    const filePath = `${dirPath}/${filename}`;
+
+    await fs.mkdir(dirPath, { recursive: true });
+    await fs.writeFile(filePath, Buffer.from(buffer));
+
+    console.log(`✅ Video saved: ${filePath}`);
+    return `/videos/${dateStr}/${filename}`;
+  } catch (error) {
+    console.error(`Failed to download video ${cleanUrl}:`, error.message);
+    return null;
+  }
+}
+
 async function run() {
   try {
     const today = new Date().toISOString().split('T')[0];
@@ -158,12 +255,25 @@ async function run() {
       return;
     }
 
-    // 3. Download images and format entries
+    // 3. Download images/videos and format entries
     const newEntries = [];
     for (const update of updates) {
-      let localImagePath = null;
-      if (update.raw_image_url) {
-        localImagePath = await downloadImage(update.raw_image_url, today);
+      // Download all images in parallel
+      const imageUrls = Array.isArray(update.raw_image_urls)
+        ? update.raw_image_urls
+        : (update.raw_image_url ? [update.raw_image_url] : []); // backwards compat
+
+      let localImagePaths = [];
+      if (imageUrls.length > 0 && !update.videoUrl) {
+        const results = await Promise.all(
+          imageUrls.map(imgUrl => downloadImage(imgUrl, today))
+        );
+        localImagePaths = results.filter(Boolean);
+      }
+
+      let localVideoPath = null;
+      if (update.videoUrl) {
+        localVideoPath = await downloadVideo(update.videoUrl, today);
       }
 
       const entry = {
@@ -174,12 +284,21 @@ async function run() {
         body: update.body,
       };
 
-      if (localImagePath) {
-        entry.images = [{ src: localImagePath, alt: update.title }];
+      if (localImagePaths.length > 0) {
+        entry.images = localImagePaths.map(src => ({ src, alt: update.title }));
       }
 
       if (update.videoId) {
         entry.videoId = update.videoId;
+      }
+
+      if (localVideoPath) {
+        // Use downloaded local file (permanent, no expiring tokens)
+        entry.videoUrl = localVideoPath;
+      } else if (update.videoUrl) {
+        // Fallback: store remote URL if download failed
+        entry.videoUrl = update.videoUrl;
+        console.warn(`⚠️ Video download failed, storing remote URL for: ${update.title}`);
       }
 
       newEntries.push(entry);
