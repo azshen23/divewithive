@@ -82,7 +82,17 @@ async function downloadImage(url, dateStr) {
   if (!url || (!url.includes('.jpg') && !url.includes('.png'))) return null;
   
   // Fix HTML encoded ampersands
-  const cleanUrl = url.replace(/&amp;/g, '&');
+  let cleanUrl = url.replace(/&amp;/g, '&');
+  
+  // Convert blurry preview.redd.it thumbnails to full-resolution i.redd.it images
+  if (cleanUrl.includes('preview.redd.it')) {
+    try {
+      const urlObj = new URL(cleanUrl);
+      cleanUrl = `https://i.redd.it${urlObj.pathname}`;
+    } catch (e) {
+      // ignore
+    }
+  }
   
   try {
     console.log(`🖼️ Downloading image: ${cleanUrl}`);
