@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 
 // --- CONFIGURATION ---
-const REDDIT_URL = 'https://www.reddit.com/r/IVE/new.json?limit=15';
+const REDDIT_URL = 'https://api.rss2json.com/v1/api.json?rss_url=https://www.reddit.com/r/IVE/new/.rss';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY; // Make sure to set this in your environment or a .env file
 const TIMELINE_PATH = './src/data/timeline.json';
 
@@ -10,23 +10,17 @@ const TIMELINE_PATH = './src/data/timeline.json';
 // If using Node: node --experimental-fetch agent.js
 
 async function fetchRedditPosts() {
-  console.log('📡 Fetching latest updates from r/IVE...');
-  const response = await fetch(REDDIT_URL, {
-    headers: { 
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-      'Accept': 'application/json'
-    }
-  });
+  console.log('📡 Fetching latest updates from r/IVE via RSS proxy...');
+  const response = await fetch(REDDIT_URL);
   
-  if (!response.ok) throw new Error(`Reddit API failed: ${response.statusText}`);
+  if (!response.ok) throw new Error(`RSS API failed: ${response.statusText}`);
   
   const json = await response.json();
-  return json.data.children.map(post => ({
-    title: post.data.title,
-    url: post.data.url,
-    text: post.data.selftext || '',
-    is_video: post.data.is_video,
-    created_utc: post.data.created_utc
+  return json.items.map(post => ({
+    title: post.title,
+    url: post.link,
+    text: post.description || '',
+    created_utc: post.pubDate
   }));
 }
 
