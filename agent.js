@@ -92,7 +92,6 @@ async function downloadImage(url, dateStr) {
   if (cleanUrl.includes('preview.redd.it') && !cleanUrl.includes('external-preview')) {
     try {
       const urlObj = new URL(cleanUrl);
-      const fullImageUrl = `https://divewithive.com${imagePath}`;
       cleanUrl = `https://i.redd.it${urlObj.pathname}`;
     } catch (e) {
       // ignore
@@ -193,6 +192,34 @@ async function run() {
     const updatedTimeline = [...newEntries, ...timelineData];
 
     await fs.writeFile(TIMELINE_PATH, JSON.stringify(updatedTimeline, null, 2));
+
+    // 5. Update index.html SEO meta tags with the latest news
+    const latestPost = updatedTimeline[0];
+    if (latestPost) {
+      console.log('🌐 Updating index.html meta tags with latest news...');
+      const indexPath = './index.html';
+      let html = await fs.readFile(indexPath, 'utf-8');
+      
+      const title = latestPost.title.replace(/"/g, '&quot;');
+      const desc = latestPost.body.replace(/"/g, '&quot;');
+      // Provide a default image fallback if the post has no image
+      const imagePath = (latestPost.images && latestPost.images.length > 0) 
+        ? latestPost.images[0].src 
+        : '/images/2026-05-13/singapore_concert_group.jpg';
+        
+      const fullImageUrl = `https://divewithive.com${imagePath}`;
+
+      html = html.replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${title}" />`);
+      html = html.replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${desc}" />`);
+      html = html.replace(/<meta property="og:image" content="[^"]*" \/>/, `<meta property="og:image" content="${fullImageUrl}" />`);
+      
+      html = html.replace(/<meta name="twitter:title" content="[^"]*" \/>/, `<meta name="twitter:title" content="${title}" />`);
+      html = html.replace(/<meta name="twitter:description" content="[^"]*" \/>/, `<meta name="twitter:description" content="${desc}" />`);
+      html = html.replace(/<meta name="twitter:image" content="[^"]*" \/>/, `<meta name="twitter:image" content="${fullImageUrl}" />`);
+
+      await fs.writeFile(indexPath, html);
+    }
+
     console.log('🎉 Done! Timeline updated successfully.');
 
   } catch (error) {
