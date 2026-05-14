@@ -12,7 +12,10 @@ const TIMELINE_PATH = './src/data/timeline.json';
 async function fetchRedditPosts() {
   console.log('📡 Fetching latest updates from r/IVE...');
   const response = await fetch(REDDIT_URL, {
-    headers: { 'User-Agent': 'IVE-Timeline-Agent/1.0' }
+    headers: { 
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+      'Accept': 'application/json'
+    }
   });
   
   if (!response.ok) throw new Error(`Reddit API failed: ${response.statusText}`);
