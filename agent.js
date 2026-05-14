@@ -36,8 +36,9 @@ async function askAI(posts) {
     Your job is to read the latest social media and Reddit posts and decide if they are worth adding to the timeline.
     
     RULES FOR INCLUSION:
-    - DO NOT include minor updates, random fan chats, or small TikToks.
-    - ONLY include larger updates: Group news (comebacks, MV releases), major member sponsorships/magazine covers, concert date pictures/fansite previews, or major awards.
+    - STRICT FILTERING: DO NOT include minor updates, random fan chats, small TikToks, or repetitive individual member updates (e.g., standard Instagram photo drops or minor brand posts). Only include if it is a huge milestone.
+    - ONLY include MASSIVE updates: Group news (comebacks, MV releases), MAJOR member sponsorships (like global ambassador announcements or major magazine covers), concert date pictures/fansite previews, or major awards.
+    - If the post contains a YouTube link (e.g. MV, behind-the-scenes), do not use an image. Instead, extract the YouTube video ID.
     - If a post qualifies, format it into a timeline entry.
 
     For the 'tag' field, use one of: "Tour", "Award", "Member", "Fansite", "Release".
@@ -58,7 +59,8 @@ async function askAI(posts) {
         "body": "A 1-2 sentence description of the news.",
         "tag": "Member",
         "tagColor": "text-violet-400 bg-violet-400/10",
-        "raw_image_url": "Extract the FULL image URL EXACTLY as it appears in the post, including any query parameters like ?width=...&s=... Do not cut off the URL. Set to null if there is no image, OR if the update does not inherently need a picture."
+        "raw_image_url": "Extract the FULL image URL EXACTLY as it appears in the post, including any query parameters like ?width=...&s=... Do not cut off the URL. Set to null if there is no image, OR if the update does not inherently need a picture, OR if it is a YouTube video.",
+        "videoId": "Extract the 11-character YouTube video ID if the post links to YouTube. Set to null if it is not a YouTube video."
       }
     ]
     Return [] if no posts qualify.
@@ -168,6 +170,10 @@ async function run() {
 
       if (localImagePath) {
         entry.images = [{ src: localImagePath, alt: update.title }];
+      }
+
+      if (update.videoId) {
+        entry.videoId = update.videoId;
       }
 
       newEntries.push(entry);
