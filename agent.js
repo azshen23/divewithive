@@ -346,8 +346,8 @@ async function run() {
       const media = await enrichPost(sourcePost || { url: update.post_url, title: update.title, text: '' });
 
       // --- Images ---
-      // The user requested to only do 1 photo per post from now on
-      const imageUrls = (media.image_urls || []).slice(0, 1);
+      // Download all available images from the gallery
+      const imageUrls = media.image_urls || [];
       let localImagePaths = [];
       if (imageUrls.length > 0) {
         console.log(`   Found ${imageUrls.length} image(s) to download.`);
