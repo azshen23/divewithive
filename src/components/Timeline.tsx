@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import timelineData from '../data/timeline.json';
+import ImageCarousel from './ImageCarousel';
 
 interface TimelineEntry {
   date: string;
@@ -31,7 +32,50 @@ const tourDates = [
 ];
 
 export default function Timeline() {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedGallery, setSelectedGallery] = useState<{images: {src: string, alt: string}[], initialIndex: number} | null>(null);
+
+  // State for the full-screen lightbox
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [lightboxDirection, setLightboxDirection] = useState(0);
+
+  const openLightbox = (images: {src: string, alt: string}[], index: number) => {
+    setSelectedGallery({ images, initialIndex: index });
+    setLightboxIndex(index);
+    setLightboxDirection(0);
+  };
+
+  const nextLightbox = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (selectedGallery) {
+      setLightboxDirection(1);
+      setLightboxIndex((prev) => (prev + 1) % selectedGallery.images.length);
+    }
+  };
+
+  const prevLightbox = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (selectedGallery) {
+      setLightboxDirection(-1);
+      setLightboxIndex((prev) => (prev - 1 + selectedGallery.images.length) % selectedGallery.images.length);
+    }
+  };
+
+  const lightboxVariants = {
+    enter: (dir: number) => ({
+      x: dir > 0 ? '100%' : '-100%',
+      opacity: 0,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+    },
+    exit: (dir: number) => ({
+      zIndex: 0,
+      x: dir < 0 ? '100%' : '-100%',
+      opacity: 0,
+    }),
+  };
 
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
@@ -66,31 +110,13 @@ export default function Timeline() {
                   {entry.body}
                 </p>
 
-                {/* Photo grid */}
-                {entry.images && (
-                  <div className={`grid gap-2 mb-1 ${
-                    entry.images.length === 1 ? 'grid-cols-1' :
-                    entry.images.length === 2 ? 'grid-cols-2' :
-                    'grid-cols-3'
-                  }`}>
-                    {entry.images.map((img) => (
-                      <div 
-                        key={img.alt} 
-                        className="rounded-lg overflow-hidden w-full max-h-[500px] cursor-pointer group/img relative"
-                        onClick={() => setSelectedImage(img.src)}
-                      >
-                        <div className="absolute inset-0 bg-white/0 group-hover/img:bg-white/10 transition-colors duration-300 z-10" />
-                        <motion.img
-                          layoutId={`image-${img.src}`}
-                          src={img.src}
-                          alt={img.alt}
-                          className="w-full h-full max-h-[500px] object-cover"
-                          whileHover={{ scale: 1.02 }}
-                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                          loading="lazy"
-                        />
-                      </div>
-                    ))}
+                {/* Photo Carousel */}
+                {entry.images && entry.images.length > 0 && (
+                  <div className="mb-2">
+                    <ImageCarousel 
+                      images={entry.images} 
+                      onSelectImage={(index) => openLightbox(entry.images!, index)}
+                    />
                   </div>
                 )}
 
@@ -110,9 +136,9 @@ export default function Timeline() {
 
                 {/* Reddit native video */}
                 {entry.videoUrl && (
-                  <div className="w-full rounded-lg overflow-hidden">
+                  <div className="w-full rounded-lg overflow-hidden mt-2">
                     <video
-                      className="w-full rounded-lg"
+                      className="w-full rounded-lg bg-black/20"
                       controls
                       playsInline
                       preload="metadata"
@@ -156,33 +182,87 @@ export default function Timeline() {
          </aside>
        </div>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox Modal with Carousel Support */}
       <AnimatePresence>
-        {selectedImage && (
+        {selectedGallery && (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 sm:p-8"
-            onClick={() => setSelectedImage(null)}
+            onClick={() => setSelectedGallery(null)}
           >
             <button 
-              className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors"
-              onClick={() => setSelectedImage(null)}
+              className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-50"
+              onClick={() => setSelectedGallery(null)}
             >
               <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            <motion.img 
-              layoutId={`image-${selectedImage}`}
-              src={selectedImage} 
-              alt="Enlarged view" 
-              className="max-w-full max-h-full rounded-md shadow-2xl cursor-default"
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              onClick={(e) => e.stopPropagation()}
-            />
+
+            {/* Previous Button */}
+            {selectedGallery.images.length > 1 && (
+              <button 
+                className="absolute left-4 sm:left-10 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-white/20 transition-colors z-50"
+                onClick={prevLightbox}
+              >
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+            )}
+
+            {/* Next Button */}
+            {selectedGallery.images.length > 1 && (
+              <button 
+                className="absolute right-4 sm:right-10 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-white/20 transition-colors z-50"
+                onClick={nextLightbox}
+              >
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            )}
+
+            <div className="relative w-full h-[90vh] flex items-center justify-center overflow-hidden z-40">
+              <AnimatePresence initial={false} custom={lightboxDirection}>
+                <motion.img 
+                  key={lightboxIndex}
+                  layoutId={`image-${selectedGallery.images[lightboxIndex].src}`}
+                  src={selectedGallery.images[lightboxIndex].src} 
+                  alt={selectedGallery.images[lightboxIndex].alt || "Enlarged view"} 
+                  custom={lightboxDirection}
+                  variants={lightboxVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    x: { type: 'tween', ease: 'easeInOut', duration: 0.3 },
+                    opacity: { duration: 0.2 },
+                  }}
+                  className="absolute max-w-full max-h-full rounded-md shadow-2xl cursor-default object-contain"
+                  onClick={(e) => e.stopPropagation()}
+                  loading="lazy"
+                />
+              </AnimatePresence>
+            </div>
+            
+            {/* Dots Indicator for Lightbox */}
+            {selectedGallery.images.length > 1 && (
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/40 px-3 py-2 rounded-full backdrop-blur-md z-50">
+                {selectedGallery.images.map((_, i) => (
+                  <button 
+                    key={i} 
+                    className={`transition-all rounded-full ${
+                      i === lightboxIndex ? 'w-2 h-2 bg-white scale-125' : 'w-1.5 h-1.5 bg-white/40 hover:bg-white/60'
+                    }`}
+                    onClick={(e) => { e.stopPropagation(); setLightboxIndex(i); }}
+                  />
+                ))}
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
