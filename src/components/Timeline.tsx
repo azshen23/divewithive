@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import timelineData from '../data/timeline.json';
 import ImageCarousel from './ImageCarousel';
@@ -41,6 +41,22 @@ export default function Timeline() {
   // State for the full-screen lightbox
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [lightboxDirection, setLightboxDirection] = useState(0);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedGallery(null);
+      }
+    };
+
+    if (selectedGallery) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedGallery]);
 
   const openLightbox = (images: {src: string, alt: string}[], index: number, entryId: string) => {
     setSelectedGallery({ images, initialIndex: index, entryId });
