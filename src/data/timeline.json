@@ -1,6 +1,46 @@
 [
   {
     "date": "May 15, 2026",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung for New Balance 2026 Summer Lookbook",
+    "body": "Wonyoung showcases the New Balance 2026 Summer Collection, featuring fashion and MT100 shoes in a new lookbook from New Balance China.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1tdkcgi/260515_new_balance_china_weibo_update_with",
+    "images": [
+      {
+        "src": "/images/2026-05-15/img_1778820874657_1.jpg",
+        "alt": "Wonyoung for New Balance 2026 Summer Lookbook"
+      },
+      {
+        "src": "/images/2026-05-15/img_1778820874700_2.jpg",
+        "alt": "Wonyoung for New Balance 2026 Summer Lookbook"
+      },
+      {
+        "src": "/images/2026-05-15/img_1778820874664_3.jpg",
+        "alt": "Wonyoung for New Balance 2026 Summer Lookbook"
+      },
+      {
+        "src": "/images/2026-05-15/img_1778820874667_4.jpg",
+        "alt": "Wonyoung for New Balance 2026 Summer Lookbook"
+      }
+    ]
+  },
+  {
+    "date": "May 15, 2026",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung's Latest Miu Miu Official Twitter Update",
+    "body": "Miu Miu shares new official content on their Twitter, showcasing global ambassador Wonyoung.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1tcxd8y/260514_miu_miu_official_twitter_update_with",
+    "images": [
+      {
+        "src": "/images/2026-05-15/img_1778820876725_1.jpeg",
+        "alt": "Wonyoung's Latest Miu Miu Official Twitter Update"
+      }
+    ]
+  },
+  {
+    "date": "May 15, 2026",
     "tag": "Release",
     "tagColor": "text-rose-400 bg-rose-400/10",
     "title": "IVE on Zach Sang Show: Discussing 'Revive+' & More",
