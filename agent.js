@@ -99,26 +99,42 @@ const REDDIT_HEADERS = {
   'Accept': 'application/json',
 };
 
+// Normalize Reddit media URLs for deduplication and quality
+function normalizeMediaUrl(url) {
+  if (!url) return '';
+  let clean = url.replace(/&amp;/g, '&');
+  try {
+    const urlObj = new URL(clean);
+    // Normalize preview to full-res i.redd.it
+    if (urlObj.hostname === 'preview.redd.it' && !urlObj.pathname.includes('external-preview')) {
+      urlObj.hostname = 'i.redd.it';
+    }
+    // Strip query parameters which often differ between preview and source (e.g. ?width=...)
+    urlObj.search = '';
+    return urlObj.toString().toLowerCase();
+  } catch (e) {
+    return clean.toLowerCase();
+  }
+}
+
 // Parse image URLs from the RSS HTML description as a fallback
 function parseImagesFromHtml(html) {
   if (!html) return [];
   // Match i.redd.it and external-preview.redd.it image URLs embedded in the HTML
   const matches = [...html.matchAll(/https:\/\/(?:i|external-preview|preview)\.redd\.it\/[^\s"<>]+/g)];
-  const seenBase = new Set();
-  return matches
-    .map(m => m[0].replace(/&amp;/g, '&'))
-    .filter(url => {
-      try {
-        // Normalize URL to prevent subtle duplicates
-        const urlObj = new URL(url);
-        const base = (urlObj.origin + urlObj.pathname).toLowerCase();
-        if (seenBase.has(base)) return false;
-        seenBase.add(base);
-        return true;
-      } catch (e) {
-        return false;
-      }
-    });
+  const seenNormalized = new Set();
+  const results = [];
+
+  for (const match of matches) {
+    const originalUrl = match[0].replace(/&amp;/g, '&');
+    const normalized = normalizeMediaUrl(originalUrl);
+    
+    if (!seenNormalized.has(normalized)) {
+      seenNormalized.add(normalized);
+      results.push(originalUrl); // Keep original for download, but skip duplicates
+    }
+  }
+  return results;
 }
 
 // Parse any useful media from the RSS HTML description
@@ -144,9 +160,11 @@ async function enrichPost(post) {
 
   // Since direct Reddit API endpoints (api.reddit.com, www.reddit.com) actively
   // block GitHub Actions/Datacenter IPs resulting in guaranteed 403 errors,
-  // we bypass them entirely and go straight to the free CORS proxy which succeeds.
+  // we bypass them entirely and go straight to proxies.
   const jsonUrls = [
-    'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(cleanUrl + '.json')
+    'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(cleanUrl + '.json'),
+    'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(cleanUrl.replace('www.reddit.com', 'old.reddit.com') + '.json'),
+    'https://api.allorigins.win/raw?url=' + encodeURIComponent(cleanUrl + '.json')
   ];
 
   for (const jsonUrl of jsonUrls) {
@@ -245,16 +263,8 @@ async function enrichPost(post) {
 async function downloadImage(url, title, index, dateStr) {
   if (!url) return null;
 
-  // Fix HTML encoded ampersands
-  let cleanUrl = url.replace(/&amp;/g, '&');
-
-  // Upgrade native Reddit previews to full-res i.redd.it
-  if (cleanUrl.includes('preview.redd.it') && !cleanUrl.includes('external-preview')) {
-    try {
-      const urlObj = new URL(cleanUrl);
-      cleanUrl = `https://i.redd.it${urlObj.pathname}`;
-    } catch (e) { /* ignore */ }
-  }
+  // Upgrade native Reddit previews to full-res i.redd.it and strip query params
+  let cleanUrl = normalizeMediaUrl(url);
 
   // Check URL has a recognizable image path
   if (!cleanUrl.match(/\.(jpg|jpeg|png|gif|webp)/i) && !cleanUrl.includes('i.redd.it') && !cleanUrl.includes('external-preview.redd.it')) {
@@ -400,12 +410,20 @@ async function run() {
 
       // --- Images ---
       // Download all available images from the gallery
-      const imageUrls = [...new Set(media.image_urls || [])]; // Strict deduplication
+      // Use normalizeMediaUrl for robust deduplication (handles preview.redd.it vs i.redd.it and query params)
+      const seenMedia = new Set();
+      const uniqueImageUrls = (media.image_urls || []).filter(imgUrl => {
+        const norm = normalizeMediaUrl(imgUrl);
+        if (seenMedia.has(norm)) return false;
+        seenMedia.add(norm);
+        return true;
+      });
+
       let localImagePaths = [];
-      if (imageUrls.length > 0) {
-        console.log(`   Found ${imageUrls.length} unique image(s) to download.`);
+      if (uniqueImageUrls.length > 0) {
+        console.log(`   Found ${uniqueImageUrls.length} unique image(s) to download.`);
         const results = await Promise.all(
-          imageUrls.map((imgUrl, i) => downloadImage(imgUrl, update.title, i + 1, today))
+          uniqueImageUrls.map((imgUrl, i) => downloadImage(imgUrl, update.title, i + 1, today))
         );
         localImagePaths = results.filter(Boolean);
       }
