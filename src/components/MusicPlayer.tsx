@@ -53,6 +53,8 @@ export default function MusicPlayer() {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [isApiReady, setIsApiReady] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [volume, setVolume] = useState(50);
   
   const playerRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -115,6 +117,13 @@ export default function MusicPlayer() {
       }
     }
   }, [currentSongIndex]);
+  
+  // Sync volume
+  useEffect(() => {
+    if (playerRef.current && playerRef.current.setVolume) {
+      playerRef.current.setVolume(volume);
+    }
+  }, [volume, isApiReady]);
 
   const togglePlay = () => {
     if (playerRef.current) {
@@ -148,12 +157,12 @@ export default function MusicPlayer() {
       <div className="relative flex items-center pointer-events-auto">
         {/* Expanded Info Panel */}
         <AnimatePresence>
-          {(isHovered || isPlaying) && (
+          {isExpanded && (
             <motion.div
               initial={{ opacity: 0, x: 20, scale: 0.9, filter: 'blur(10px)' }}
               animate={{ opacity: 1, x: 0, scale: 1, filter: 'blur(0px)' }}
               exit={{ opacity: 0, x: 20, scale: 0.9, filter: 'blur(10px)' }}
-              className="mr-3 sm:mr-6 bg-[#0a0a0f]/80 backdrop-blur-xl p-3 sm:p-4 rounded-2xl sm:rounded-3xl min-w-[180px] sm:min-w-[220px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+              className="absolute right-full mr-3 sm:mr-6 top-1/2 -translate-y-1/2 bg-[#0a0a0f]/80 backdrop-blur-xl p-3 sm:p-4 rounded-2xl sm:rounded-3xl min-w-[180px] sm:min-w-[220px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] whitespace-nowrap"
             >
               <div className="mb-3 sm:mb-4">
                 <div className="flex items-center justify-between gap-2 mb-1">
@@ -196,6 +205,35 @@ export default function MusicPlayer() {
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
                 </button>
               </div>
+
+              {/* Volume Slider */}
+              <div className="flex items-center gap-3 mb-4 px-1 group/volume">
+                <div className="text-white/30 group-hover/volume:text-white/60 transition-colors">
+                  {volume === 0 ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6m0-6l6 6"/></svg>
+                  ) : volume < 50 ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                  )}
+                </div>
+                <div className="relative flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden cursor-pointer">
+                  <input 
+                    type="range" 
+                    min="0" 
+                    max="100" 
+                    value={volume} 
+                    onChange={(e) => setVolume(parseInt(e.target.value))}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                  />
+                  <motion.div 
+                    className="absolute inset-y-0 left-0 rounded-full"
+                    animate={{ width: `${volume}%` }}
+                    style={{ backgroundColor: currentSong.color }}
+                  />
+                </div>
+                <span className="text-[9px] font-bold text-white/20 min-w-[20px] tabular-nums">{volume}</span>
+              </div>
               
               {/* Visualizer bars */}
               <div className="flex items-end justify-between gap-[2px] h-3 px-1">
@@ -228,8 +266,10 @@ export default function MusicPlayer() {
           <motion.div 
             className="relative cursor-pointer"
             whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={togglePlay}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsExpanded(!isExpanded);
+            }}
           >
             {/* Vinyl Record */}
             <motion.div
