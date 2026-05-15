@@ -1,6 +1,5 @@
 import fs from 'fs/promises';
 import path from 'path';
-import 'dotenv/config';
 
 // --- CONFIGURATION ---
 const REDDIT_URL = 'https://api.rss2json.com/v1/api.json?rss_url=https://www.reddit.com/r/IVE/new/.rss';
