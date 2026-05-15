@@ -347,7 +347,8 @@ async function run() {
 
     // 1. Read existing timeline to prevent duplicates
     const timelineData = JSON.parse(await fs.readFile(TIMELINE_PATH, 'utf-8'));
-    const existingTitles = timelineData.slice(0, 15).map(entry => entry.title);
+    const existingTitles = timelineData.slice(0, 40).map(entry => entry.title);
+    const existingTitlesNormalized = new Set(existingTitles.map(t => t.toLowerCase().trim()));
 
     // 2. Fetch RSS (lightweight, no enrichment yet)
     const posts = await fetchRedditPosts();
@@ -356,7 +357,18 @@ async function run() {
     const existingUrls = new Set(timelineData.map(entry => entry.post_url).filter(Boolean));
     const filteredPosts = posts.filter(p => {
       const cleanUrl = p.url.replace(/\/$/, '').split('?')[0].toLowerCase();
-      return !existingUrls.has(cleanUrl);
+      const cleanTitle = p.title.toLowerCase().trim();
+      
+      // Filter by URL
+      if (existingUrls.has(cleanUrl)) return false;
+      
+      // Filter by Title (exact match or very high similarity check)
+      if (existingTitlesNormalized.has(cleanTitle)) return false;
+
+      // Heuristic: If title is very similar to an existing one (e.g. contains same member name and "Instagram")
+      // this is a bit risky but good for these specific cases.
+      // For now, let's stick to exact title match + AI check.
+      return true;
     });
 
     if (filteredPosts.length === 0) {
@@ -411,7 +423,7 @@ async function run() {
         tagColor: update.tagColor,
         title: update.title,
         body: update.body,
-        post_url: update.post_url.replace(/\/$/, '').split('?')[0].toLowerCase(), // Store for duplicate prevention
+        post_url: (update.post_url || sourcePost?.url || '').replace(/\/$/, '').split('?')[0].toLowerCase(), // Store for duplicate prevention
       };
 
       if (localImagePaths.length > 0) {
