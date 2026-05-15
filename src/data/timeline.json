@@ -1,6 +1,23 @@
 [
   {
     "date": "May 15, 2026",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung's Miu Miu Official Social Media Campaign",
+    "body": "Wonyoung continues her partnership with Miu Miu through a series of new official campaign photos shared across their social platforms.",
+    "images": [
+      {
+        "src": "/images/2026-05-15/img_1778810816829_1.jpeg",
+        "alt": "Wonyoung's Miu Miu Official Social Media Campaign"
+      },
+      {
+        "src": "/images/2026-05-15/img_1778810816834_2.jpeg",
+        "alt": "Wonyoung's Miu Miu Official Social Media Campaign"
+      }
+    ]
+  },
+  {
+    "date": "May 15, 2026",
     "tag": "Release",
     "tagColor": "text-rose-400 bg-rose-400/10",
     "title": "IVE on Zach Sang Show: Discussing 'Revive+' & More",
