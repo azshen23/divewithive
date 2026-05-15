@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import timelineData from '../data/timeline.json';
 import ImageCarousel from './ImageCarousel';
+import CustomVideoPlayer from './CustomVideoPlayer';
 
 interface TimelineEntry {
   date: string;
@@ -171,17 +172,7 @@ export default function Timeline() {
 
                 {/* Reddit native video */}
                 {entry.videoUrl && (
-                  <div className="w-full rounded-lg overflow-hidden mt-2">
-                    <video
-                      className="w-full rounded-lg bg-black/20"
-                      controls
-                      playsInline
-                      preload="metadata"
-                      style={{ maxHeight: '600px' }}
-                    >
-                      <source src={entry.videoUrl} type="video/mp4" />
-                    </video>
-                  </div>
+                  <CustomVideoPlayer src={entry.videoUrl} />
                 )}
               </article>
             ))}
