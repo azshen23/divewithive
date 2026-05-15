@@ -10,13 +10,12 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number>();
   const progressBarRef = useRef<HTMLDivElement>(null);
-  
+
   // Detect when 50% of the video is visible in the viewport
-  const isInView = useInView(containerRef, { amount: 0.5 }); 
-  
+  const isInView = useInView(containerRef, { amount: 0.5 });
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
-  const [hasInteracted, setHasInteracted] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -46,7 +45,7 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
     } else {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     }
-    
+
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
@@ -55,7 +54,7 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
   // Auto-play / auto-pause based on scroll visibility
   useEffect(() => {
     if (isInView && videoRef.current) {
-      videoRef.current.play().catch(() => {});
+      videoRef.current.play().catch(() => { });
       setIsPlaying(true);
     } else if (!isInView && videoRef.current) {
       videoRef.current.pause();
@@ -69,7 +68,7 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
       if (isPlaying) {
         videoRef.current.pause();
       } else {
-        videoRef.current.play().catch(() => {});
+        videoRef.current.play().catch(() => { });
       }
       setIsPlaying(!isPlaying);
     }
@@ -95,9 +94,9 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
   const toggleFullscreen = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!document.fullscreenElement) {
-      containerRef.current?.requestFullscreen().catch(() => {});
+      containerRef.current?.requestFullscreen().catch(() => { });
     } else {
-      document.exitFullscreen().catch(() => {});
+      document.exitFullscreen().catch(() => { });
     }
   };
 
@@ -173,9 +172,9 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
   };
 
   return (
-    <div 
-      ref={containerRef} 
-      className={`relative w-full rounded-lg overflow-hidden group/video bg-black mt-2 flex items-center justify-center ${isFullscreen ? 'h-screen' : ''}`} 
+    <div
+      ref={containerRef}
+      className={`relative w-full rounded-lg overflow-hidden group/video bg-black mt-2 flex items-center justify-center ${isFullscreen ? 'h-screen' : ''}`}
       style={{ maxHeight: isFullscreen ? 'none' : '600px' }}
       onClick={togglePlay}
     >
@@ -190,12 +189,12 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
       />
 
       {/* Overlay UI */}
-      <div 
+      <div
         className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover/video:opacity-100 transition-opacity duration-300 pointer-events-none flex flex-col justify-end p-4 z-20"
       >
-        
+
         {/* Progress Bar */}
-        <div 
+        <div
           ref={progressBarRef}
           className="w-full py-2 mb-1 cursor-pointer pointer-events-auto group/progress relative flex items-center"
           onPointerDown={handlePointerDown}
@@ -205,11 +204,11 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
           onClick={(e) => e.stopPropagation()}
         >
           <div className="w-full h-1.5 bg-white/20 rounded-full">
-            <div 
-              className="h-full bg-pink-400 rounded-full relative" 
-              style={{ width: `${progress}%` }} 
+            <div
+              className="h-full bg-pink-400 rounded-full relative"
+              style={{ width: `${progress}%` }}
             >
-              <div 
+              <div
                 className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-3 h-3 bg-white rounded-full shadow-md ${isDragging ? 'opacity-100 scale-125' : 'opacity-0 group-hover/progress:opacity-100'} transition-all duration-150`}
               />
             </div>
@@ -244,10 +243,10 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
               )}
             </button>
             <div className="absolute bottom-full left-1/2 -translate-x-1/2 pb-2">
-              <div 
+              <div
                 className={`overflow-hidden transition-all duration-300 ${isVolumeDragging ? 'h-24 opacity-100' : 'h-0 opacity-0 group-hover/volume:h-24 group-hover/volume:opacity-100'} flex items-center justify-center bg-black/60 backdrop-blur-sm rounded-lg w-8`}
               >
-                <div 
+                <div
                   ref={volumeBarRef}
                   className="h-[80%] w-full cursor-pointer flex flex-col items-center justify-end group/volbar relative"
                   onPointerDown={handleVolumePointerDown}
@@ -257,11 +256,11 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="w-1 h-full bg-white/30 rounded-full relative">
-                    <div 
+                    <div
                       className="w-full bg-pink-400 rounded-full absolute bottom-0"
                       style={{ height: `${(isMuted ? 0 : volume) * 100}%` }}
                     >
-                      <div 
+                      <div
                         className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-white rounded-full shadow-md ${isVolumeDragging ? 'opacity-100 scale-125' : 'opacity-0 group-hover/volbar:opacity-100'} transition-all duration-150`}
                       />
                     </div>
@@ -284,11 +283,11 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
           </button>
         </div>
       </div>
-      
+
       {/* Tap to Unmute Overlay */}
       {isPlaying && isMuted && (
         <div className="absolute top-4 left-4 z-30">
-          <button 
+          <button
             onClick={(e) => {
               e.stopPropagation();
               toggleMute(e);
@@ -307,13 +306,13 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
       {/* Center Play Button Overlay when paused explicitly */}
       {!isPlaying && (
         <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-10">
-          <button 
+          <button
             onClick={togglePlay}
             className="w-16 h-16 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white transition-transform hover:scale-110 pointer-events-auto"
           >
-             <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24" className="ml-1">
-               <path d="M8 5v14l11-7z" />
-             </svg>
+            <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24" className="ml-1">
+              <path d="M8 5v14l11-7z" />
+            </svg>
           </button>
         </div>
       )}
