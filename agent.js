@@ -8,7 +8,7 @@ const TIMELINE_PATH = './src/data/timeline.json';
 
 // Ensure you run this with: node --experimental-fetch agent.js
 
-// ─── Step 1: Fetch RSS (fast, no enrichment) ───────────────────────────────
+// ─── Step 1: Fetch Updates (Reddit + Twitter) ───────────────────────────────
 async function fetchRedditPosts() {
   console.log('📡 Fetching latest updates from r/IVE via RSS proxy...');
   const response = await fetch(REDDIT_URL);
@@ -18,8 +18,52 @@ async function fetchRedditPosts() {
     title: post.title,
     url: post.link,
     text: post.description || '',
-    created_utc: post.pubDate
+    created_utc: post.pubDate,
+    source: 'Reddit'
   }));
+}
+
+async function fetchTwitterPosts() {
+  const APIFY_TOKEN = process.env.APIFY_API_TOKEN;
+  if (!APIFY_TOKEN) {
+    console.log('⚠️ APIFY_API_TOKEN not set. Skipping Twitter scrape.');
+    return [];
+  }
+
+  console.log('🐦 Fetching latest updates from Twitter via Apify...');
+  try {
+    const response = await fetch(`https://api.apify.com/v2/acts/apidojo~tweet-scraper/run-sync-get-dataset-items?token=${APIFY_TOKEN}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        twitterHandles: ['ivepics'],
+        maxItems: 10
+      })
+    });
+
+    if (!response.ok) {
+      console.error(`⚠️ Apify Twitter scrape failed: ${response.statusText}`);
+      return [];
+    }
+
+    const tweets = await response.json();
+
+    return tweets.map(tweet => ({
+      title: `Tweet from @${tweet.author?.userName || 'IVE'}`,
+      url: tweet.url,
+      text: tweet.text || '',
+      created_utc: tweet.createdAt,
+      source: 'Twitter',
+      pre_enriched_media: {
+        image_urls: tweet.media?.filter(m => m.type === 'photo').map(m => m.media_url_https) || [],
+        is_video: tweet.media?.some(m => m.type === 'video' || m.type === 'animated_gif'),
+        video_url: tweet.media?.find(m => m.type === 'video' || m.type === 'animated_gif')?.video_info?.variants?.find(v => v.content_type === 'video/mp4')?.url || null
+      }
+    }));
+  } catch (error) {
+    console.error('⚠️ Apify error:', error.message);
+    return [];
+  }
 }
 
 // ─── Step 2: AI filters posts ──────────────────────────────────────────────
@@ -51,7 +95,7 @@ async function askAI(posts, existingTitles) {
       - "Release": "text-rose-400 bg-rose-400/10"
 
     Here are the latest posts:
-    ${JSON.stringify(posts.map(p => ({ title: p.title, url: p.url, text: p.text })), null, 2)}
+    ${JSON.stringify(posts.map(p => ({ source: p.source, title: p.title, url: p.url, text: p.text })), null, 2)}
 
     Return ONLY a valid JSON array. Each element must match this format exactly:
     [
@@ -76,6 +120,10 @@ async function askAI(posts, existingTitles) {
   });
 
   const data = await response.json();
+  if (!data.candidates || !data.candidates[0]) {
+    console.error('⚠️ Gemini API error:', JSON.stringify(data, null, 2));
+    throw new Error('Invalid response from Gemini API');
+  }
   const rawResponse = data.candidates[0].content.parts[0].text;
   return JSON.parse(rawResponse);
 }
@@ -320,8 +368,10 @@ async function run() {
     const timelineData = JSON.parse(await fs.readFile(TIMELINE_PATH, 'utf-8'));
     const existingTitles = timelineData.slice(0, 15).map(entry => entry.title);
 
-    // 2. Fetch RSS (lightweight, no enrichment yet)
-    const posts = await fetchRedditPosts();
+    // 2. Fetch updates
+    const redditPosts = await fetchRedditPosts();
+    const twitterPosts = await fetchTwitterPosts();
+    const posts = [...redditPosts, ...twitterPosts].sort((a, b) => new Date(b.created_utc) - new Date(a.created_utc));
 
     // 3. AI selects which posts to include
     const updates = await askAI(posts, existingTitles);
@@ -343,7 +393,13 @@ async function run() {
 
       // Build URL lookup for the source post
       const sourcePost = posts.find(p => p.url.replace(/\/$/, '') === (update.post_url || '').replace(/\/$/, ''));
-      const media = await enrichPost(sourcePost || { url: update.post_url, title: update.title, text: '' });
+      let media;
+      if (sourcePost && sourcePost.pre_enriched_media) {
+        console.log(`  ℹ️  [${update.title}] Using pre-enriched media from Apify`);
+        media = sourcePost.pre_enriched_media;
+      } else {
+        media = await enrichPost(sourcePost || { url: update.post_url, title: update.title, text: '' });
+      }
 
       // --- Images ---
       // Download all available images from the gallery
