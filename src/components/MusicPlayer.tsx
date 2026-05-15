@@ -51,14 +51,13 @@ const songs = [
 export default function MusicPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
   const [isApiReady, setIsApiReady] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [volume, setVolume] = useState(50);
-  
+
   const playerRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   const currentSong = songs[currentSongIndex];
 
   // Load YouTube API
@@ -117,7 +116,7 @@ export default function MusicPlayer() {
       }
     }
   }, [currentSongIndex]);
-  
+
   // Sync volume
   useEffect(() => {
     if (playerRef.current && playerRef.current.setVolume) {
@@ -145,15 +144,13 @@ export default function MusicPlayer() {
   };
 
   return (
-    <div 
+    <div
       className="fixed top-20 right-4 sm:right-6 z-[100] flex flex-col items-end pointer-events-none"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       ref={containerRef}
     >
       {/* Hidden YouTube Player (Must be in DOM to work) */}
       <div id="youtube-player" className="absolute opacity-0 pointer-events-none" />
-      
+
       <div className="relative flex items-center pointer-events-auto">
         {/* Expanded Info Panel */}
         <AnimatePresence>
@@ -168,41 +165,41 @@ export default function MusicPlayer() {
                 <div className="flex items-center justify-between gap-2 mb-1">
                   <span className="text-[8px] sm:text-[10px] uppercase tracking-widest text-white/30 font-bold block">Now Playing</span>
                   {isPlaying && (
-                    <motion.div 
-                      animate={{ opacity: [0.3, 1, 0.3] }} 
+                    <motion.div
+                      animate={{ opacity: [0.3, 1, 0.3] }}
                       transition={{ duration: 2, repeat: Infinity }}
-                      className="w-1.5 h-1.5 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]" 
+                      className="w-1.5 h-1.5 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]"
                     />
                   )}
                 </div>
                 <h4 className="font-outfit font-bold text-white text-sm sm:text-base truncate leading-tight">{currentSong.title}</h4>
                 <p className="font-inter text-white/40 text-[9px] sm:text-[10px] tracking-wider uppercase">{currentSong.artist}</p>
               </div>
-              
+
               <div className="flex items-center gap-3 sm:gap-5 justify-center mb-3 sm:mb-4">
-                <button 
+                <button
                   onClick={prevSong}
                   className="text-white/40 hover:text-white transition-colors hover:scale-110 active:scale-95"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z" /></svg>
                 </button>
-                
-                <button 
+
+                <button
                   onClick={togglePlay}
                   className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-xl"
                 >
                   {isPlaying ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /></svg>
                   ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
                   )}
                 </button>
-                
-                <button 
+
+                <button
                   onClick={nextSong}
                   className="text-white/40 hover:text-white transition-colors hover:scale-110 active:scale-95"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" /></svg>
                 </button>
               </div>
 
@@ -210,23 +207,23 @@ export default function MusicPlayer() {
               <div className="flex items-center gap-3 mb-4 px-1 group/volume">
                 <div className="text-white/30 group-hover/volume:text-white/60 transition-colors">
                   {volume === 0 ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6m0-6l6 6"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M23 9l-6 6m0-6l6 6" /></svg>
                   ) : volume < 50 ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" /></svg>
                   ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" /></svg>
                   )}
                 </div>
                 <div className="relative flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden cursor-pointer">
-                  <input 
-                    type="range" 
-                    min="0" 
-                    max="100" 
-                    value={volume} 
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={volume}
                     onChange={(e) => setVolume(parseInt(e.target.value))}
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                   />
-                  <motion.div 
+                  <motion.div
                     className="absolute inset-y-0 left-0 rounded-full"
                     animate={{ width: `${volume}%` }}
                     style={{ backgroundColor: currentSong.color }}
@@ -234,7 +231,7 @@ export default function MusicPlayer() {
                 </div>
                 <span className="text-[9px] font-bold text-white/20 min-w-[20px] tabular-nums">{volume}</span>
               </div>
-              
+
               {/* Visualizer bars */}
               <div className="flex items-end justify-between gap-[2px] h-3 px-1">
                 {[...Array(15)].map((_, i) => (
@@ -262,8 +259,8 @@ export default function MusicPlayer() {
         <div className="relative group pointer-events-auto">
           {/* Base of the record player */}
           <div className="absolute inset-[-8px] bg-white/5 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          
-          <motion.div 
+
+          <motion.div
             className="relative cursor-pointer"
             whileHover={{ scale: 1.05 }}
             onClick={(e) => {
@@ -278,32 +275,32 @@ export default function MusicPlayer() {
               className="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-[#080808] shadow-[0_10px_30px_rgba(0,0,0,0.8)] relative flex items-center justify-center border-[2px] sm:border-[3px] border-zinc-800"
             >
               {/* Vinyl grooves */}
-              <div className="absolute inset-0 rounded-full opacity-40 pointer-events-none" 
-                   style={{ 
-                     backgroundImage: 'repeating-radial-gradient(circle, transparent 0, transparent 1px, rgba(255,255,255,0.03) 2px, transparent 3px)',
-                   }} 
+              <div className="absolute inset-0 rounded-full opacity-40 pointer-events-none"
+                style={{
+                  backgroundImage: 'repeating-radial-gradient(circle, transparent 0, transparent 1px, rgba(255,255,255,0.03) 2px, transparent 3px)',
+                }}
               />
-              
+
               {/* Subtle reflection */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none" />
-              
+
               {/* Center Label */}
-              <div 
+              <div
                 className="w-8 h-8 rounded-full shadow-lg relative z-10 overflow-hidden flex items-center justify-center p-1.5 transition-colors duration-1000"
                 style={{ backgroundColor: currentSong.color }}
               >
-                <img 
-                  src={iveLogo} 
-                  alt="IVE" 
+                <img
+                  src={iveLogo}
+                  alt="IVE"
                   className="w-full h-full object-contain brightness-0 invert opacity-90"
                 />
                 <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent" />
               </div>
-              
+
               {/* Center hole */}
               <div className="absolute w-1 h-1 bg-[#0a0a0f] rounded-full z-20 shadow-inner border border-white/10" />
             </motion.div>
-            
+
             {/* Tonearm */}
             <div className="absolute -right-4 top-0 w-12 h-12 pointer-events-none">
               <motion.div
@@ -312,13 +309,13 @@ export default function MusicPlayer() {
                 transition={{ type: "spring", stiffness: 60, damping: 10 }}
                 className="absolute top-0 right-4 w-1 h-12 bg-gradient-to-b from-zinc-300 to-zinc-600 rounded-full origin-top z-30"
               >
-                 {/* Arm head */}
-                 <div className="absolute bottom-[-2px] -left-1 w-3 h-4 bg-zinc-800 rounded-sm shadow-md flex items-center justify-center">
-                   <div className="w-[1px] h-2 bg-zinc-400" />
-                 </div>
-                 
-                 {/* Arm pivot base */}
-                 <div className="absolute top-[-4px] left-[-4px] w-3 h-3 bg-zinc-500 rounded-full border border-zinc-300" />
+                {/* Arm head */}
+                <div className="absolute bottom-[-2px] -left-1 w-3 h-4 bg-zinc-800 rounded-sm shadow-md flex items-center justify-center">
+                  <div className="w-[1px] h-2 bg-zinc-400" />
+                </div>
+
+                {/* Arm pivot base */}
+                <div className="absolute top-[-4px] left-[-4px] w-3 h-3 bg-zinc-500 rounded-full border border-zinc-300" />
               </motion.div>
             </div>
 
