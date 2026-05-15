@@ -126,13 +126,11 @@ async function enrichPost(post) {
   // Strip trailing slash AND any query parameters to ensure clean .json append
   const cleanUrl = postUrl.replace(/\/$/, '').split('?')[0];
 
-  // Use api.reddit.com which doesn't have the strict browser bot protection
-  // If running on GitHub Actions, Reddit might block the datacenter IP entirely,
-  // so we include a free proxy (api.codetabs.com) as a seamless fallback.
+  // Since direct Reddit API endpoints (api.reddit.com, www.reddit.com) actively
+  // block GitHub Actions/Datacenter IPs resulting in guaranteed 403 errors,
+  // we bypass them entirely and go straight to the free CORS proxy which succeeds.
   const jsonUrls = [
-    cleanUrl.replace('www.reddit.com', 'api.reddit.com') + '.json',
-    'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(cleanUrl + '.json'),
-    cleanUrl + '.json',
+    'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(cleanUrl + '.json')
   ];
 
   for (const jsonUrl of jsonUrls) {
