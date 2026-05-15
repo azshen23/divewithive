@@ -217,11 +217,11 @@ export default function Timeline() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-[100] flex flex-col items-center justify-center p-4 pb-6 sm:p-8 sm:pb-8"
+            onClick={() => setSelectedGallery(null)}
           >
             {/* Background Overlay */}
             <div 
               className="absolute inset-0 bg-black/95 -z-10"
-              onClick={() => setSelectedGallery(null)}
             />
 
             {/* Close Button */}
