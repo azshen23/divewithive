@@ -85,8 +85,8 @@ export default function Timeline() {
     }
   };
 
-  const handleLightboxDragEnd = (_e: any, { offset }: any) => {
-    const swipe = offset.x;
+  const handleLightboxDragEnd = (_e: MouseEvent | TouchEvent | PointerEvent, info: { offset: { x: number; y: number } }) => {
+    const swipe = info.offset.x;
     if (swipe < -50) {
       nextLightbox();
     } else if (swipe > 50) {

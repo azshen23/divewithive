@@ -9,6 +9,7 @@ interface ImageCarouselProps {
 }
 
 export default function ImageCarousel({ images, currentIndex, onIndexChange, onSelectImage }: ImageCarouselProps) {
+  const [direction, setDirection] = useState(0);
 
   if (!images || images.length === 0) return null;
 
@@ -31,8 +32,6 @@ export default function ImageCarousel({ images, currentIndex, onIndexChange, onS
     );
   }
 
-  const [direction, setDirection] = useState(0);
-
   const nextSlide = (e?: React.MouseEvent) => {
     e?.stopPropagation();
     setDirection(1);
@@ -45,8 +44,8 @@ export default function ImageCarousel({ images, currentIndex, onIndexChange, onS
     onIndexChange((currentIndex - 1 + images.length) % images.length);
   };
 
-  const handleDragEnd = (_e: any, { offset }: any) => {
-    const swipe = offset.x;
+  const handleDragEnd = (_e: MouseEvent | TouchEvent | PointerEvent, info: { offset: { x: number; y: number } }) => {
+    const swipe = info.offset.x;
     if (swipe < -50) {
       nextSlide();
     } else if (swipe > 50) {
