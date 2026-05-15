@@ -16,6 +16,10 @@ interface TimelineEntry {
   post_url?: string;
 }
 
+interface TimelineProps {
+  onLightboxToggle?: (isOpen: boolean) => void;
+}
+
 const timeline: TimelineEntry[] = timelineData;
 
 const tourDates = [
@@ -33,7 +37,7 @@ const tourDates = [
   { date: 'Aug 9', city: 'Vancouver', venue: 'Rogers Arena' },
 ];
 
-export default function Timeline() {
+export default function Timeline({ onLightboxToggle }: TimelineProps) {
   const [selectedGallery, setSelectedGallery] = useState<{images: {src: string, alt: string}[], initialIndex: number, entryId: string} | null>(null);
   
   // Track current index for each post's inline carousel
@@ -47,22 +51,28 @@ export default function Timeline() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setSelectedGallery(null);
+        onLightboxToggle?.(false);
       }
     };
 
     if (selectedGallery) {
       window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
     }
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
     };
-  }, [selectedGallery]);
+  }, [selectedGallery, onLightboxToggle]);
 
   const openLightbox = (images: {src: string, alt: string}[], index: number, entryId: string) => {
     setSelectedGallery({ images, initialIndex: index, entryId });
     setLightboxIndex(index);
     setLightboxDirection(0);
+    onLightboxToggle?.(true);
   };
 
   const nextLightbox = (e?: React.MouseEvent) => {
@@ -234,7 +244,10 @@ export default function Timeline() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-[100] flex flex-col items-center justify-center p-4 pb-6 sm:p-8 sm:pb-8"
-            onClick={() => setSelectedGallery(null)}
+            onClick={() => {
+              setSelectedGallery(null);
+              onLightboxToggle?.(false);
+            }}
           >
             {/* Background Overlay */}
             <div 
@@ -244,7 +257,10 @@ export default function Timeline() {
             {/* Close Button */}
             <button 
               className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-50"
-              onClick={() => setSelectedGallery(null)}
+              onClick={() => {
+                setSelectedGallery(null);
+                onLightboxToggle?.(false);
+              }}
             >
               <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
