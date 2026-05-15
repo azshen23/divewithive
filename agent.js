@@ -108,12 +108,16 @@ function normalizeMediaUrl(url) {
     // Normalize preview to full-res i.redd.it
     if (urlObj.hostname === 'preview.redd.it' && !urlObj.pathname.includes('external-preview')) {
       urlObj.hostname = 'i.redd.it';
+      urlObj.search = '';
     }
-    // Strip query parameters which often differ between preview and source (e.g. ?width=...)
-    urlObj.search = '';
-    return urlObj.toString().toLowerCase();
+    // For i.redd.it, also strip query parameters (quality is in the pathname)
+    if (urlObj.hostname === 'i.redd.it') {
+      urlObj.search = '';
+    }
+    // Note: external-preview.redd.it query params are KEPT because they are often required for security/access
+    return urlObj.toString();
   } catch (e) {
-    return clean.toLowerCase();
+    return clean;
   }
 }
 
@@ -147,6 +151,12 @@ function parseMediaFromRSS(text, postUrl) {
     return { youtube_id: ytMatch[1] };
   }
 
+  // Check for Reddit Video links
+  const vMatch = text.match(/https:\/\/v\.redd\.it\/([a-zA-Z0-9]+)/);
+  if (vMatch) {
+    return { is_video: true, video_url: vMatch[0] };
+  }
+
   // Fall back to image extraction
   const images = parseImagesFromHtml(text);
   return images.length > 0 ? { image_urls: images } : {};
@@ -164,6 +174,7 @@ async function enrichPost(post) {
   const jsonUrls = [
     'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(cleanUrl + '.json'),
     'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(cleanUrl.replace('www.reddit.com', 'old.reddit.com') + '.json'),
+    'https://corsproxy.io/?' + encodeURIComponent(cleanUrl + '.json'),
     'https://api.allorigins.win/raw?url=' + encodeURIComponent(cleanUrl + '.json')
   ];
 
@@ -171,14 +182,21 @@ async function enrichPost(post) {
     try {
       const resp = await fetch(jsonUrl, { headers: REDDIT_HEADERS });
 
+      const contentType = resp.headers.get('content-type') || '';
+      const bodyText = await resp.text();
+
       if (!resp.ok) {
-        console.warn(`  ⚠️  [${title}] Reddit JSON ${jsonUrl.includes('old.') ? '(old)' : ''} failed: HTTP ${resp.status}`);
-        continue; // try next URL
+        console.warn(`  ⚠️  [${title}] Proxy ${jsonUrl.split('?')[0]} failed: HTTP ${resp.status}`);
+        continue;
       }
 
-      const bodyText = await resp.text();
       if (!bodyText || bodyText.trim() === '') {
-        console.warn(`  ⚠️  [${title}] Reddit JSON ${jsonUrl.includes('old.') ? '(old)' : ''} returned empty body`);
+        console.warn(`  ⚠️  [${title}] Proxy ${jsonUrl.split('?')[0]} returned empty body`);
+        continue;
+      }
+
+      if (bodyText.includes('<!DOCTYPE html>') || bodyText.includes('<html')) {
+        console.warn(`  ⚠️  [${title}] Proxy ${jsonUrl.split('?')[0]} returned HTML instead of JSON`);
         continue;
       }
 
@@ -276,7 +294,8 @@ async function downloadImage(url, title, index, dateStr) {
     console.log(`  🖼️  [${title}] Downloading image ${index}: ${cleanUrl}`);
     const response = await fetch(cleanUrl, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+        'Referer': 'https://www.reddit.com/'
       }
     });
 
@@ -318,7 +337,8 @@ async function downloadVideo(url, title, dateStr) {
     console.log(`  🎬 [${title}] Downloading video: ${cleanUrl}`);
     const response = await fetch(cleanUrl, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+        'Referer': 'https://www.reddit.com/'
       }
     });
 
