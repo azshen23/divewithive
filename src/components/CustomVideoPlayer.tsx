@@ -16,6 +16,7 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
   
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+  const [hasInteracted, setHasInteracted] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -284,6 +285,25 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
         </div>
       </div>
       
+      {/* Tap to Unmute Overlay */}
+      {isPlaying && isMuted && (
+        <div className="absolute top-4 left-4 z-30">
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleMute(e);
+            }}
+            className="flex items-center gap-2 px-3 py-1.5 bg-black/60 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-widest text-white hover:bg-white hover:text-black transition-all border border-white/10"
+          >
+            <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" clipRule="evenodd" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+            </svg>
+            Tap to Unmute
+          </button>
+        </div>
+      )}
+
       {/* Center Play Button Overlay when paused explicitly */}
       {!isPlaying && (
         <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-10">
