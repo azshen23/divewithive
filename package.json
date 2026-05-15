@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "agent": "node --env-file=.env agent.js"
+    "agent": "bun --env-file=.env agent.js"
   },
   "dependencies": {
     "@vercel/analytics": "^1.5.0",
