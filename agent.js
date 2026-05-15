@@ -446,7 +446,7 @@ async function run() {
 
       if (localImagePaths.length > 0) {
         entry.images = localImagePaths.map(src => ({ src, alt: update.title }));
-        console.log(`   🖼️  ${localImagePaths.length}/${imageUrls.length} image(s) saved.`);
+        console.log(`   🖼️  ${localImagePaths.length}/${uniqueImageUrls.length} image(s) saved.`);
       }
 
       if (media.youtube_id) {
