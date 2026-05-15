@@ -3,11 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 interface ImageCarouselProps {
   images: { src: string; alt: string }[];
+  currentIndex: number;
+  onIndexChange: (index: number) => void;
   onSelectImage?: (index: number) => void;
 }
 
-export default function ImageCarousel({ images, onSelectImage }: ImageCarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
+export default function ImageCarousel({ images, currentIndex, onIndexChange, onSelectImage }: ImageCarouselProps) {
 
   if (!images || images.length === 0) return null;
 
@@ -19,7 +20,6 @@ export default function ImageCarousel({ images, onSelectImage }: ImageCarouselPr
       >
         <div className="absolute inset-0 bg-white/0 group-hover/img:bg-white/10 transition-colors duration-300 z-10" />
         <motion.img
-          layoutId={`image-${images[0].src}`}
           src={images[0].src}
           alt={images[0].alt}
           className="w-full h-full max-h-[500px] object-cover"
@@ -33,21 +33,30 @@ export default function ImageCarousel({ images, onSelectImage }: ImageCarouselPr
 
   const [direction, setDirection] = useState(0);
 
-  const nextSlide = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const nextSlide = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % images.length);
+    onIndexChange((currentIndex + 1) % images.length);
   };
 
-  const prevSlide = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const prevSlide = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+    onIndexChange((currentIndex - 1 + images.length) % images.length);
+  };
+
+  const handleDragEnd = (_e: any, { offset }: any) => {
+    const swipe = offset.x;
+    if (swipe < -50) {
+      nextSlide();
+    } else if (swipe > 50) {
+      prevSlide();
+    }
   };
 
   const variants = {
     enter: (dir: number) => ({
-      x: dir > 0 ? '100%' : '-100%',
+      x: dir === 0 ? 0 : (dir > 0 ? '100%' : '-100%'),
       opacity: 0,
     }),
     center: {
@@ -57,7 +66,7 @@ export default function ImageCarousel({ images, onSelectImage }: ImageCarouselPr
     },
     exit: (dir: number) => ({
       zIndex: 0,
-      x: dir < 0 ? '100%' : '-100%',
+      x: dir === 0 ? 0 : (dir < 0 ? '100%' : '-100%'),
       opacity: 0,
     }),
   };
@@ -71,7 +80,6 @@ export default function ImageCarousel({ images, onSelectImage }: ImageCarouselPr
         <AnimatePresence initial={false} custom={direction}>
           <motion.img
             key={currentIndex}
-            layoutId={`image-${images[currentIndex].src}`}
             src={images[currentIndex].src}
             alt={images[currentIndex].alt}
             custom={direction}
@@ -83,6 +91,10 @@ export default function ImageCarousel({ images, onSelectImage }: ImageCarouselPr
               x: { type: 'tween', ease: 'easeInOut', duration: 0.3 },
               opacity: { duration: 0.2 },
             }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={1}
+            onDragEnd={handleDragEnd}
             className="absolute max-w-full max-h-full object-contain"
             loading="lazy"
           />

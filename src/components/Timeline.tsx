@@ -32,37 +32,53 @@ const tourDates = [
 ];
 
 export default function Timeline() {
-  const [selectedGallery, setSelectedGallery] = useState<{images: {src: string, alt: string}[], initialIndex: number} | null>(null);
+  const [selectedGallery, setSelectedGallery] = useState<{images: {src: string, alt: string}[], initialIndex: number, entryId: string} | null>(null);
+  
+  // Track current index for each post's inline carousel
+  const [carouselIndices, setCarouselIndices] = useState<Record<string, number>>({});
 
   // State for the full-screen lightbox
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [lightboxDirection, setLightboxDirection] = useState(0);
 
-  const openLightbox = (images: {src: string, alt: string}[], index: number) => {
-    setSelectedGallery({ images, initialIndex: index });
+  const openLightbox = (images: {src: string, alt: string}[], index: number, entryId: string) => {
+    setSelectedGallery({ images, initialIndex: index, entryId });
     setLightboxIndex(index);
     setLightboxDirection(0);
   };
 
-  const nextLightbox = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const nextLightbox = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     if (selectedGallery) {
       setLightboxDirection(1);
-      setLightboxIndex((prev) => (prev + 1) % selectedGallery.images.length);
+      const nextIdx = (lightboxIndex + 1) % selectedGallery.images.length;
+      setLightboxIndex(nextIdx);
+      setCarouselIndices(prev => ({ ...prev, [selectedGallery.entryId]: nextIdx }));
     }
   };
 
-  const prevLightbox = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const prevLightbox = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     if (selectedGallery) {
       setLightboxDirection(-1);
-      setLightboxIndex((prev) => (prev - 1 + selectedGallery.images.length) % selectedGallery.images.length);
+      const prevIdx = (lightboxIndex - 1 + selectedGallery.images.length) % selectedGallery.images.length;
+      setLightboxIndex(prevIdx);
+      setCarouselIndices(prev => ({ ...prev, [selectedGallery.entryId]: prevIdx }));
+    }
+  };
+
+  const handleLightboxDragEnd = (_e: any, { offset }: any) => {
+    const swipe = offset.x;
+    if (swipe < -50) {
+      nextLightbox();
+    } else if (swipe > 50) {
+      prevLightbox();
     }
   };
 
   const lightboxVariants = {
     enter: (dir: number) => ({
-      x: dir > 0 ? '100%' : '-100%',
+      x: dir === 0 ? 0 : (dir > 0 ? '100%' : '-100%'),
       opacity: 0,
     }),
     center: {
@@ -72,7 +88,7 @@ export default function Timeline() {
     },
     exit: (dir: number) => ({
       zIndex: 0,
-      x: dir < 0 ? '100%' : '-100%',
+      x: dir === 0 ? 0 : (dir < 0 ? '100%' : '-100%'),
       opacity: 0,
     }),
   };
@@ -111,11 +127,30 @@ export default function Timeline() {
                 </p>
 
                 {/* Photo Carousel */}
-                {entry.images && entry.images.length > 0 && (
-                  <div className="mb-2">
+                {entry.images && entry.images.length === 1 && (
+                  <div 
+                    className="mt-4 rounded-lg overflow-hidden w-full max-h-[500px] cursor-pointer group/img relative"
+                    onClick={() => openLightbox(entry.images || [], 0, entry.title)}
+                  >
+                    <div className="absolute inset-0 bg-white/0 group-hover/img:bg-white/10 transition-colors duration-300 z-10" />
+                    <motion.img 
+                      src={entry.images[0].src} 
+                      alt={entry.images[0].alt || entry.title} 
+                      className="w-full h-full max-h-[500px] object-cover"
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+                
+                {entry.images && entry.images.length > 1 && (
+                  <div className="mt-4">
                     <ImageCarousel 
                       images={entry.images} 
-                      onSelectImage={(index) => openLightbox(entry.images!, index)}
+                      currentIndex={carouselIndices[entry.title] || 0}
+                      onIndexChange={(idx) => setCarouselIndices(prev => ({ ...prev, [entry.title]: idx }))}
+                      onSelectImage={(index) => openLightbox(entry.images || [], index, entry.title)}
                     />
                   </div>
                 )}
@@ -190,9 +225,15 @@ export default function Timeline() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 sm:p-8"
-            onClick={() => setSelectedGallery(null)}
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center p-4 pb-6 sm:p-8 sm:pb-8"
           >
+            {/* Background Overlay */}
+            <div 
+              className="absolute inset-0 bg-black/95 -z-10"
+              onClick={() => setSelectedGallery(null)}
+            />
+
+            {/* Close Button */}
             <button 
               className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-50"
               onClick={() => setSelectedGallery(null)}
@@ -226,11 +267,10 @@ export default function Timeline() {
               </button>
             )}
 
-            <div className="relative w-full h-[90vh] flex items-center justify-center overflow-hidden z-40">
+            <div className="relative w-full flex-1 flex items-center justify-center overflow-hidden z-40">
               <AnimatePresence initial={false} custom={lightboxDirection}>
                 <motion.img 
                   key={lightboxIndex}
-                  layoutId={`image-${selectedGallery.images[lightboxIndex].src}`}
                   src={selectedGallery.images[lightboxIndex].src} 
                   alt={selectedGallery.images[lightboxIndex].alt || "Enlarged view"} 
                   custom={lightboxDirection}
@@ -242,24 +282,39 @@ export default function Timeline() {
                     x: { type: 'tween', ease: 'easeInOut', duration: 0.3 },
                     opacity: { duration: 0.2 },
                   }}
-                  className="absolute max-w-full max-h-full rounded-md shadow-2xl cursor-default object-contain"
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={1}
+                  onDragEnd={handleLightboxDragEnd}
+                  className="absolute max-w-full max-h-full rounded-md shadow-2xl cursor-default object-contain pointer-events-auto"
                   onClick={(e) => e.stopPropagation()}
                   loading="lazy"
                 />
               </AnimatePresence>
             </div>
             
-            {/* Dots Indicator for Lightbox */}
+            {/* Thumbnail Navigation for Lightbox */}
             {selectedGallery.images.length > 1 && (
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/40 px-3 py-2 rounded-full backdrop-blur-md z-50">
-                {selectedGallery.images.map((_, i) => (
+              <div 
+                className="relative mt-4 flex items-center gap-2 max-w-[90vw] overflow-x-auto px-4 py-3 bg-white/5 backdrop-blur-md rounded-2xl z-50 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {selectedGallery.images.map((img, i) => (
                   <button 
                     key={i} 
-                    className={`transition-all rounded-full ${
-                      i === lightboxIndex ? 'w-2 h-2 bg-white scale-125' : 'w-1.5 h-1.5 bg-white/40 hover:bg-white/60'
+                    className={`relative flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-lg overflow-hidden transition-all ${
+                      i === lightboxIndex ? 'ring-2 ring-white scale-105 opacity-100' : 'opacity-50 hover:opacity-100 ring-1 ring-white/20'
                     }`}
-                    onClick={(e) => { e.stopPropagation(); setLightboxIndex(i); }}
-                  />
+                    onClick={(e) => { 
+                      e.stopPropagation(); 
+                      if (i === lightboxIndex) return;
+                      setLightboxDirection(i > lightboxIndex ? 1 : -1);
+                      setLightboxIndex(i); 
+                      setCarouselIndices(prev => ({ ...prev, [selectedGallery.entryId]: i }));
+                    }}
+                  >
+                    <img src={img.src} alt="Thumbnail preview" className="w-full h-full object-cover" loading="lazy" />
+                  </button>
                 ))}
               </div>
             )}
