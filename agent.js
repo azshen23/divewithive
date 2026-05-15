@@ -1,5 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
+import 'dotenv/config';
 
 // --- CONFIGURATION ---
 const REDDIT_URL = 'https://api.rss2json.com/v1/api.json?rss_url=https://www.reddit.com/r/IVE/new/.rss';
@@ -96,12 +97,16 @@ function parseImagesFromHtml(html) {
   return matches
     .map(m => m[0].replace(/&amp;/g, '&'))
     .filter(url => {
-      // Deduplicate by base URL (ignore query string — same image can appear
-      // multiple times with different width/s= params)
-      const base = url.split('?')[0];
-      if (seenBase.has(base)) return false;
-      seenBase.add(base);
-      return true;
+      try {
+        // Normalize URL to prevent subtle duplicates
+        const urlObj = new URL(url);
+        const base = (urlObj.origin + urlObj.pathname).toLowerCase();
+        if (seenBase.has(base)) return false;
+        seenBase.add(base);
+        return true;
+      } catch (e) {
+        return false;
+      }
     });
 }
 
@@ -142,7 +147,20 @@ async function enrichPost(post) {
         continue; // try next URL
       }
 
-      const data = await resp.json();
+      const bodyText = await resp.text();
+      if (!bodyText || bodyText.trim() === '') {
+        console.warn(`  ⚠️  [${title}] Reddit JSON ${jsonUrl.includes('old.') ? '(old)' : ''} returned empty body`);
+        continue;
+      }
+      
+      let data;
+      try {
+        data = JSON.parse(bodyText);
+      } catch (e) {
+        console.warn(`  ⚠️  [${title}] Reddit JSON parse error: ${e.message}`);
+        continue;
+      }
+
       const postData = data?.[0]?.data?.children?.[0]?.data;
       if (!postData) continue;
 
@@ -323,8 +341,20 @@ async function run() {
     // 2. Fetch RSS (lightweight, no enrichment yet)
     const posts = await fetchRedditPosts();
 
-    // 3. AI selects which posts to include
-    const updates = await askAI(posts, existingTitles);
+    // 2.5 Filter out posts already in timeline by URL to prevent duplicates
+    const existingUrls = new Set(timelineData.map(entry => entry.post_url).filter(Boolean));
+    const filteredPosts = posts.filter(p => {
+      const cleanUrl = p.url.replace(/\/$/, '').split('?')[0].toLowerCase();
+      return !existingUrls.has(cleanUrl);
+    });
+
+    if (filteredPosts.length === 0) {
+      console.log('✅ No new posts since last run. Exiting.');
+      return;
+    }
+
+    // 3. AI selects which posts to include from the NEW posts
+    const updates = await askAI(filteredPosts, existingTitles);
 
     if (updates.length === 0) {
       console.log('✅ No new updates found. Exiting.');
@@ -347,10 +377,10 @@ async function run() {
 
       // --- Images ---
       // Download all available images from the gallery
-      const imageUrls = media.image_urls || [];
+      const imageUrls = [...new Set(media.image_urls || [])]; // Strict deduplication
       let localImagePaths = [];
       if (imageUrls.length > 0) {
-        console.log(`   Found ${imageUrls.length} image(s) to download.`);
+        console.log(`   Found ${imageUrls.length} unique image(s) to download.`);
         const results = await Promise.all(
           imageUrls.map((imgUrl, i) => downloadImage(imgUrl, update.title, i + 1, today))
         );
@@ -370,6 +400,7 @@ async function run() {
         tagColor: update.tagColor,
         title: update.title,
         body: update.body,
+        post_url: update.post_url.replace(/\/$/, '').split('?')[0].toLowerCase(), // Store for duplicate prevention
       };
 
       if (localImagePaths.length > 0) {

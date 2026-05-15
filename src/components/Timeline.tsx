@@ -13,6 +13,7 @@ interface TimelineEntry {
   images?: { src: string; alt: string }[];
   videoId?: string;
   videoUrl?: string;
+  post_url?: string;
 }
 
 const timeline: TimelineEntry[] = timelineData;
@@ -125,7 +126,7 @@ export default function Timeline() {
           <div className="space-y-1">
             {timeline.map((entry) => (
               <article
-                key={entry.title}
+                key={entry.post_url || entry.title}
                 className="card rounded-xl p-5 group"
               >
                 <div className="flex items-center gap-2 mb-2">
