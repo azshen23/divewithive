@@ -4,6 +4,7 @@ import path from 'path';
 // --- CONFIGURATION ---
 const REDDIT_URL = 'https://api.rss2json.com/v1/api.json?rss_url=https://www.reddit.com/r/IVE/new/.rss';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const GEMINI_MODEL = 'gemini-3-flash';
 const TIMELINE_PATH = './src/data/timeline.json';
 
 // Ensure you run this with: node --experimental-fetch agent.js
@@ -66,7 +67,7 @@ async function askAI(posts, existingTitles) {
     Return [] if no posts qualify.
   `;
 
-  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${GEMINI_API_KEY}`, {
+  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/` + GEMINI_MODEL + `:generateContent?key=${GEMINI_API_KEY}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -151,7 +152,7 @@ async function enrichPost(post) {
         console.warn(`  ⚠️  [${title}] Reddit JSON ${jsonUrl.includes('old.') ? '(old)' : ''} returned empty body`);
         continue;
       }
-      
+
       let data;
       try {
         data = JSON.parse(bodyText);
