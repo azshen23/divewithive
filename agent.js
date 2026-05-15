@@ -4,7 +4,7 @@ import path from 'path';
 // --- CONFIGURATION ---
 const REDDIT_URL = 'https://api.rss2json.com/v1/api.json?rss_url=https://www.reddit.com/r/IVE/new/.rss';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_MODEL = 'gemini-3-flash';
+const GEMINI_MODEL = 'gemini-2.5-flash';
 const TIMELINE_PATH = './src/data/timeline.json';
 
 // Ensure you run this with: node --experimental-fetch agent.js
@@ -77,6 +77,17 @@ async function askAI(posts, existingTitles) {
   });
 
   const data = await response.json();
+  
+  if (data.error) {
+    console.error('❌ Gemini API Error:', JSON.stringify(data.error, null, 2));
+    throw new Error(`Gemini API Error: ${data.error.message}`);
+  }
+
+  if (!data.candidates || data.candidates.length === 0) {
+    console.error('❌ Gemini API returned no candidates:', JSON.stringify(data, null, 2));
+    throw new Error('Gemini API returned no candidates.');
+  }
+
   const rawResponse = data.candidates[0].content.parts[0].text;
   return JSON.parse(rawResponse);
 }
