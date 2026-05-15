@@ -118,9 +118,9 @@ export default function Timeline() {
         <div>
           <div className="flex items-center gap-3 mb-6">
             <div className="w-2 h-2 rounded-full bg-emerald-400" />
-            <h2 className="font-outfit font-bold text-xl text-white/90">Timeline</h2>
+            <h2 className="font-outfit font-bold text-xl text-white/90">IVE Updates</h2>
             <div className="h-px flex-1 bg-white/5" />
-            <span className="font-inter text-xs text-white/30">Last 30 days</span>
+            <span className="font-inter text-xs text-white/30">Last updated: {timeline[0]?.date}</span>
           </div>
 
           <div className="space-y-1">

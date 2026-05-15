@@ -23,10 +23,7 @@ export default function Navbar() {
           </span>
         </a>
 
-        <div className="flex items-center gap-1">
-          <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-          <span className="font-inter text-[11px] text-white/30">Live</span>
-        </div>
+        <div />
       </div>
     </nav>
   );

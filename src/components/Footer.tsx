@@ -6,17 +6,9 @@ export default function Footer() {
           <p className="font-inter text-[11px] text-white/20">
             Fan project — not affiliated with Starship Entertainment or IVE.
           </p>
-          <a 
-            href="https://ko-fi.com/G2G21ZKPT6" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="font-inter text-[11px] text-white/40 hover:text-[#72a4f2] transition-colors"
-          >
-            Support on Ko-fi
-          </a>
         </div>
         <p className="font-inter text-[11px] text-white/20">
-          © {new Date().getFullYear()} Dive with IVE
+          © {new Date().getFullYear()} Raining
         </p>
       </div>
     </footer>
