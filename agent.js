@@ -127,11 +127,12 @@ async function enrichPost(post) {
   const cleanUrl = postUrl.replace(/\/$/, '').split('?')[0];
 
   // Use api.reddit.com which doesn't have the strict browser bot protection
-  // that www.reddit.com and old.reddit.com use.
+  // If running on GitHub Actions, Reddit might block the datacenter IP entirely,
+  // so we include a free proxy (api.codetabs.com) as a seamless fallback.
   const jsonUrls = [
     cleanUrl.replace('www.reddit.com', 'api.reddit.com') + '.json',
+    'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(cleanUrl + '.json'),
     cleanUrl + '.json',
-    cleanUrl.replace('www.reddit.com', 'old.reddit.com') + '.json',
   ];
 
   for (const jsonUrl of jsonUrls) {
