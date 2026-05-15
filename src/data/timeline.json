@@ -1,5 +1,55 @@
 [
   {
+    "date": "May 15, 2026",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE - Zach Sang Show Interview for 'Revive+'",
+    "body": "IVE sat down with Zach Sang to discuss their latest album 'Revive+', new tracks like 'BLACKHOLE', and their journey since 'Eleven'.",
+    "videoId": "DM_Uv7eA3V4"
+  },
+  {
+    "date": "May 15, 2026",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung - New Balance 2026 Summer Collection CF",
+    "body": "Wonyoung stars in the latest New Balance 2026 Summer Collection CF, showcasing new fashion and MT100 shoes.",
+    "videoUrl": "/videos/2026-05-15/vid_1778803415230.mp4"
+  },
+  {
+    "date": "May 15, 2026",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Liz - Matin Kim Pictorial Behind the Scenes",
+    "body": "A new '[IVE ON]' episode features Liz behind the scenes of her recent pictorial with the brand Matin Kim.",
+    "videoId": "JTMiVUW1tQo"
+  },
+  {
+    "date": "May 15, 2026",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung - Miu Miu Official Instagram Update",
+    "body": "Miu Miu's official Instagram shared new photos featuring Wonyoung as their brand ambassador.",
+    "images": [
+      {
+        "src": "/images/2026-05-15/img_1778803429173_1.jpeg",
+        "alt": "Wonyoung - Miu Miu Official Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "May 15, 2026",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Rei - Personal Instagram Update",
+    "body": "Rei shared a new series of photos on her personal Instagram account with Dives.",
+    "images": [
+      {
+        "src": "/images/2026-05-15/img_1778803431161_1.jpg",
+        "alt": "Rei - Personal Instagram Update"
+      }
+    ]
+  },
+  {
     "date": "May 14, 2026",
     "tag": "Release",
     "tagColor": "text-rose-400 bg-rose-400/10",
