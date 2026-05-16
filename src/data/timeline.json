@@ -1,6 +1,51 @@
 [
   {
     "date": "May 16, 2026",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "Kitsch Dance Challenge on Official TikTok",
+    "body": "IVE's Kitsch dance challenge goes viral on the official KiiiKiii TikTok account, showcasing the group's popular choreography.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1tf1tpq/260516_kiiikiii_official_tiktok_update_kikikichi",
+    "videoUrl": "/videos/2026-05-16/vid_1778962529536.mp4"
+  },
+  {
+    "date": "May 16, 2026",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Rei with MONSTA X Hyungwon & IDID on Starship Twitter",
+    "body": "IVE's Rei featured in a Starship Entertainment Twitter update alongside MONSTA X's Hyungwon and IDID, sparking excitement among fans.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1tez4ep/260516_starship_ent_twitter_update_with_rei_ft",
+    "images": [
+      {
+        "src": "/images/2026-05-16/img_1778962531685_1.jpg",
+        "alt": "Rei with MONSTA X Hyungwon & IDID on Starship Twitter"
+      },
+      {
+        "src": "/images/2026-05-16/img_1778962531665_2.jpg",
+        "alt": "Rei with MONSTA X Hyungwon & IDID on Starship Twitter"
+      }
+    ]
+  },
+  {
+    "date": "May 16, 2026",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung's Interview with Esquire Korea",
+    "body": "Wonyoung featured in a new video for Esquire Korea, discussing 'Frequency of Becoming Wonyoung' as part of her latest pictorial collaboration.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1tew34y/260516_wonyoung_wonyoung_suspending_defense_of",
+    "videoId": "owpmkxhNq0M"
+  },
+  {
+    "date": "May 16, 2026",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Rei's Latest IVE Official TikTok Update",
+    "body": "Rei featured in a new update on the official IVE TikTok account, engaging fans with a fun collaboration.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1tev4aa/260516_ive_official_tiktok_update_with_rei_with",
+    "videoUrl": "/videos/2026-05-16/vid_1778962541235.mp4"
+  },
+  {
+    "date": "May 16, 2026",
     "tag": "Award",
     "tagColor": "text-amber-400 bg-amber-400/10",
     "title": "Rei at 2026 Asia Star Entertainer Awards",
