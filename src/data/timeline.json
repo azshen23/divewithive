@@ -1,6 +1,67 @@
 [
   {
     "date": "May 17, 2026",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Rei's May 16th Fansite Update",
+    "body": "A collection of beautiful fan-taken photos of Rei from a recent event.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1tfrga5/260516_rei_fansite_update",
+    "images": [
+      {
+        "src": "/images/2026-05-17/img_1779049025644_1.jpg",
+        "alt": "Rei's May 16th Fansite Update"
+      },
+      {
+        "src": "/images/2026-05-17/img_1779049025627_2.jpg",
+        "alt": "Rei's May 16th Fansite Update"
+      },
+      {
+        "src": "/images/2026-05-17/img_1779049025666_3.jpg",
+        "alt": "Rei's May 16th Fansite Update"
+      },
+      {
+        "src": "/images/2026-05-17/img_1779049025674_4.jpg",
+        "alt": "Rei's May 16th Fansite Update"
+      },
+      {
+        "src": "/images/2026-05-17/img_1779049025671_5.jpg",
+        "alt": "Rei's May 16th Fansite Update"
+      },
+      {
+        "src": "/images/2026-05-17/img_1779049025685_6.jpg",
+        "alt": "Rei's May 16th Fansite Update"
+      },
+      {
+        "src": "/images/2026-05-17/img_1779049025646_7.jpg",
+        "alt": "Rei's May 16th Fansite Update"
+      }
+    ]
+  },
+  {
+    "date": "May 17, 2026",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Rei Thanks Viewers for \"Nichiyobi no Hatsumimigaku\"",
+    "body": "IVE Japan shares a message from Rei, expressing gratitude to viewers of the MBS/TBS series \"Nichiyobi no Hatsumimigaku\" on their official Twitter.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1tfqvk2/260517_ive_japan_official_twitter_update_with_rei",
+    "images": [
+      {
+        "src": "/images/2026-05-17/img_1779049027578_1.jpeg",
+        "alt": "Rei Thanks Viewers for \"Nichiyobi no Hatsumimigaku\""
+      }
+    ]
+  },
+  {
+    "date": "May 17, 2026",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Rei and MONSTA X Hyungwon's TikTok Challenge",
+    "body": "Rei teams up with MONSTA X's Hyungwon for a fun new challenge on IVE's official TikTok account.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1tfqk4a/260517_ive_official_tiktok_update_with_rei_2_with",
+    "videoUrl": "/videos/2026-05-17/vid_1779049029750.mp4"
+  },
+  {
+    "date": "May 17, 2026",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
     "title": "Rei's IVE Japan Official Twitter Update with FRUITS ZIPPER",
