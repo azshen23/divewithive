@@ -438,6 +438,7 @@ async function run() {
   try {
     const today = new Date().toISOString().split('T')[0];
     const dateFormatted = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const timestampIso = new Date().toISOString();
 
     // 1. Read existing timeline to prevent duplicates
     const timelineData = JSON.parse(await fs.readFile(TIMELINE_PATH, 'utf-8'));
@@ -521,6 +522,7 @@ async function run() {
       // --- Build entry ---
       const entry = {
         date: dateFormatted,
+        last_updated: timestampIso,
         tag: update.tag,
         tagColor: update.tagColor,
         title: update.title,

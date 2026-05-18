@@ -6,6 +6,7 @@ import CustomVideoPlayer from './CustomVideoPlayer';
 
 interface TimelineEntry {
   date: string;
+  last_updated?: string;
   tag: string;
   tagColor: string;
   title: string;
@@ -176,6 +177,29 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
     return regex.test(searchStr);
   });
 
+  const formatLastUpdated = (entry?: TimelineEntry) => {
+    if (!entry) return '';
+    if (entry.last_updated) {
+      try {
+        const date = new Date(entry.last_updated);
+        if (!isNaN(date.getTime())) {
+          return date.toLocaleString(undefined, {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            timeZoneName: 'short'
+          });
+        }
+      } catch (e) {
+        // fallback
+      }
+      return entry.last_updated;
+    }
+    return entry.date;
+  };
+
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10">
@@ -185,7 +209,7 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
             <div className="w-2 h-2 rounded-full bg-emerald-400" />
             <h2 className="font-outfit font-bold text-xl text-white/90">IVE Updates</h2>
             <div className="h-px flex-1 bg-white/5" />
-            <span className="font-inter text-xs text-white/30">Last updated: {timeline[0]?.date}</span>
+            <span className="font-inter text-xs text-white/30">Last updated: {formatLastUpdated(timeline[0])}</span>
           </div>
 
           {/* Member Filter Bar */}
