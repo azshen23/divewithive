@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import timelineData from '../data/timeline.json';
 import ImageCarousel from './ImageCarousel';
 import CustomVideoPlayer from './CustomVideoPlayer';
@@ -125,6 +125,48 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
   // State for platform filter
   const [selectedPlatform, setSelectedPlatform] = useState('All');
 
+  const filteredTimeline = timeline.filter((entry) => {
+    // Member Filter
+    if (selectedMember !== 'All') {
+      const memberSearchStr = `${entry.title} ${entry.body}`.toLowerCase();
+      const regex = new RegExp(`\\b${selectedMember.toLowerCase()}\\b`, 'i');
+      if (!regex.test(memberSearchStr)) return false;
+    }
+
+    // Platform Filter
+    if (selectedPlatform !== 'All') {
+      const platformSearchStr = `${entry.title} ${entry.body} ${entry.post_url || ''}`.toLowerCase();
+      if (selectedPlatform === 'YouTube') {
+        const isYT = !!entry.videoId || platformSearchStr.includes('youtube');
+        if (!isYT) return false;
+      } else if (selectedPlatform === 'TikTok') {
+        const isTT = platformSearchStr.includes('tiktok');
+        if (!isTT) return false;
+      } else if (selectedPlatform === 'Instagram') {
+        const isIG = platformSearchStr.includes('instagram') || platformSearchStr.includes('ig update');
+        if (!isIG) return false;
+      }
+    }
+
+    return true;
+  });
+
+  // State and ref for infinite scroll
+  const [visibleCount, setVisibleCount] = useState(15);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
+  const isLoadMoreInView = useInView(loadMoreRef, { amount: 0.1 });
+
+  useEffect(() => {
+    if (isLoadMoreInView && visibleCount < filteredTimeline.length) {
+      setVisibleCount(prev => Math.min(prev + 10, filteredTimeline.length));
+    }
+  }, [isLoadMoreInView, filteredTimeline.length]);
+
+  // Reset visible count when filters change
+  useEffect(() => {
+    setVisibleCount(15);
+  }, [selectedMember, selectedPlatform]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -199,32 +241,6 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
     }),
   };
 
-  const filteredTimeline = timeline.filter((entry) => {
-    // Member Filter
-    if (selectedMember !== 'All') {
-      const memberSearchStr = `${entry.title} ${entry.body}`.toLowerCase();
-      const regex = new RegExp(`\\b${selectedMember.toLowerCase()}\\b`, 'i');
-      if (!regex.test(memberSearchStr)) return false;
-    }
-
-    // Platform Filter
-    if (selectedPlatform !== 'All') {
-      const platformSearchStr = `${entry.title} ${entry.body} ${entry.post_url || ''}`.toLowerCase();
-      if (selectedPlatform === 'YouTube') {
-        const isYT = !!entry.videoId || platformSearchStr.includes('youtube');
-        if (!isYT) return false;
-      } else if (selectedPlatform === 'TikTok') {
-        const isTT = platformSearchStr.includes('tiktok');
-        if (!isTT) return false;
-      } else if (selectedPlatform === 'Instagram') {
-        const isIG = platformSearchStr.includes('instagram') || platformSearchStr.includes('ig update');
-        if (!isIG) return false;
-      }
-    }
-
-    return true;
-  });
-
   const formatLastUpdated = (entry?: TimelineEntry) => {
     if (!entry) return '';
     if (entry.last_updated) {
@@ -248,6 +264,8 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
     return entry.date;
   };
 
+  const visibleTimeline = filteredTimeline.slice(0, visibleCount);
+
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10">
@@ -264,7 +282,6 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
           <div className="flex flex-col gap-3 mb-6">
             {/* Member Filter Bar */}
             <div className="flex flex-wrap items-center gap-1.5 bg-white/[0.02] border border-white/[0.05] rounded-2xl backdrop-blur-md shadow-lg p-1.5">
-              <span className="px-3 py-1 font-outfit text-xs font-semibold text-white/40 uppercase tracking-wider border-r border-white/10 mr-1">Member</span>
               {memberFilters.map((filter) => {
                 const isActive = selectedMember === filter.name;
                 return (
@@ -292,7 +309,6 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
 
             {/* Platform Filter Bar */}
             <div className="flex flex-wrap items-center gap-1.5 bg-white/[0.02] border border-white/[0.05] rounded-2xl backdrop-blur-md shadow-lg p-1.5">
-              <span className="px-3 py-1 font-outfit text-xs font-semibold text-white/40 uppercase tracking-wider border-r border-white/10 mr-1">Platform</span>
               {platformFilters.map((filter) => {
                 const isActive = selectedPlatform === filter.name;
                 return (
@@ -332,7 +348,7 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
                   <p className="font-inter text-sm text-white/30">Check back later for more updates!</p>
                 </motion.div>
               ) : (
-                filteredTimeline.map((entry) => (
+                visibleTimeline.map((entry) => (
                   <motion.article
                     layout
                     initial={{ opacity: 0, y: 20 }}
@@ -342,10 +358,7 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
                     key={entry.post_url || entry.title}
                     className="card rounded-xl p-5 group"
                   >
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className={`px-2 py-0.5 rounded text-[11px] font-semibold uppercase tracking-wider ${entry.tagColor}`}>
-                        {entry.tag}
-                      </span>
+                    <div className="mb-2">
                       <span className="font-inter text-xs text-white/25">{entry.date}</span>
                     </div>
 
@@ -408,6 +421,16 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
                 ))
               )}
             </AnimatePresence>
+
+            {/* Infinite Scroll Trigger / Loading Indicator */}
+            {visibleCount < filteredTimeline.length && (
+              <div ref={loadMoreRef} className="py-8 flex justify-center items-center">
+                <div className="flex items-center gap-2 text-white/40 font-inter text-sm">
+                  <div className="w-4 h-4 border-2 border-emerald-400/30 border-t-emerald-400 rounded-full animate-spin" />
+                  <span>Loading more updates...</span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
