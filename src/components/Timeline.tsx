@@ -37,6 +37,51 @@ const tourDates = [
   { date: 'Aug 9', city: 'Vancouver', venue: 'Rogers Arena' },
 ];
 
+const memberFilters = [
+  { 
+    name: 'All', 
+    gradient: 'from-emerald-500/30 to-teal-500/30', 
+    border: 'border-emerald-500/40', 
+    glow: 'shadow-[0_0_20px_rgba(16,185,129,0.2)]'
+  },
+  { 
+    name: 'Yujin', 
+    gradient: 'from-blue-500/30 to-indigo-500/30', 
+    border: 'border-blue-500/40', 
+    glow: 'shadow-[0_0_20px_rgba(59,130,246,0.2)]'
+  },
+  { 
+    name: 'Gaeul', 
+    gradient: 'from-amber-500/30 to-yellow-500/30', 
+    border: 'border-amber-500/40', 
+    glow: 'shadow-[0_0_20px_rgba(245,158,11,0.2)]'
+  },
+  { 
+    name: 'Rei', 
+    gradient: 'from-purple-500/30 to-violet-500/30', 
+    border: 'border-purple-500/40', 
+    glow: 'shadow-[0_0_20px_rgba(168,85,247,0.2)]'
+  },
+  { 
+    name: 'Wonyoung', 
+    gradient: 'from-rose-500/30 to-pink-500/30', 
+    border: 'border-rose-500/40', 
+    glow: 'shadow-[0_0_20px_rgba(244,63,94,0.2)]'
+  },
+  { 
+    name: 'Liz', 
+    gradient: 'from-orange-500/30 to-amber-500/30', 
+    border: 'border-orange-500/40', 
+    glow: 'shadow-[0_0_20px_rgba(249,115,22,0.2)]'
+  },
+  { 
+    name: 'Leeseo', 
+    gradient: 'from-cyan-500/30 to-blue-500/30', 
+    border: 'border-cyan-500/40', 
+    glow: 'shadow-[0_0_20px_rgba(6,182,212,0.2)]'
+  },
+];
+
 export default function Timeline({ onLightboxToggle }: TimelineProps) {
   const [selectedGallery, setSelectedGallery] = useState<{images: {src: string, alt: string}[], initialIndex: number, entryId: string} | null>(null);
   
@@ -46,6 +91,9 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
   // State for the full-screen lightbox
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [lightboxDirection, setLightboxDirection] = useState(0);
+
+  // State for member filter
+  const [selectedMember, setSelectedMember] = useState('All');
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -121,6 +169,13 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
     }),
   };
 
+  const filteredTimeline = timeline.filter((entry) => {
+    if (selectedMember === 'All') return true;
+    const searchStr = `${entry.title} ${entry.body}`.toLowerCase();
+    const regex = new RegExp(`\\b${selectedMember.toLowerCase()}\\b`, 'i');
+    return regex.test(searchStr);
+  });
+
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10">
@@ -133,76 +188,122 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
             <span className="font-inter text-xs text-white/30">Last updated: {timeline[0]?.date}</span>
           </div>
 
-          <div className="space-y-1">
-            {timeline.map((entry) => (
-              <article
-                key={entry.post_url || entry.title}
-                className="card rounded-xl p-5 group"
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <span className={`px-2 py-0.5 rounded text-[11px] font-semibold uppercase tracking-wider ${entry.tagColor}`}>
-                    {entry.tag}
-                  </span>
-                  <span className="font-inter text-xs text-white/25">{entry.date}</span>
-                </div>
+          {/* Member Filter Bar */}
+          <div className="flex flex-wrap items-center gap-2 mb-6 p-1.5 bg-white/[0.02] border border-white/[0.05] rounded-2xl backdrop-blur-md shadow-lg">
+            {memberFilters.map((filter) => {
+              const isActive = selectedMember === filter.name;
+              return (
+                <button
+                  key={filter.name}
+                  onClick={() => setSelectedMember(filter.name)}
+                  className={`relative px-4 py-2 rounded-xl font-inter text-sm font-medium transition-all duration-300 ${
+                    isActive 
+                      ? 'text-white shadow-lg' 
+                      : 'text-white/50 hover:text-white/80 hover:bg-white/[0.04]'
+                  }`}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeMemberFilter"
+                      className={`absolute inset-0 rounded-xl bg-gradient-to-r ${filter.gradient} border ${filter.border} ${filter.glow} -z-10`}
+                      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                    />
+                  )}
+                  <span className="relative z-10">{filter.name}</span>
+                </button>
+              );
+            })}
+          </div>
 
-                <h3 className="font-outfit font-semibold text-[15px] text-white/90 leading-snug mb-1.5">
-                  {entry.title}
-                </h3>
-
-                <p className="font-inter text-sm text-white/40 leading-relaxed mb-3">
-                  {entry.body}
-                </p>
-
-                {/* Photo Carousel */}
-                {entry.images && entry.images.length === 1 && (
-                  <div 
-                    className="mt-4 rounded-lg overflow-hidden w-full max-h-[500px] cursor-pointer group/img relative"
-                    onClick={() => openLightbox(entry.images || [], 0, entry.title)}
+          <div className="flex flex-col gap-3">
+            <AnimatePresence mode="popLayout">
+              {filteredTimeline.length === 0 ? (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="card rounded-xl p-12 text-center"
+                >
+                  <p className="font-outfit text-lg text-white/60 mb-2">No updates found for {selectedMember}</p>
+                  <p className="font-inter text-sm text-white/30">Check back later for more updates!</p>
+                </motion.div>
+              ) : (
+                filteredTimeline.map((entry) => (
+                  <motion.article
+                    layout
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                    key={entry.post_url || entry.title}
+                    className="card rounded-xl p-5 group"
                   >
-                    <div className="absolute inset-0 bg-white/0 group-hover/img:bg-white/10 transition-colors duration-300 z-10" />
-                    <motion.img 
-                      src={entry.images[0].src} 
-                      alt={entry.images[0].alt || entry.title} 
-                      className="w-full h-full max-h-[500px] object-cover"
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                      loading="lazy"
-                    />
-                  </div>
-                )}
-                
-                {entry.images && entry.images.length > 1 && (
-                  <div className="mt-4">
-                    <ImageCarousel 
-                      images={entry.images} 
-                      currentIndex={carouselIndices[entry.title] || 0}
-                      onIndexChange={(idx) => setCarouselIndices(prev => ({ ...prev, [entry.title]: idx }))}
-                      onSelectImage={(index) => openLightbox(entry.images || [], index, entry.title)}
-                    />
-                  </div>
-                )}
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className={`px-2 py-0.5 rounded text-[11px] font-semibold uppercase tracking-wider ${entry.tagColor}`}>
+                        {entry.tag}
+                      </span>
+                      <span className="font-inter text-xs text-white/25">{entry.date}</span>
+                    </div>
 
-                {/* YouTube embed */}
-                {entry.videoId && (
-                  <div className="w-full rounded-lg overflow-hidden aspect-video">
-                    <iframe
-                      className="w-full h-full"
-                      src={`https://www.youtube.com/embed/${entry.videoId}?rel=0`}
-                      title={entry.title}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      loading="lazy"
-                    />
-                  </div>
-                )}
+                    <h3 className="font-outfit font-semibold text-[15px] text-white/90 leading-snug mb-1.5">
+                      {entry.title}
+                    </h3>
 
-                {/* Reddit native video */}
-                {entry.videoUrl && (
-                  <CustomVideoPlayer src={entry.videoUrl} />
-                )}
-              </article>
-            ))}
+                    <p className="font-inter text-sm text-white/40 leading-relaxed mb-3">
+                      {entry.body}
+                    </p>
+
+                    {/* Photo Carousel */}
+                    {entry.images && entry.images.length === 1 && (
+                      <div 
+                        className="mt-4 rounded-lg overflow-hidden w-full max-h-[500px] cursor-pointer group/img relative"
+                        onClick={() => openLightbox(entry.images || [], 0, entry.title)}
+                      >
+                        <div className="absolute inset-0 bg-white/0 group-hover/img:bg-white/10 transition-colors duration-300 z-10" />
+                        <motion.img 
+                          src={entry.images[0].src} 
+                          alt={entry.images[0].alt || entry.title} 
+                          className="w-full h-full max-h-[500px] object-cover"
+                          whileHover={{ scale: 1.02 }}
+                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+                    
+                    {entry.images && entry.images.length > 1 && (
+                      <div className="mt-4">
+                        <ImageCarousel 
+                          images={entry.images} 
+                          currentIndex={carouselIndices[entry.title] || 0}
+                          onIndexChange={(idx) => setCarouselIndices(prev => ({ ...prev, [entry.title]: idx }))}
+                          onSelectImage={(index) => openLightbox(entry.images || [], index, entry.title)}
+                        />
+                      </div>
+                    )}
+
+                    {/* YouTube embed */}
+                    {entry.videoId && (
+                      <div className="w-full rounded-lg overflow-hidden aspect-video">
+                        <iframe
+                          className="w-full h-full"
+                          src={`https://www.youtube.com/embed/${entry.videoId}?rel=0`}
+                          title={entry.title}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+
+                    {/* Reddit native video */}
+                    {entry.videoUrl && (
+                      <CustomVideoPlayer src={entry.videoUrl} />
+                    )}
+                  </motion.article>
+                ))
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
