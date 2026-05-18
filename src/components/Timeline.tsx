@@ -83,6 +83,33 @@ const memberFilters = [
   },
 ];
 
+const platformFilters = [
+  { 
+    name: 'All', 
+    gradient: 'from-emerald-500/30 to-teal-500/30', 
+    border: 'border-emerald-500/40', 
+    glow: 'shadow-[0_0_20px_rgba(16,185,129,0.2)]'
+  },
+  { 
+    name: 'YouTube', 
+    gradient: 'from-red-500/30 to-rose-500/30', 
+    border: 'border-red-500/40', 
+    glow: 'shadow-[0_0_20px_rgba(239,68,68,0.2)]'
+  },
+  { 
+    name: 'TikTok', 
+    gradient: 'from-cyan-500/30 to-pink-500/30', 
+    border: 'border-cyan-500/40', 
+    glow: 'shadow-[0_0_20px_rgba(6,182,212,0.2)]'
+  },
+  { 
+    name: 'Instagram', 
+    gradient: 'from-purple-500/30 to-pink-500/30', 
+    border: 'border-pink-500/40', 
+    glow: 'shadow-[0_0_20px_rgba(236,72,153,0.2)]'
+  },
+];
+
 export default function Timeline({ onLightboxToggle }: TimelineProps) {
   const [selectedGallery, setSelectedGallery] = useState<{images: {src: string, alt: string}[], initialIndex: number, entryId: string} | null>(null);
   
@@ -95,6 +122,8 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
 
   // State for member filter
   const [selectedMember, setSelectedMember] = useState('All');
+  // State for platform filter
+  const [selectedPlatform, setSelectedPlatform] = useState('All');
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -171,10 +200,29 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
   };
 
   const filteredTimeline = timeline.filter((entry) => {
-    if (selectedMember === 'All') return true;
-    const searchStr = `${entry.title} ${entry.body}`.toLowerCase();
-    const regex = new RegExp(`\\b${selectedMember.toLowerCase()}\\b`, 'i');
-    return regex.test(searchStr);
+    // Member Filter
+    if (selectedMember !== 'All') {
+      const memberSearchStr = `${entry.title} ${entry.body}`.toLowerCase();
+      const regex = new RegExp(`\\b${selectedMember.toLowerCase()}\\b`, 'i');
+      if (!regex.test(memberSearchStr)) return false;
+    }
+
+    // Platform Filter
+    if (selectedPlatform !== 'All') {
+      const platformSearchStr = `${entry.title} ${entry.body} ${entry.post_url || ''}`.toLowerCase();
+      if (selectedPlatform === 'YouTube') {
+        const isYT = !!entry.videoId || platformSearchStr.includes('youtube');
+        if (!isYT) return false;
+      } else if (selectedPlatform === 'TikTok') {
+        const isTT = platformSearchStr.includes('tiktok');
+        if (!isTT) return false;
+      } else if (selectedPlatform === 'Instagram') {
+        const isIG = platformSearchStr.includes('instagram') || platformSearchStr.includes('ig update');
+        if (!isIG) return false;
+      }
+    }
+
+    return true;
   });
 
   const formatLastUpdated = (entry?: TimelineEntry) => {
@@ -212,31 +260,63 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
             <span className="font-inter text-xs text-white/30">Last updated: {formatLastUpdated(timeline[0])}</span>
           </div>
 
-          {/* Member Filter Bar */}
-          <div className="flex flex-wrap items-center gap-2 mb-6 p-1.5 bg-white/[0.02] border border-white/[0.05] rounded-2xl backdrop-blur-md shadow-lg">
-            {memberFilters.map((filter) => {
-              const isActive = selectedMember === filter.name;
-              return (
-                <button
-                  key={filter.name}
-                  onClick={() => setSelectedMember(filter.name)}
-                  className={`relative px-4 py-2 rounded-xl font-inter text-sm font-medium transition-all duration-300 ${
-                    isActive 
-                      ? 'text-white shadow-lg' 
-                      : 'text-white/50 hover:text-white/80 hover:bg-white/[0.04]'
-                  }`}
-                >
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeMemberFilter"
-                      className={`absolute inset-0 rounded-xl bg-gradient-to-r ${filter.gradient} border ${filter.border} ${filter.glow} -z-10`}
-                      transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                    />
-                  )}
-                  <span className="relative z-10">{filter.name}</span>
-                </button>
-              );
-            })}
+          {/* Filter Bars Container */}
+          <div className="flex flex-col gap-3 mb-6">
+            {/* Member Filter Bar */}
+            <div className="flex flex-wrap items-center gap-1.5 bg-white/[0.02] border border-white/[0.05] rounded-2xl backdrop-blur-md shadow-lg p-1.5">
+              <span className="px-3 py-1 font-outfit text-xs font-semibold text-white/40 uppercase tracking-wider border-r border-white/10 mr-1">Member</span>
+              {memberFilters.map((filter) => {
+                const isActive = selectedMember === filter.name;
+                return (
+                  <button
+                    key={filter.name}
+                    onClick={() => setSelectedMember(filter.name)}
+                    className={`relative px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl font-inter text-xs sm:text-sm font-medium transition-all duration-300 ${
+                      isActive 
+                        ? 'text-white shadow-lg' 
+                        : 'text-white/50 hover:text-white/80 hover:bg-white/[0.04]'
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeMemberFilter"
+                        className={`absolute inset-0 rounded-xl bg-gradient-to-r ${filter.gradient} border ${filter.border} ${filter.glow} -z-10`}
+                        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                      />
+                    )}
+                    <span className="relative z-10">{filter.name}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Platform Filter Bar */}
+            <div className="flex flex-wrap items-center gap-1.5 bg-white/[0.02] border border-white/[0.05] rounded-2xl backdrop-blur-md shadow-lg p-1.5">
+              <span className="px-3 py-1 font-outfit text-xs font-semibold text-white/40 uppercase tracking-wider border-r border-white/10 mr-1">Platform</span>
+              {platformFilters.map((filter) => {
+                const isActive = selectedPlatform === filter.name;
+                return (
+                  <button
+                    key={filter.name}
+                    onClick={() => setSelectedPlatform(filter.name)}
+                    className={`relative px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl font-inter text-xs sm:text-sm font-medium transition-all duration-300 ${
+                      isActive 
+                        ? 'text-white shadow-lg' 
+                        : 'text-white/50 hover:text-white/80 hover:bg-white/[0.04]'
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="activePlatformFilter"
+                        className={`absolute inset-0 rounded-xl bg-gradient-to-r ${filter.gradient} border ${filter.border} ${filter.glow} -z-10`}
+                        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                      />
+                    )}
+                    <span className="relative z-10">{filter.name}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           <div className="flex flex-col gap-3">
