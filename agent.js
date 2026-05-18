@@ -7,7 +7,10 @@ const REDDIT_URL = 'https://api.rss2json.com/v1/api.json?rss_url=https://www.red
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_MODEL = 'gemini-2.5-flash';
 const TIMELINE_PATH = './src/data/timeline.json';
-const FFMPEG_PATH = '"C:\\Program Files\\TrackMan Performance Studio\\Modules\\VmsFiles\\ffmpeg.exe"';
+// Use system ffmpeg on GitHub Actions/Linux, and local TrackMan binary on Windows dev machine
+const FFMPEG_PATH = process.env.GITHUB_ACTIONS || process.platform !== 'win32'
+  ? 'ffmpeg'
+  : '"C:\\Program Files\\TrackMan Performance Studio\\Modules\\VmsFiles\\ffmpeg.exe"';
 
 // Ensure you run this with: node --experimental-fetch agent.js
 
