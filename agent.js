@@ -1,11 +1,13 @@
 import fs from 'fs/promises';
 import path from 'path';
+import { execSync } from 'child_process';
 
 // --- CONFIGURATION ---
 const REDDIT_URL = 'https://api.rss2json.com/v1/api.json?rss_url=https://www.reddit.com/r/IVE/new/.rss';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_MODEL = 'gemini-2.5-flash';
 const TIMELINE_PATH = './src/data/timeline.json';
+const FFMPEG_PATH = '"C:\\Program Files\\TrackMan Performance Studio\\Modules\\VmsFiles\\ffmpeg.exe"';
 
 // Ensure you run this with: node --experimental-fetch agent.js
 
@@ -354,15 +356,74 @@ async function downloadVideo(url, title, dateStr) {
     }
 
     const buffer = await response.arrayBuffer();
-    const filename = `vid_${Date.now()}.mp4`;
+    const timestamp = Date.now();
+    const finalFilename = `vid_${timestamp}.mp4`;
     const dirPath = `./public/videos/${dateStr}`;
-    const filePath = `${dirPath}/${filename}`;
+    const finalFilePath = `${dirPath}/${finalFilename}`;
+    const videoTempPath = `${dirPath}/temp_vid_${timestamp}.mp4`;
+    const audioTempPath = `${dirPath}/temp_aud_${timestamp}.mp4`;
 
     await fs.mkdir(dirPath, { recursive: true });
-    await fs.writeFile(filePath, Buffer.from(buffer));
+    await fs.writeFile(videoTempPath, Buffer.from(buffer));
+    console.log(`  ✅ [${title}] Video track saved (${(buffer.byteLength / 1024 / 1024).toFixed(1)} MB)`);
 
-    console.log(`  ✅ [${title}] Video saved → ${filePath} (${(buffer.byteLength / 1024 / 1024).toFixed(1)} MB)`);
-    return `/videos/${dateStr}/${filename}`;
+    // Extract base URL and probe audio candidates
+    const cleanVideoUrl = cleanUrl.split('?')[0];
+    const baseUrl = cleanVideoUrl.substring(0, cleanVideoUrl.lastIndexOf('/'));
+    const audioCandidates = [
+      `${baseUrl}/DASH_audio.mp4`,
+      `${baseUrl}/DASH_AUDIO_128.mp4`,
+      `${baseUrl}/CMAF_audio.mp4`,
+      `${baseUrl}/CMAF_AUDIO_128.mp4`,
+      `${baseUrl}/audio`,
+      `${baseUrl}/DASH_AUDIO_64.mp4`,
+      `${baseUrl}/DASH_AUDIO_96.mp4`
+    ];
+
+    let audioBuffer = null;
+    const fetchOptions = {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+        'Referer': 'https://www.reddit.com/'
+      }
+    };
+
+    for (const audUrl of audioCandidates) {
+      try {
+        const audResp = await fetch(audUrl, fetchOptions);
+        if (audResp.ok) {
+          const audContentType = audResp.headers.get('content-type');
+          if (!audContentType || !audContentType.includes('text/html')) {
+            audioBuffer = await audResp.arrayBuffer();
+            console.log(`  🔊 [${title}] Audio track found (${(audioBuffer.byteLength / 1024 / 1024).toFixed(1)} MB)`);
+            break;
+          }
+        }
+      } catch (e) {
+        // ignore and try next candidate
+      }
+    }
+
+    if (audioBuffer) {
+      await fs.writeFile(audioTempPath, Buffer.from(audioBuffer));
+      console.log(`  🎬 [${title}] Merging video and audio tracks with ffmpeg...`);
+      try {
+        execSync(`${FFMPEG_PATH} -y -i "${path.resolve(videoTempPath)}" -i "${path.resolve(audioTempPath)}" -c copy "${path.resolve(finalFilePath)}"`, { stdio: 'ignore' });
+        await fs.unlink(videoTempPath);
+        await fs.unlink(audioTempPath);
+        console.log(`  ✅ [${title}] Video saved with sound → ${finalFilePath}`);
+        return `/videos/${dateStr}/${finalFilename}`;
+      } catch (mergeErr) {
+        console.error(`  ❌ [${title}] ffmpeg merge failed: ${mergeErr.message}. Falling back to video-only track.`);
+        try { await fs.unlink(audioTempPath); } catch (_) {}
+        await fs.rename(videoTempPath, finalFilePath);
+        return `/videos/${dateStr}/${finalFilename}`;
+      }
+    } else {
+      console.warn(`  ⚠️  [${title}] No audio track found. Saving video-only track → ${finalFilePath}`);
+      await fs.rename(videoTempPath, finalFilePath);
+      return `/videos/${dateStr}/${finalFilename}`;
+    }
   } catch (error) {
     console.error(`  ❌ [${title}] Video download error:`, error.message);
     return null;
