@@ -1,6 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { execSync } from 'child_process';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
 // --- CONFIGURATION ---
 const REDDIT_URL = 'https://api.rss2json.com/v1/api.json?rss_url=https://www.reddit.com/r/IVE/new/.rss';
@@ -11,6 +12,30 @@ const TIMELINE_PATH = './src/data/timeline.json';
 const FFMPEG_PATH = process.env.GITHUB_ACTIONS || process.platform !== 'win32'
   ? 'ffmpeg'
   : '"C:\\Program Files\\TrackMan Performance Studio\\Modules\\VmsFiles\\ffmpeg.exe"';
+
+// --- BACKBLAZE B2 CONFIGURATION ---
+const rawEndpoint = process.env.B2_ENDPOINT;
+const B2_ENDPOINT = rawEndpoint ? (rawEndpoint.startsWith('http') ? rawEndpoint : `https://${rawEndpoint}`) : null;
+const B2_REGION = process.env.B2_REGION || 'us-east-005';
+const B2_KEY_ID = process.env.B2_KEY_ID;
+const B2_APPLICATION_KEY = process.env.B2_APPLICATION_KEY;
+const B2_BUCKET_NAME = process.env.B2_BUCKET_NAME || 'divewithive-media';
+const B2_PUBLIC_URL = process.env.B2_PUBLIC_URL ? process.env.B2_PUBLIC_URL.replace(/\/$/, '') : null;
+
+let s3Client = null;
+if (B2_ENDPOINT && B2_KEY_ID && B2_APPLICATION_KEY) {
+  s3Client = new S3Client({
+    region: B2_REGION,
+    endpoint: B2_ENDPOINT,
+    credentials: {
+      accessKeyId: B2_KEY_ID,
+      secretAccessKey: B2_APPLICATION_KEY,
+    },
+  });
+  console.log('☁️ Backblaze B2 S3 Client initialized successfully.');
+} else {
+  console.log('⚠️ Backblaze B2 credentials missing in .env — falling back to local filesystem storage.');
+}
 
 // Ensure you run this with: node --experimental-fetch agent.js
 
@@ -319,14 +344,28 @@ async function downloadImage(url, title, index, dateStr) {
     const urlObj = new URL(cleanUrl);
     const ext = path.extname(urlObj.pathname) || '.jpg';
     const filename = `img_${Date.now()}_${index}${ext}`;
-    const dirPath = `./public/images/${dateStr}`;
-    const filePath = `${dirPath}/${filename}`;
 
-    await fs.mkdir(dirPath, { recursive: true });
-    await fs.writeFile(filePath, Buffer.from(buffer));
+    if (s3Client && B2_PUBLIC_URL) {
+      const s3Key = `images/${dateStr}/${filename}`;
+      console.log(`  ☁️  [${title}] Uploading image ${index} directly to Backblaze B2 (${s3Key})...`);
+      await s3Client.send(new PutObjectCommand({
+        Bucket: B2_BUCKET_NAME,
+        Key: s3Key,
+        Body: Buffer.from(buffer),
+        ContentType: contentType || 'image/jpeg',
+      }));
+      console.log(`  ✅ [${title}] Uploaded image ${index} → ${B2_PUBLIC_URL}/${s3Key}`);
+      return `${B2_PUBLIC_URL}/${s3Key}`;
+    } else {
+      const dirPath = `./public/images/${dateStr}`;
+      const filePath = `${dirPath}/${filename}`;
 
-    console.log(`  ✅ [${title}] Saved image ${index} → ${filePath}`);
-    return `/images/${dateStr}/${filename}`;
+      await fs.mkdir(dirPath, { recursive: true });
+      await fs.writeFile(filePath, Buffer.from(buffer));
+
+      console.log(`  ✅ [${title}] Saved image ${index} locally → ${filePath}`);
+      return `/images/${dateStr}/${filename}`;
+    }
   } catch (error) {
     console.error(`  ❌ [${title}] Image ${index} download error:`, error.message);
     return null;
@@ -361,7 +400,9 @@ async function downloadVideo(url, title, dateStr) {
     const buffer = await response.arrayBuffer();
     const timestamp = Date.now();
     const finalFilename = `vid_${timestamp}.mp4`;
-    const dirPath = `./public/videos/${dateStr}`;
+    
+    // Use temp directory if uploading to S3, otherwise use public directory
+    const dirPath = s3Client ? `./temp/videos/${dateStr}` : `./public/videos/${dateStr}`;
     const finalFilePath = `${dirPath}/${finalFilename}`;
     const videoTempPath = `${dirPath}/temp_vid_${timestamp}.mp4`;
     const audioTempPath = `${dirPath}/temp_aud_${timestamp}.mp4`;
@@ -415,16 +456,32 @@ async function downloadVideo(url, title, dateStr) {
         await fs.unlink(videoTempPath);
         await fs.unlink(audioTempPath);
         console.log(`  ✅ [${title}] Video saved with sound → ${finalFilePath}`);
-        return `/videos/${dateStr}/${finalFilename}`;
       } catch (mergeErr) {
         console.error(`  ❌ [${title}] ffmpeg merge failed: ${mergeErr.message}. Falling back to video-only track.`);
         try { await fs.unlink(audioTempPath); } catch (_) {}
         await fs.rename(videoTempPath, finalFilePath);
-        return `/videos/${dateStr}/${finalFilename}`;
       }
     } else {
       console.warn(`  ⚠️  [${title}] No audio track found. Saving video-only track → ${finalFilePath}`);
       await fs.rename(videoTempPath, finalFilePath);
+    }
+
+    if (s3Client && B2_PUBLIC_URL) {
+      const s3Key = `videos/${dateStr}/${finalFilename}`;
+      console.log(`  ☁️  [${title}] Uploading merged video directly to Backblaze B2 (${s3Key})...`);
+      const fileBuffer = await fs.readFile(finalFilePath);
+      await s3Client.send(new PutObjectCommand({
+        Bucket: B2_BUCKET_NAME,
+        Key: s3Key,
+        Body: fileBuffer,
+        ContentType: 'video/mp4',
+      }));
+      console.log(`  ✅ [${title}] Uploaded video → ${B2_PUBLIC_URL}/${s3Key}`);
+      
+      // Clean up local temp file
+      try { await fs.unlink(finalFilePath); } catch (_) {}
+      return `${B2_PUBLIC_URL}/${s3Key}`;
+    } else {
       return `/videos/${dateStr}/${finalFilename}`;
     }
   } catch (error) {
@@ -553,7 +610,45 @@ async function run() {
     // 5. Update timeline.json
     console.log(`\n📝 Writing ${newEntries.length} new entries to timeline.json...`);
     const updatedTimeline = [...newEntries, ...timelineData];
-    await fs.writeFile(TIMELINE_PATH, JSON.stringify(updatedTimeline, null, 2));
+    
+    // Implement JSON Sharding to prevent timeline.json from growing infinitely
+    const MAX_ENTRIES = 500;
+    if (updatedTimeline.length > MAX_ENTRIES) {
+      console.log(`📦 Timeline exceeds ${MAX_ENTRIES} entries. Sharding older entries into archive...`);
+      const mainTimeline = updatedTimeline.slice(0, MAX_ENTRIES);
+      const archivedEntries = updatedTimeline.slice(MAX_ENTRIES);
+      
+      // Group archived entries by Year-Month
+      const archivesByMonth = {};
+      for (const entry of archivedEntries) {
+        try {
+          const dateObj = new Date(entry.date);
+          const yearMonth = `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}`;
+          if (!archivesByMonth[yearMonth]) archivesByMonth[yearMonth] = [];
+          archivesByMonth[yearMonth].push(entry);
+        } catch (e) {
+          const fallbackKey = 'archive-older';
+          if (!archivesByMonth[fallbackKey]) archivesByMonth[fallbackKey] = [];
+          archivesByMonth[fallbackKey].push(entry);
+        }
+      }
+
+      const archiveDir = './src/data/archive';
+      await fs.mkdir(archiveDir, { recursive: true });
+      for (const [ym, entries] of Object.entries(archivesByMonth)) {
+        const archivePath = `${archiveDir}/timeline-${ym}.json`;
+        let existingArchive = [];
+        try { existingArchive = JSON.parse(await fs.readFile(archivePath, 'utf-8')); } catch (_) {}
+        // Merge and deduplicate by title/url
+        const merged = [...entries, ...existingArchive];
+        const unique = Array.from(new Map(merged.map(item => [item.post_url || item.title, item])).values());
+        await fs.writeFile(archivePath, JSON.stringify(unique, null, 2));
+      }
+      
+      await fs.writeFile(TIMELINE_PATH, JSON.stringify(mainTimeline, null, 2));
+    } else {
+      await fs.writeFile(TIMELINE_PATH, JSON.stringify(updatedTimeline, null, 2));
+    }
 
     // 6. Update index.html SEO meta tags
     const latestPost = updatedTimeline[0];
