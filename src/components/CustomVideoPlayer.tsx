@@ -22,6 +22,7 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
   const [volume, setVolume] = useState(1);
   const [isVolumeDragging, setIsVolumeDragging] = useState(false);
   const volumeBarRef = useRef<HTMLDivElement>(null);
+  const [hasAudio, setHasAudio] = useState(true);
 
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -31,11 +32,32 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
+  const handleLoadedMetadata = () => {
+    if (videoRef.current) {
+      const video = videoRef.current as any;
+      if (video.audioTracks) {
+        setHasAudio(video.audioTracks.length > 0);
+        return;
+      }
+      if (typeof video.mozHasAudio !== 'undefined') {
+        setHasAudio(video.mozHasAudio);
+        return;
+      }
+    }
+  };
+
   useEffect(() => {
     const updateProgress = () => {
       if (videoRef.current && videoRef.current.duration && !isDragging) {
         const prog = (videoRef.current.currentTime / videoRef.current.duration) * 100;
         setProgress(prog || 0);
+
+        const video = videoRef.current as any;
+        if (hasAudio && typeof video.webkitAudioDecodedByteCount !== 'undefined') {
+          if (video.currentTime > 0.1 && video.webkitAudioDecodedByteCount === 0) {
+            setHasAudio(false);
+          }
+        }
       }
       animationRef.current = requestAnimationFrame(updateProgress);
     };
@@ -49,7 +71,7 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, [isPlaying, isDragging]);
+  }, [isPlaying, isDragging, hasAudio]);
 
   // Auto-play / auto-pause based on scroll visibility
   useEffect(() => {
@@ -185,6 +207,7 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
         muted={isMuted}
         loop
         playsInline
+        onLoadedMetadata={handleLoadedMetadata}
         style={{ maxHeight: isFullscreen ? '100vh' : '600px' }}
       />
 
@@ -229,48 +252,50 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
             )}
           </button>
 
-          <div className="flex items-center group/volume ml-auto relative">
-            <button onClick={toggleMute} className="text-white hover:text-pink-400 transition-colors p-1">
-              {isMuted || volume === 0 ? (
-                <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" clipRule="evenodd" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
-                </svg>
-              ) : (
-                <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                </svg>
-              )}
-            </button>
-            <div className="absolute bottom-full left-1/2 -translate-x-1/2 pb-2">
-              <div
-                className={`overflow-hidden transition-all duration-300 ${isVolumeDragging ? 'h-24 opacity-100' : 'h-0 opacity-0 group-hover/volume:h-24 group-hover/volume:opacity-100'} flex items-center justify-center bg-black/60 backdrop-blur-sm rounded-lg w-8`}
-              >
+          {hasAudio && (
+            <div className="flex items-center group/volume ml-auto relative">
+              <button onClick={toggleMute} className="text-white hover:text-pink-400 transition-colors p-1">
+                {isMuted || volume === 0 ? (
+                  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" clipRule="evenodd" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                  </svg>
+                ) : (
+                  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                  </svg>
+                )}
+              </button>
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 pb-2">
                 <div
-                  ref={volumeBarRef}
-                  className="h-[80%] w-full cursor-pointer flex flex-col items-center justify-end group/volbar relative"
-                  onPointerDown={handleVolumePointerDown}
-                  onPointerMove={handleVolumePointerMove}
-                  onPointerUp={handleVolumePointerUp}
-                  onPointerCancel={handleVolumePointerUp}
-                  onClick={(e) => e.stopPropagation()}
+                  className={`overflow-hidden transition-all duration-300 ${isVolumeDragging ? 'h-24 opacity-100' : 'h-0 opacity-0 group-hover/volume:h-24 group-hover/volume:opacity-100'} flex items-center justify-center bg-black/60 backdrop-blur-sm rounded-lg w-8`}
                 >
-                  <div className="w-1 h-full bg-white/30 rounded-full relative">
-                    <div
-                      className="w-full bg-pink-400 rounded-full absolute bottom-0"
-                      style={{ height: `${(isMuted ? 0 : volume) * 100}%` }}
-                    >
+                  <div
+                    ref={volumeBarRef}
+                    className="h-[80%] w-full cursor-pointer flex flex-col items-center justify-end group/volbar relative"
+                    onPointerDown={handleVolumePointerDown}
+                    onPointerMove={handleVolumePointerMove}
+                    onPointerUp={handleVolumePointerUp}
+                    onPointerCancel={handleVolumePointerUp}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="w-1 h-full bg-white/30 rounded-full relative">
                       <div
-                        className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-white rounded-full shadow-md ${isVolumeDragging ? 'opacity-100 scale-125' : 'opacity-0 group-hover/volbar:opacity-100'} transition-all duration-150`}
-                      />
+                        className="w-full bg-pink-400 rounded-full absolute bottom-0"
+                        style={{ height: `${(isMuted ? 0 : volume) * 100}%` }}
+                      >
+                        <div
+                          className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-white rounded-full shadow-md ${isVolumeDragging ? 'opacity-100 scale-125' : 'opacity-0 group-hover/volbar:opacity-100'} transition-all duration-150`}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
 
-          <button onClick={toggleFullscreen} className="text-white hover:text-pink-400 transition-colors p-1">
+          <button onClick={toggleFullscreen} className={`text-white hover:text-pink-400 transition-colors p-1 ${!hasAudio ? 'ml-auto' : ''}`}>
             {isFullscreen ? (
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 3v3a2 2 0 01-2 2H3m18 0h-3a2 2 0 01-2-2V3m0 18v-3a2 2 0 012-2h3M3 16h3a2 2 0 012 2v3" />
@@ -285,7 +310,7 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
       </div>
 
       {/* Tap to Unmute Overlay */}
-      {isPlaying && isMuted && (
+      {isPlaying && isMuted && hasAudio && (
         <div className="absolute top-4 left-4 z-30">
           <button
             onClick={(e) => {
