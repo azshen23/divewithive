@@ -205,7 +205,7 @@ async function enrichPost(post) {
     'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(cleanUrl + '.json'),
     'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(cleanUrl.replace('www.reddit.com', 'old.reddit.com') + '.json'),
     'https://corsproxy.io/?' + encodeURIComponent(cleanUrl + '.json'),
-    'https://api.allorigins.win/raw?url=' + encodeURIComponent(cleanUrl + '.json')
+    'https://api.allorigins.win/get?url=' + encodeURIComponent(cleanUrl + '.json')
   ];
 
   for (const jsonUrl of jsonUrls) {
@@ -234,7 +234,16 @@ async function enrichPost(post) {
 
       let data;
       try {
-        data = JSON.parse(bodyText);
+        const parsed = JSON.parse(bodyText);
+        if (jsonUrl.includes('allorigins.win/get')) {
+          if (!parsed.contents) {
+            console.warn(`  ⚠️  [${title}] AllOrigins proxy returned empty contents wrapper`);
+            continue;
+          }
+          data = JSON.parse(parsed.contents);
+        } else {
+          data = parsed;
+        }
       } catch (e) {
         console.warn(`  ⚠️  [${title}] Reddit JSON parse error: ${e.message}`);
         continue;
@@ -391,6 +400,16 @@ async function downloadVideo(url, title, dateStr) {
     if (isBareVReddit) {
       const bareUrl = cleanUrl.split('?')[0].replace(/\/$/, '');
       const videoCandidates = [
+        `${bareUrl}/CMAF_1080.mp4`,
+        `${bareUrl}/CMAF_720.mp4`,
+        `${bareUrl}/CMAF_480.mp4`,
+        `${bareUrl}/CMAF_360.mp4`,
+        `${bareUrl}/CMAF_240.mp4`,
+        `${bareUrl}/CMAF_96.mp4`,
+        `${bareUrl}/CMAF_1080`,
+        `${bareUrl}/CMAF_720`,
+        `${bareUrl}/CMAF_480`,
+        `${bareUrl}/CMAF_360`,
         `${bareUrl}/DASH_1080.mp4`,
         `${bareUrl}/DASH_720.mp4`,
         `${bareUrl}/DASH_480.mp4`,
