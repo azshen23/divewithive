@@ -2,6 +2,15 @@ import { motion } from 'framer-motion';
 import ImageCarousel from './ImageCarousel';
 import CustomVideoPlayer from './CustomVideoPlayer';
 
+const handleImageError = (src: string) => {
+  if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+    navigator.serviceWorker.controller.postMessage({
+      type: 'DELETE_FROM_CACHE',
+      url: src,
+    });
+  }
+};
+
 interface TimelineEntry {
   date: string;
   last_updated?: string;
@@ -63,7 +72,7 @@ export default function TimelineCard({
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             loading="lazy"
-            onError={() => handleImageError(entry.images[0].src)}
+            onError={() => handleImageError(entry.images![0].src)}
           />
         </div>
       )}
