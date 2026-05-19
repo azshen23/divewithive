@@ -63,7 +63,7 @@ export default function TimelineCard({
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             loading="lazy"
-            crossOrigin="anonymous"
+            onError={() => handleImageError(entry.images[0].src)}
           />
         </div>
       )}
