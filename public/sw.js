@@ -69,8 +69,8 @@ self.addEventListener('message', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  // Only intercept requests to Backblaze B2 bucket media
-  if (url.hostname.includes('backblazeb2.com')) {
+  // Intercept requests to both Cloudflare CDN and Backblaze B2 bucket media
+  if (url.hostname.includes('cdn.divewithive.com') || url.hostname.includes('backblazeb2.com')) {
     event.respondWith(
       (async () => {
         const cache = await caches.open(CACHE_NAME);
@@ -79,28 +79,34 @@ self.addEventListener('fetch', (event) => {
         if (cachedResponse) {
           // Check if the request is a Range request (common for video scrubbing/playback)
           const rangeHeader = event.request.headers.get('Range');
-          if (rangeHeader && cachedResponse.status === 200) {
-            try {
-              const blob = await cachedResponse.blob();
-              const total = blob.size;
-              const parts = rangeHeader.replace(/bytes=/, "").split("-");
-              const start = parseInt(parts[0], 10);
-              const end = parts[1] ? parseInt(parts[1], 10) : total - 1;
-              const chunk = blob.slice(start, end + 1);
+          if (rangeHeader) {
+            if (cachedResponse.status === 200) {
+              try {
+                const blob = await cachedResponse.blob();
+                const total = blob.size;
+                const parts = rangeHeader.replace(/bytes=/, "").split("-");
+                const start = parseInt(parts[0], 10);
+                const end = parts[1] ? parseInt(parts[1], 10) : total - 1;
+                const chunk = blob.slice(start, end + 1);
 
-              return new Response(chunk, {
-                status: 206,
-                statusText: 'Partial Content',
-                headers: {
-                  'Content-Range': `bytes ${start}-${end}/${total}`,
-                  'Content-Length': chunk.size,
-                  'Content-Type': cachedResponse.headers.get('Content-Type') || 'video/mp4',
-                  'Accept-Ranges': 'bytes',
-                },
-              });
-            } catch (err) {
-              console.error('Error slicing cached blob for Range request:', err);
-              return cachedResponse;
+                return new Response(chunk, {
+                  status: 206,
+                  statusText: 'Partial Content',
+                  headers: {
+                    'Content-Range': `bytes ${start}-${end}/${total}`,
+                    'Content-Length': chunk.size,
+                    'Content-Type': cachedResponse.headers.get('Content-Type') || 'video/mp4',
+                    'Accept-Ranges': 'bytes',
+                  },
+                });
+              } catch (err) {
+                console.error('Error slicing cached blob for Range request:', err);
+                return fetch(event.request);
+              }
+            } else {
+              // It's an opaque response (status 0). Opaque responses cannot be sliced for Range requests.
+              // We must let the browser fetch the byte range directly from the network/CDN.
+              return fetch(event.request);
             }
           }
           return cachedResponse;

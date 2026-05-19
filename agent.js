@@ -450,20 +450,27 @@ async function downloadVideo(url, title, dateStr) {
 
     if (audioBuffer) {
       await fs.writeFile(audioTempPath, Buffer.from(audioBuffer));
-      console.log(`  🎬 [${title}] Merging video and audio tracks with ffmpeg...`);
+      console.log(`  🎬 [${title}] Merging and compressing video/audio tracks with ffmpeg (CRF 26)...`);
       try {
-        execSync(`${FFMPEG_PATH} -y -i "${path.resolve(videoTempPath)}" -i "${path.resolve(audioTempPath)}" -c copy "${path.resolve(finalFilePath)}"`, { stdio: 'ignore' });
+        execSync(`${FFMPEG_PATH} -y -i "${path.resolve(videoTempPath)}" -i "${path.resolve(audioTempPath)}" -c:v libx264 -crf 26 -preset fast -c:a aac -b:a 128k "${path.resolve(finalFilePath)}"`, { stdio: 'ignore' });
         await fs.unlink(videoTempPath);
         await fs.unlink(audioTempPath);
-        console.log(`  ✅ [${title}] Video saved with sound → ${finalFilePath}`);
+        console.log(`  ✅ [${title}] Video compressed and saved with sound → ${finalFilePath}`);
       } catch (mergeErr) {
-        console.error(`  ❌ [${title}] ffmpeg merge failed: ${mergeErr.message}. Falling back to video-only track.`);
+        console.error(`  ❌ [${title}] ffmpeg merge/compress failed: ${mergeErr.message}. Falling back to uncompressed video.`);
         try { await fs.unlink(audioTempPath); } catch (_) {}
         await fs.rename(videoTempPath, finalFilePath);
       }
     } else {
-      console.warn(`  ⚠️  [${title}] No audio track found. Saving video-only track → ${finalFilePath}`);
-      await fs.rename(videoTempPath, finalFilePath);
+      console.warn(`  ⚠️  [${title}] No audio track found. Compressing video-only track (CRF 26)...`);
+      try {
+        execSync(`${FFMPEG_PATH} -y -i "${path.resolve(videoTempPath)}" -c:v libx264 -crf 26 -preset fast "${path.resolve(finalFilePath)}"`, { stdio: 'ignore' });
+        await fs.unlink(videoTempPath);
+        console.log(`  ✅ [${title}] Video compressed → ${finalFilePath}`);
+      } catch (compErr) {
+        console.error(`  ❌ [${title}] ffmpeg compression failed: ${compErr.message}. Falling back to uncompressed video.`);
+        await fs.rename(videoTempPath, finalFilePath);
+      }
     }
 
     if (s3Client && B2_PUBLIC_URL) {
