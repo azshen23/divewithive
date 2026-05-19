@@ -21,7 +21,19 @@ interface TimelineProps {
   onLightboxToggle?: (isOpen: boolean) => void;
 }
 
-const timeline: TimelineEntry[] = timelineData;
+const archiveModules = import.meta.glob('../data/archive/*.json');
+
+const availableArchives = Object.keys(archiveModules).map(filePath => {
+  const match = filePath.match(/timeline-(\d{4})-(\d{2})\.json$/);
+  if (match) {
+    const year = match[1];
+    const monthNum = parseInt(match[2], 10);
+    const date = new Date(parseInt(year), monthNum - 1, 1);
+    const label = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    return { key: `${year}-${match[2]}`, label, filePath };
+  }
+  return { key: filePath, label: filePath, filePath };
+}).sort((a, b) => b.key.localeCompare(a.key));
 
 const tourDates = [
   { date: 'May 23-24', city: 'Macao', venue: 'The Venetian Arena' },
@@ -125,7 +137,89 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
   // State for platform filter
   const [selectedPlatform, setSelectedPlatform] = useState('All');
 
-  const filteredTimeline = timeline.filter((entry) => {
+  // State for archive switcher
+  const [currentArchiveKey, setCurrentArchiveKey] = useState<string>('recent');
+  const [isArchiveDropdownOpen, setIsArchiveDropdownOpen] = useState<boolean>(false);
+  const [isLoadingArchive, setIsLoadingArchive] = useState<boolean>(false);
+  const [activeTimelineData, setActiveTimelineData] = useState<TimelineEntry[]>(timelineData);
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsArchiveDropdownOpen(false);
+      }
+    };
+    if (isArchiveDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isArchiveDropdownOpen]);
+
+  const getEntryYearMonth = (entry: TimelineEntry): string => {
+    if (entry.last_updated && entry.last_updated.length >= 7) {
+      const ym = entry.last_updated.slice(0, 7);
+      if (/^\d{4}-\d{2}$/.test(ym)) return ym;
+    }
+    try {
+      const d = new Date(entry.date);
+      if (!isNaN(d.getTime())) {
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        return `${year}-${month}`;
+      }
+    } catch {
+      // ignore invalid date
+    }
+    return '';
+  };
+
+  const handleArchiveChange = async (archiveKey: string) => {
+    setIsArchiveDropdownOpen(false);
+    if (archiveKey === currentArchiveKey) return;
+    setCurrentArchiveKey(archiveKey);
+    setIsLoadingArchive(true);
+    setSelectedMember('All');
+    setSelectedPlatform('All');
+    setVisibleCount(15);
+
+    if (archiveKey === 'recent') {
+      setActiveTimelineData(timelineData);
+      setIsLoadingArchive(false);
+    } else {
+      const archObj = availableArchives.find(a => a.key === archiveKey);
+      if (archObj && archiveModules[archObj.filePath]) {
+        try {
+          const module = await archiveModules[archObj.filePath]() as { default: TimelineEntry[] };
+          const archivedEntries = module.default || [];
+          
+          // Filter recent timelineData for any posts matching this archive month
+          const recentMatchingEntries = timelineData.filter(entry => getEntryYearMonth(entry) === archiveKey);
+          
+          // Combine and deduplicate by post_url or title
+          const combined = [...recentMatchingEntries, ...archivedEntries];
+          const seen = new Set<string>();
+          const deduplicated = combined.filter(entry => {
+            const id = entry.post_url || entry.title;
+            if (seen.has(id)) return false;
+            seen.add(id);
+            return true;
+          });
+
+          setActiveTimelineData(deduplicated);
+        } catch (err) {
+          console.error('Failed to load archive:', err);
+          setActiveTimelineData([]);
+        }
+      }
+      setIsLoadingArchive(false);
+    }
+  };
+
+  const filteredTimeline = activeTimelineData.filter((entry) => {
     // Member Filter
     if (selectedMember !== 'All') {
       const memberSearchStr = `${entry.title} ${entry.body}`.toLowerCase();
@@ -160,7 +254,7 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
     if (isLoadMoreInView && visibleCount < filteredTimeline.length) {
       setVisibleCount(prev => Math.min(prev + 10, filteredTimeline.length));
     }
-  }, [isLoadMoreInView, filteredTimeline.length]);
+  }, [isLoadMoreInView, visibleCount, filteredTimeline.length]);
 
   // Reset visible count when filters change
   useEffect(() => {
@@ -256,7 +350,7 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
             timeZoneName: 'short'
           });
         }
-      } catch (e) {
+      } catch {
         // fallback
       }
       return entry.last_updated;
@@ -273,10 +367,105 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
         <div>
           <div className="flex items-center gap-3 mb-6">
             <div className="w-2 h-2 rounded-full bg-emerald-400" />
-            <h2 className="font-outfit font-bold text-xl text-white/90">IVE Updates</h2>
+            <h2 className="font-outfit font-bold text-xl text-white/90">
+              {currentArchiveKey === 'recent' ? 'IVE Updates' : `${availableArchives.find(a => a.key === currentArchiveKey)?.label} Archive`}
+            </h2>
             <div className="h-px flex-1 bg-white/5" />
-            <span className="font-inter text-xs text-white/30">Last updated: {formatLastUpdated(timeline[0])}</span>
+            <span className="font-inter text-xs text-white/30">Last updated: {formatLastUpdated(activeTimelineData[0])}</span>
           </div>
+
+          {/* Archive Switcher Bar */}
+          {availableArchives.length > 0 && (
+            <div className="flex flex-wrap items-center justify-between gap-3 bg-white/[0.02] border border-white/[0.05] rounded-2xl backdrop-blur-md shadow-lg p-2 mb-6 relative z-[90]">
+              <span className="font-inter text-xs sm:text-sm text-white/40 flex items-center gap-1.5 px-2 sm:px-3">
+                <svg className="w-4 h-4 text-emerald-400/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Timeline Period:
+              </span>
+
+              <div className="relative z-[90]" ref={dropdownRef}>
+                <button
+                  onClick={() => setIsArchiveDropdownOpen(!isArchiveDropdownOpen)}
+                  className={`flex items-center gap-2.5 bg-white/[0.05] hover:bg-white/[0.08] text-white/90 font-inter text-xs sm:text-sm font-medium px-4 py-2 sm:py-2.5 rounded-xl border transition-all duration-300 outline-none cursor-pointer ${
+                    currentArchiveKey !== 'recent'
+                      ? 'border-pink-500/40 shadow-[0_0_20px_rgba(236,72,153,0.15)] bg-gradient-to-r from-purple-500/20 to-pink-500/20' 
+                      : 'border-emerald-500/40 shadow-[0_0_20px_rgba(16,185,129,0.15)] bg-gradient-to-r from-emerald-500/20 to-teal-500/20'
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    {currentArchiveKey === 'recent' ? (
+                      <>
+                        <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                        🌟 Recent Updates
+                      </>
+                    ) : (
+                      <>
+                        <div className="w-2 h-2 rounded-full bg-pink-400 animate-pulse" />
+                        🗂️ {availableArchives.find(a => a.key === currentArchiveKey)?.label} Archive
+                      </>
+                    )}
+                  </span>
+                  <motion.svg 
+                    animate={{ rotate: isArchiveDropdownOpen ? 180 : 0 }} 
+                    transition={{ duration: 0.2 }}
+                    className="w-3.5 h-3.5 text-white/40" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </motion.svg>
+                </button>
+
+                <AnimatePresence>
+                  {isArchiveDropdownOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      className="absolute right-0 top-full mt-2 w-52 bg-neutral-900/95 backdrop-blur-xl border border-white/[0.1] rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] overflow-hidden z-[100] flex flex-col py-1.5"
+                    >
+                      <button
+                        onClick={() => handleArchiveChange('recent')}
+                        className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 font-inter text-xs sm:text-sm font-medium transition-all duration-200 text-left ${
+                          currentArchiveKey === 'recent'
+                            ? 'bg-gradient-to-r from-emerald-500/20 to-teal-500/20 text-white font-semibold border-l-4 border-emerald-400 shadow-[inset_0_0_20px_rgba(16,185,129,0.1)]'
+                            : 'text-white/70 hover:bg-white/[0.06] hover:text-white'
+                        }`}
+                      >
+                        <div className={`w-1.5 h-1.5 rounded-full ${currentArchiveKey === 'recent' ? 'bg-emerald-400 animate-pulse' : 'bg-white/20'}`} />
+                        🌟 Recent Updates
+                      </button>
+
+                      <div className="h-px bg-white/[0.08] my-1" />
+
+                      <div className="max-h-60 overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-white/20">
+                        {availableArchives.map((arch) => {
+                          const isActive = currentArchiveKey === arch.key;
+                          return (
+                            <button
+                              key={arch.key}
+                              onClick={() => handleArchiveChange(arch.key)}
+                              className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 font-inter text-xs sm:text-sm font-medium transition-all duration-200 text-left ${
+                                isActive
+                                  ? 'bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-white font-semibold border-l-4 border-pink-400 shadow-[inset_0_0_20px_rgba(236,72,153,0.1)]'
+                                  : 'text-white/70 hover:bg-white/[0.06] hover:text-white'
+                              }`}
+                            >
+                              <div className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-pink-400 animate-pulse' : 'bg-white/20'}`} />
+                              🗂️ {arch.label} Archive
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
+          )}
 
           {/* Filter Bars Container */}
           <div className="flex flex-col gap-3 mb-6">
@@ -337,7 +526,17 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
 
           <div className="flex flex-col gap-3">
             <AnimatePresence mode="popLayout">
-              {filteredTimeline.length === 0 ? (
+              {isLoadingArchive ? (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  className="card rounded-xl p-16 text-center flex flex-col items-center justify-center gap-4"
+                >
+                  <div className="w-8 h-8 border-2 border-emerald-400/30 border-t-emerald-400 rounded-full animate-spin" />
+                  <p className="font-outfit text-base text-white/60">Loading timeline archive...</p>
+                </motion.div>
+              ) : filteredTimeline.length === 0 ? (
                 <motion.div 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}

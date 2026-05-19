@@ -1,11 +1,32 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import iveLogo from '../assets/ive_logo.svg';
 
+interface YTPlayer {
+  loadVideoById: (id: string) => void;
+  pauseVideo: () => void;
+  playVideo: () => void;
+  setVolume: (volume: number) => void;
+}
+
+interface YTEvent {
+  data: number;
+}
+
+interface YTGlobal {
+  Player: new (id: string, options: unknown) => YTPlayer;
+  PlayerState: {
+    ENDED: number;
+    PLAYING: number;
+    PAUSED: number;
+  };
+}
+
 declare global {
   interface Window {
     onYouTubeIframeAPIReady: () => void;
-    YT: any;
+    YT: YTGlobal;
   }
 }
 
@@ -55,7 +76,7 @@ export default function MusicPlayer() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [volume, setVolume] = useState(50);
 
-  const playerRef = useRef<any>(null);
+  const playerRef = useRef<YTPlayer | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const currentSong = songs[currentSongIndex];
@@ -93,7 +114,7 @@ export default function MusicPlayer() {
           showinfo: 0,
         },
         events: {
-          onStateChange: (event: any) => {
+          onStateChange: (event: YTEvent) => {
             if (event.data === window.YT.PlayerState.ENDED) {
               nextSong();
             } else if (event.data === window.YT.PlayerState.PLAYING) {

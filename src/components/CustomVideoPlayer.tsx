@@ -5,6 +5,12 @@ interface CustomVideoPlayerProps {
   src: string;
 }
 
+interface ExtendedVideoElement extends HTMLVideoElement {
+  audioTracks?: { length: number };
+  mozHasAudio?: boolean;
+  webkitAudioDecodedByteCount?: number;
+}
+
 export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -34,7 +40,7 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
 
   const handleLoadedMetadata = () => {
     if (videoRef.current) {
-      const video = videoRef.current as any;
+      const video = videoRef.current as unknown as ExtendedVideoElement;
       if (video.audioTracks) {
         setHasAudio(video.audioTracks.length > 0);
         return;
@@ -52,7 +58,7 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
         const prog = (videoRef.current.currentTime / videoRef.current.duration) * 100;
         setProgress(prog || 0);
 
-        const video = videoRef.current as any;
+        const video = videoRef.current as unknown as ExtendedVideoElement;
         if (hasAudio && typeof video.webkitAudioDecodedByteCount !== 'undefined') {
           if (video.currentTime > 0.1 && video.webkitAudioDecodedByteCount === 0) {
             setHasAudio(false);

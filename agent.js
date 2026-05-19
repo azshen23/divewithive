@@ -619,7 +619,7 @@ async function run() {
     const updatedTimeline = [...newEntries, ...timelineData];
     
     // Implement JSON Sharding to prevent timeline.json from growing infinitely
-    const MAX_ENTRIES = 500;
+    const MAX_ENTRIES = 50;
     if (updatedTimeline.length > MAX_ENTRIES) {
       console.log(`📦 Timeline exceeds ${MAX_ENTRIES} entries. Sharding older entries into archive...`);
       const mainTimeline = updatedTimeline.slice(0, MAX_ENTRIES);

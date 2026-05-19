@@ -24,7 +24,8 @@
 * **Cloudflare Bandwidth Alliance ($0 Egress):** Fully integrated with Cloudflare CDN (`cdn.divewithive.com`) via a CNAME proxy. By leveraging the Cloudflare Bandwidth Alliance, all data transferred from Backblaze B2 to Cloudflare edge servers incurs **$0.00 egress bandwidth costs**.
 * **Zero-Transform-Rule Architecture:** Bypasses Cloudflare Free Plan restrictions by embedding the full Backblaze bucket path (`/file/divewithive-media`) directly inside `timeline.json` and `.env`, requiring **zero paid Transform Rules** in the Cloudflare dashboard.
 * **Graceful Local Fallback:** Automatically detects if B2 environment variables are missing or incomplete and seamlessly reverts to saving media to the local filesystem, ensuring zero friction during local development.
-* **Static JSON Sharding:** Automatically monitors `timeline.json` growth; when entries exceed 500 items, older news is automatically archived into monthly sharded files (`src/data/archive/timeline-YYYY-MM.json`) to keep initial page load speeds instantaneous.
+* **Static JSON Sharding:** Automatically monitors `timeline.json` growth; when entries exceed 50 items, older news is automatically archived into monthly sharded files (`src/data/archive/timeline-YYYY-MM.json`) to keep initial page load speeds instantaneous.
+* **Unified Timeline Period Selector:** A beautiful custom headless dropdown menu (`Timeline Period:`) allows users to seamlessly switch between recent updates and historical monthly archives with dynamic Framer Motion animations, custom active-state theming, and robust monthly merging logic.
 
 ### 🎬 Advanced Media Processing & Compression
 * **Multi-Proxy Reddit Scraper:** Bypasses CDN restrictions and 403 blocks using a rotating multi-proxy JSON scraper.
@@ -132,7 +133,7 @@ divewithive/
 │   ├── components/          # Modular React components (Hero, Timeline, VideoPlayer, etc.)
 │   ├── data/
 │   │   ├── archive/         # Monthly sharded timeline JSON archives
-│   │   └── timeline.json    # Main AI-generated news database (capped at 500 entries)
+│   │   └── timeline.json    # Main AI-generated news database (capped at 50 entries)
 │   ├── App.tsx              # Main application view & layout assembly
 │   ├── index.css            # Tailwind CSS & custom utilities
 │   └── main.tsx             # React DOM entry point & SW registration
