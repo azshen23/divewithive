@@ -27,6 +27,7 @@ export default function ImageCarousel({ images, currentIndex, onIndexChange, onS
           whileHover={{ scale: 1.02 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
           loading="lazy"
+          crossOrigin="anonymous"
         />
       </div>
     );
@@ -96,6 +97,7 @@ export default function ImageCarousel({ images, currentIndex, onIndexChange, onS
             onDragEnd={handleDragEnd}
             className="absolute max-w-full max-h-full object-contain"
             loading="lazy"
+            crossOrigin="anonymous"
           />
         </AnimatePresence>
       </div>

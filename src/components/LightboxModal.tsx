@@ -140,6 +140,7 @@ export default function LightboxModal({
               className="absolute max-w-full max-h-full rounded-md shadow-2xl cursor-default object-contain pointer-events-auto"
               onClick={(e) => e.stopPropagation()}
               loading="lazy"
+              crossOrigin="anonymous"
             />
           </AnimatePresence>
         </div>
@@ -164,7 +165,7 @@ export default function LightboxModal({
                   setCarouselIndices(prev => ({ ...prev, [selectedGallery.entryId]: i }));
                 }}
               >
-                <img src={img.src} alt="Thumbnail preview" className="w-full h-full object-cover" loading="lazy" />
+                <img src={img.src} alt="Thumbnail preview" className="w-full h-full object-cover" loading="lazy" crossOrigin="anonymous" />
               </button>
             ))}
           </div>

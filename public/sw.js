@@ -116,8 +116,8 @@ self.addEventListener('fetch', (event) => {
         try {
           const networkResponse = await fetch(event.request);
 
-          // Clone and cache successful 200 OK responses or opaque responses
-          if (networkResponse.status === 200 || networkResponse.status === 0) {
+          // Clone and cache successful 200 OK responses (do not cache status 0 or error responses)
+          if (networkResponse.status === 200) {
             // Only cache if it's NOT older than 7 days
             if (!isOlderThan7Days(event.request.url)) {
               cache.put(event.request, networkResponse.clone());
@@ -136,7 +136,7 @@ self.addEventListener('fetch', (event) => {
               fullRequest.headers.delete('Range');
 
               fetch(fullRequest).then(fullResponse => {
-                if (fullResponse.status === 200 || fullResponse.status === 0) {
+                if (fullResponse.status === 200) {
                   cache.put(event.request, fullResponse);
                 }
               }).catch(err => console.error('Background full video fetch failed:', err));
