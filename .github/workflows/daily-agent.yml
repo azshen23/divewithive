@@ -39,8 +39,11 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          # Stage all new images and the updated JSON file
-          git add public/images/ public/videos/ src/data/timeline.json index.html
+          # Stage the updated JSON file, archive shards (if any), and index.html
+          git add src/data/timeline.json index.html
+          if [ -d "src/data/archive" ]; then
+            git add src/data/archive/
+          fi
           
           # Only commit and push if there are actual changes
           git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update timeline via AI Agent [skip ci]" && git push)
