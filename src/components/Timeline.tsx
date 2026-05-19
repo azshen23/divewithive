@@ -227,7 +227,7 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr_280px] gap-8">
         {/* Left Sidebar: Music Player */}
-        <aside className="space-y-6 order-1 lg:order-none">
+        <aside className="hidden lg:block space-y-6 lg:order-none">
           <div className="sticky top-20 space-y-6">
             <MusicPlayer />
           </div>
@@ -308,7 +308,7 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
         </div>
 
         {/* Right Sidebar: Tour Dates & Footer */}
-        <aside className="space-y-6 order-3 lg:order-none">
+        <aside className="hidden lg:block space-y-6 lg:order-none">
           <div className="sticky top-20 space-y-6">
             <TourDatesWidget />
             <Footer />
