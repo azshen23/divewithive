@@ -37,7 +37,7 @@ if (B2_ENDPOINT && B2_KEY_ID && B2_APPLICATION_KEY) {
   console.log('⚠️ Backblaze B2 credentials missing in .env — falling back to local filesystem storage.');
 }
 
-// Ensure you run this with: node --experimental-fetch agent.js
+// Ensure you run this with: node agent.js
 
 // ─── Step 1: Fetch RSS (fast, no enrichment) ───────────────────────────────
 async function fetchRedditPosts() {
