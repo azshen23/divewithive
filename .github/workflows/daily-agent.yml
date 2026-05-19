@@ -31,6 +31,12 @@ jobs:
       - name: Run AI Agent Script
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          B2_ENDPOINT: ${{ secrets.B2_ENDPOINT }}
+          B2_REGION: ${{ secrets.B2_REGION }}
+          B2_KEY_ID: ${{ secrets.B2_KEY_ID }}
+          B2_APPLICATION_KEY: ${{ secrets.B2_APPLICATION_KEY }}
+          B2_BUCKET_NAME: ${{ secrets.B2_BUCKET_NAME }}
+          B2_PUBLIC_URL: ${{ secrets.B2_PUBLIC_URL }}
         run: node agent.js
 
       - name: Commit and Push Changes
