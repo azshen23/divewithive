@@ -9,6 +9,18 @@ interface ExtendedVideoElement extends HTMLVideoElement {
   audioTracks?: { length: number };
   mozHasAudio?: boolean;
   webkitAudioDecodedByteCount?: number;
+  webkitEnterFullscreen?: () => void;
+  webkitExitFullscreen?: () => void;
+  webkitDisplayingFullscreen?: boolean;
+}
+
+interface ExtendedDocument extends Document {
+  webkitFullscreenElement?: Element | null;
+  webkitExitFullscreen?: () => Promise<void> | void;
+}
+
+interface ExtendedDivElement extends HTMLDivElement {
+  webkitRequestFullscreen?: () => Promise<void> | void;
 }
 
 export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
@@ -32,10 +44,31 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
 
   useEffect(() => {
     const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
+      const doc = document as ExtendedDocument;
+      const video = videoRef.current as unknown as ExtendedVideoElement | null;
+      setIsFullscreen(!!(doc.fullscreenElement || doc.webkitFullscreenElement || (video && video.webkitDisplayingFullscreen)));
     };
+
     document.addEventListener('fullscreenchange', handleFullscreenChange);
-    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+
+    const videoElem = videoRef.current as unknown as ExtendedVideoElement | null;
+    const handleWebkitBegin = () => setIsFullscreen(true);
+    const handleWebkitEnd = () => setIsFullscreen(false);
+
+    if (videoElem) {
+      videoElem.addEventListener('webkitbeginfullscreen', handleWebkitBegin);
+      videoElem.addEventListener('webkitendfullscreen', handleWebkitEnd);
+    }
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      if (videoElem) {
+        videoElem.removeEventListener('webkitbeginfullscreen', handleWebkitBegin);
+        videoElem.removeEventListener('webkitendfullscreen', handleWebkitEnd);
+      }
+    };
   }, []);
 
   const handleLoadedMetadata = () => {
@@ -121,10 +154,36 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
 
   const toggleFullscreen = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (!document.fullscreenElement) {
-      containerRef.current?.requestFullscreen().catch(() => { });
+    const doc = document as ExtendedDocument;
+    const container = containerRef.current as unknown as ExtendedDivElement | null;
+    const video = videoRef.current as unknown as ExtendedVideoElement | null;
+
+    const isCurrentlyFullscreen = !!(
+      doc.fullscreenElement ||
+      doc.webkitFullscreenElement ||
+      (video && video.webkitDisplayingFullscreen)
+    );
+
+    if (!isCurrentlyFullscreen) {
+      if (container && container.requestFullscreen) {
+        const promise = container.requestFullscreen();
+        if (promise && promise.catch) promise.catch(() => {});
+      } else if (container && container.webkitRequestFullscreen) {
+        const promise = container.webkitRequestFullscreen();
+        if (promise && promise.catch) promise.catch(() => {});
+      } else if (video && video.webkitEnterFullscreen) {
+        video.webkitEnterFullscreen();
+      }
     } else {
-      document.exitFullscreen().catch(() => { });
+      if (doc.exitFullscreen) {
+        const promise = doc.exitFullscreen();
+        if (promise && promise.catch) promise.catch(() => {});
+      } else if (doc.webkitExitFullscreen) {
+        const promise = doc.webkitExitFullscreen();
+        if (promise && promise.catch) promise.catch(() => {});
+      } else if (video && video.webkitExitFullscreen) {
+        video.webkitExitFullscreen();
+      }
     }
   };
 
