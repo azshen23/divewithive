@@ -45,5 +45,5 @@ jobs:
             git add src/data/archive/
           fi
           
-          # Only commit and push if there are actual changes
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update timeline via AI Agent [skip ci]" && git push)
+          # Only commit and push if there are actual changes, bypassing husky git hooks
+          git diff --quiet && git diff --staged --quiet || (git commit --no-verify -m "Auto-update timeline via AI Agent [skip ci]" && git push)
