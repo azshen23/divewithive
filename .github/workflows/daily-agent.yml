@@ -52,4 +52,9 @@ jobs:
           fi
           
           # Only commit and push if there are actual changes, bypassing husky git hooks
-          git diff --quiet && git diff --staged --quiet || (git commit --no-verify -m "Auto-update timeline via AI Agent [skip ci]" && git push)
+          if ! git diff --staged --quiet; then
+            git commit --no-verify -m "Auto-update timeline via AI Agent [skip ci]"
+            git push
+          else
+            echo "No changes to commit"
+          fi

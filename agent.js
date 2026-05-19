@@ -624,6 +624,11 @@ async function run() {
       newEntries.push(entry);
     }
 
+    if (newEntries.length === 0) {
+      console.log('✅ No new updates with media found. Exiting.');
+      return;
+    }
+
     // 5. Update timeline.json
     console.log(`\n📝 Writing ${newEntries.length} new entries to timeline.json...`);
     const updatedTimeline = [...newEntries, ...timelineData];
