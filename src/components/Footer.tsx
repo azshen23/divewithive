@@ -1,16 +1,29 @@
 export default function Footer() {
   return (
-    <footer className="border-t border-white/5 mt-12 py-8 px-4 sm:px-6">
-      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="flex flex-col sm:flex-row items-center gap-4">
-          <p className="font-inter text-[11px] text-white/20">
-            Fan project — not affiliated with Starship Entertainment or IVE.
-          </p>
-        </div>
-        <p className="font-inter text-[11px] text-white/20">
-          © {new Date().getFullYear()} Raining
-        </p>
+    <div className="card rounded-xl p-5 space-y-3">
+      <div className="flex items-center gap-2">
+        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+        <h3 className="font-outfit font-semibold text-sm text-white/70">
+          About & Disclaimer
+        </h3>
       </div>
-    </footer>
+      <p className="font-inter text-xs text-white/40 leading-relaxed">
+        Fan project — not affiliated with Starship Entertainment or IVE.
+      </p>
+      <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[11px] text-white/30">
+        <span>
+          © {new Date().getFullYear()}{' '}
+          <a
+            href="https://raining.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-pink-400 transition-colors duration-200 underline underline-offset-2"
+          >
+            Raining
+          </a>
+        </span>
+      </div>
+    </div>
   );
 }
+

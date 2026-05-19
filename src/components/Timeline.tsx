@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useInView } from 'framer-motion';
 import timelineData from '../data/timeline.json';
 import ImageCarousel from './ImageCarousel';
 import CustomVideoPlayer from './CustomVideoPlayer';
+import Footer from './Footer';
 
 interface TimelineEntry {
   date: string;
@@ -635,30 +636,33 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
 
         {/* Sidebar */}
         <aside className="space-y-6">
-          {/* Tour Dates */}
-          <div className="card rounded-xl p-5 sticky top-20">
-            <div className="flex items-center gap-2 mb-4">
-               <div className="w-1.5 h-1.5 rounded-full bg-pink-400" />
-               <h3 className="font-outfit font-semibold text-sm text-white/70">
-                 SHOW WHAT I AM — Tour
-               </h3>
-             </div>
+          <div className="sticky top-20 space-y-6">
+            {/* Tour Dates */}
+            <div className="card rounded-xl p-5">
+              <div className="flex items-center gap-2 mb-4">
+                 <div className="w-1.5 h-1.5 rounded-full bg-pink-400" />
+                 <h3 className="font-outfit font-semibold text-sm text-white/70">
+                   SHOW WHAT I AM — Tour
+                 </h3>
+               </div>
 
-             <div className="space-y-2.5">
-               {tourDates.map((show) => (
-                 <div key={`${show.city}-${show.date}`} className="flex items-center gap-3">
-                   <span className="w-14 text-right font-inter text-[11px] text-pink-400/70 font-medium shrink-0">
-                     {show.date}
-                   </span>
-                   <div className="min-w-0">
-                     <p className="font-inter text-xs text-white/70 font-medium truncate">{show.city}</p>
-                     <p className="font-inter text-[11px] text-white/25 truncate">{show.venue}</p>
+               <div className="space-y-2.5">
+                 {tourDates.map((show) => (
+                   <div key={`${show.city}-${show.date}`} className="flex items-center gap-3">
+                     <span className="w-14 text-right font-inter text-[11px] text-pink-400/70 font-medium shrink-0">
+                       {show.date}
+                     </span>
+                     <div className="min-w-0">
+                       <p className="font-inter text-xs text-white/70 font-medium truncate">{show.city}</p>
+                       <p className="font-inter text-[11px] text-white/25 truncate">{show.venue}</p>
+                     </div>
                    </div>
-                 </div>
-               ))}
+                 ))}
+               </div>
              </div>
-           </div>
 
+             <Footer />
+           </div>
          </aside>
        </div>
 
