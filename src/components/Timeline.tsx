@@ -4,6 +4,7 @@ import timelineData from '../data/timeline.json';
 import ImageCarousel from './ImageCarousel';
 import CustomVideoPlayer from './CustomVideoPlayer';
 import Footer from './Footer';
+import MusicPlayer from './MusicPlayer';
 
 interface TimelineEntry {
   date: string;
@@ -362,10 +363,17 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
   const visibleTimeline = filteredTimeline.slice(0, visibleCount);
 
   return (
-    <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10">
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr_280px] gap-8">
+        {/* Left Sidebar: Music Player */}
+        <aside className="space-y-6 order-1 lg:order-none">
+          <div className="sticky top-20 space-y-6">
+            <MusicPlayer />
+          </div>
+        </aside>
+
         {/* Main Timeline */}
-        <div>
+        <div className="min-w-0 order-2 lg:order-none">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-2 h-2 rounded-full bg-emerald-400" />
             <h2 className="font-outfit font-bold text-xl text-white/90">
@@ -634,8 +642,8 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
           </div>
         </div>
 
-        {/* Sidebar */}
-        <aside className="space-y-6">
+        {/* Right Sidebar: Tour Dates & Footer */}
+        <aside className="space-y-6 order-3 lg:order-none">
           <div className="sticky top-20 space-y-6">
             {/* Tour Dates */}
             <div className="card rounded-xl p-5">
