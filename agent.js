@@ -584,6 +584,16 @@ async function run() {
       }
 
       // --- Build entry ---
+      const hasMedia = localImagePaths.length > 0 ||
+                       !!media.youtube_id ||
+                       !!localVideoPath ||
+                       !!(media.is_video && media.video_url);
+
+      if (!hasMedia) {
+        console.log(`   ⚠️  No picture or video found for "${update.title}". Skipping timeline entry.`);
+        continue;
+      }
+
       const entry = {
         date: dateFormatted,
         last_updated: timestampIso,
