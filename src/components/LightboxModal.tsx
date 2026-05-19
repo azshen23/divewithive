@@ -1,5 +1,14 @@
 import { motion, AnimatePresence } from 'framer-motion';
 
+const handleImageError = (src: string) => {
+  if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+    navigator.serviceWorker.controller.postMessage({
+      type: 'DELETE_FROM_CACHE',
+      url: src,
+    });
+  }
+};
+
 interface LightboxModalProps {
   selectedGallery: { images: { src: string; alt: string }[]; initialIndex: number; entryId: string } | null;
   setSelectedGallery: React.Dispatch<React.SetStateAction<{ images: { src: string; alt: string }[]; initialIndex: number; entryId: string } | null>>;
@@ -140,7 +149,7 @@ export default function LightboxModal({
               className="absolute max-w-full max-h-full rounded-md shadow-2xl cursor-default object-contain pointer-events-auto"
               onClick={(e) => e.stopPropagation()}
               loading="lazy"
-              crossOrigin="anonymous"
+              onError={() => handleImageError(selectedGallery.images[lightboxIndex].src)}
             />
           </AnimatePresence>
         </div>
@@ -165,7 +174,7 @@ export default function LightboxModal({
                   setCarouselIndices(prev => ({ ...prev, [selectedGallery.entryId]: i }));
                 }}
               >
-                <img src={img.src} alt="Thumbnail preview" className="w-full h-full object-cover" loading="lazy" crossOrigin="anonymous" />
+                <img src={img.src} alt="Thumbnail preview" className="w-full h-full object-cover" loading="lazy" onError={() => handleImageError(img.src)} />
               </button>
             ))}
           </div>

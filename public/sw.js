@@ -61,8 +61,19 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'PRUNE_OLD_CACHE') {
-    cleanOldCache();
+  if (event.data) {
+    if (event.data.type === 'PRUNE_OLD_CACHE') {
+      cleanOldCache();
+    } else if (event.data.type === 'DELETE_FROM_CACHE') {
+      const urlToDelete = event.data.url;
+      caches.open(CACHE_NAME).then((cache) => {
+        cache.delete(urlToDelete, { ignoreSearch: true }).then((deleted) => {
+          if (deleted) {
+            console.log(`🗑️ Removed failed image from cache: ${urlToDelete}`);
+          }
+        });
+      });
+    }
   }
 });
 
@@ -116,8 +127,8 @@ self.addEventListener('fetch', (event) => {
         try {
           const networkResponse = await fetch(event.request);
 
-          // Clone and cache successful 200 OK responses (do not cache status 0 or error responses)
-          if (networkResponse.status === 200) {
+          // Clone and cache successful 200 OK responses or opaque responses
+          if (networkResponse.status === 200 || networkResponse.status === 0) {
             // Only cache if it's NOT older than 7 days
             if (!isOlderThan7Days(event.request.url)) {
               cache.put(event.request, networkResponse.clone());
@@ -136,7 +147,7 @@ self.addEventListener('fetch', (event) => {
               fullRequest.headers.delete('Range');
 
               fetch(fullRequest).then(fullResponse => {
-                if (fullResponse.status === 200) {
+                if (fullResponse.status === 200 || fullResponse.status === 0) {
                   cache.put(event.request, fullResponse);
                 }
               }).catch(err => console.error('Background full video fetch failed:', err));

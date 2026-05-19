@@ -1,6 +1,15 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const handleImageError = (src: string) => {
+  if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+    navigator.serviceWorker.controller.postMessage({
+      type: 'DELETE_FROM_CACHE',
+      url: src,
+    });
+  }
+};
+
 interface ImageCarouselProps {
   images: { src: string; alt: string }[];
   currentIndex: number;
@@ -27,7 +36,7 @@ export default function ImageCarousel({ images, currentIndex, onIndexChange, onS
           whileHover={{ scale: 1.02 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
           loading="lazy"
-          crossOrigin="anonymous"
+          onError={() => handleImageError(images[0].src)}
         />
       </div>
     );
@@ -97,7 +106,7 @@ export default function ImageCarousel({ images, currentIndex, onIndexChange, onS
             onDragEnd={handleDragEnd}
             className="absolute max-w-full max-h-full object-contain"
             loading="lazy"
-            crossOrigin="anonymous"
+            onError={() => handleImageError(images[currentIndex].src)}
           />
         </AnimatePresence>
       </div>

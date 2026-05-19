@@ -51,14 +51,14 @@ export default function TimelineCard({
 
       {/* Photo Carousel */}
       {entry.images && entry.images.length === 1 && (
-        <div 
+        <div
           className="mt-4 rounded-lg overflow-hidden w-full max-h-[500px] cursor-pointer group/img relative"
           onClick={() => openLightbox(entry.images || [], 0, entry.title)}
         >
           <div className="absolute inset-0 bg-white/0 group-hover/img:bg-white/10 transition-colors duration-300 z-10" />
-          <motion.img 
-            src={entry.images[0].src} 
-            alt={entry.images[0].alt || entry.title} 
+          <motion.img
+            src={entry.images[0].src}
+            alt={entry.images[0].alt || entry.title}
             className="w-full h-full max-h-[500px] object-cover"
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -67,11 +67,11 @@ export default function TimelineCard({
           />
         </div>
       )}
-      
+
       {entry.images && entry.images.length > 1 && (
         <div className="mt-4">
-          <ImageCarousel 
-            images={entry.images} 
+          <ImageCarousel
+            images={entry.images}
             currentIndex={carouselIndices[entry.title] || 0}
             onIndexChange={(idx) => setCarouselIndices(prev => ({ ...prev, [entry.title]: idx }))}
             onSelectImage={(index) => openLightbox(entry.images || [], index, entry.title)}
