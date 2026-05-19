@@ -198,10 +198,10 @@ async function enrichPost(post) {
   // Strip trailing slash AND any query parameters to ensure clean .json append
   const cleanUrl = postUrl.replace(/\/$/, '').split('?')[0];
 
-  // Since direct Reddit API endpoints (api.reddit.com, www.reddit.com) actively
-  // block GitHub Actions/Datacenter IPs resulting in guaranteed 403 errors,
-  // we bypass them entirely and go straight to proxies.
+  // Attempt direct fetch first (highly reliable on local residential IPs).
+  // Fall back to proxies if direct fails (needed on datacenter environments like GitHub Actions).
   const jsonUrls = [
+    cleanUrl + '.json',
     'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(cleanUrl + '.json'),
     'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(cleanUrl.replace('www.reddit.com', 'old.reddit.com') + '.json'),
     'https://corsproxy.io/?' + encodeURIComponent(cleanUrl + '.json'),
@@ -210,23 +210,25 @@ async function enrichPost(post) {
 
   for (const jsonUrl of jsonUrls) {
     try {
+      const isDirect = jsonUrl === cleanUrl + '.json';
       const resp = await fetch(jsonUrl, { headers: REDDIT_HEADERS });
 
       const contentType = resp.headers.get('content-type') || '';
       const bodyText = await resp.text();
 
       if (!resp.ok) {
-        console.warn(`  ⚠️  [${title}] Proxy ${jsonUrl.split('?')[0]} failed: HTTP ${resp.status}`);
+        console.warn(`  ⚠️  [${title}] ${isDirect ? 'Direct fetch' : 'Proxy ' + jsonUrl.split('?')[0]} failed: HTTP ${resp.status}`);
         continue;
       }
 
       if (!bodyText || bodyText.trim() === '') {
-        console.warn(`  ⚠️  [${title}] Proxy ${jsonUrl.split('?')[0]} returned empty body`);
+        console.warn(`  ⚠️  [${title}] ${isDirect ? 'Direct fetch' : 'Proxy ' + jsonUrl.split('?')[0]} returned empty body`);
         continue;
       }
 
-      if (bodyText.includes('<!DOCTYPE html>') || bodyText.includes('<html')) {
-        console.warn(`  ⚠️  [${title}] Proxy ${jsonUrl.split('?')[0]} returned HTML instead of JSON`);
+      const trimmed = bodyText.trim();
+      if (!trimmed.startsWith('{') && !trimmed.startsWith('[')) {
+        console.warn(`  ⚠️  [${title}] ${isDirect ? 'Direct fetch' : 'Proxy ' + jsonUrl.split('?')[0]} returned HTML/non-JSON response`);
         continue;
       }
 
@@ -295,6 +297,10 @@ async function enrichPost(post) {
   const rssMedia = parseMediaFromRSS(text, postUrl);
   if (rssMedia.youtube_id) {
     console.log(`  ▶️  [${title}] YouTube detected via RSS fallback: ${rssMedia.youtube_id}`);
+    return rssMedia;
+  }
+  if (rssMedia.is_video && rssMedia.video_url) {
+    console.log(`  🎬 [${title}] Video detected via RSS fallback: ${rssMedia.video_url}`);
     return rssMedia;
   }
   if (rssMedia.image_urls?.length > 0) {
@@ -378,26 +384,73 @@ async function downloadVideo(url, title, dateStr) {
   const cleanUrl = url.replace(/&amp;/g, '&');
 
   try {
-    console.log(`  🎬 [${title}] Downloading video: ${cleanUrl}`);
-    const response = await fetch(cleanUrl, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-        'Referer': 'https://www.reddit.com/'
+    const isBareVReddit = /^https:\/\/v\.redd\.it\/[a-zA-Z0-9]+$/.test(cleanUrl.split('?')[0].replace(/\/$/, ''));
+    let videoBuffer = null;
+    let workingVideoUrl = cleanUrl;
+
+    if (isBareVReddit) {
+      const bareUrl = cleanUrl.split('?')[0].replace(/\/$/, '');
+      const videoCandidates = [
+        `${bareUrl}/DASH_1080.mp4`,
+        `${bareUrl}/DASH_720.mp4`,
+        `${bareUrl}/DASH_480.mp4`,
+        `${bareUrl}/DASH_360.mp4`,
+        `${bareUrl}/DASH_240.mp4`,
+        `${bareUrl}/DASH_96.mp4`,
+        `${bareUrl}/DASH_1080`,
+        `${bareUrl}/DASH_720`,
+        `${bareUrl}/DASH_480`,
+        `${bareUrl}/DASH_360`
+      ];
+      console.log(`  🎬 [${title}] Bare v.redd.it URL detected. Probing video candidates...`);
+      for (const vidUrl of videoCandidates) {
+        try {
+          const vidResp = await fetch(vidUrl, {
+            headers: {
+              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+              'Referer': 'https://www.reddit.com/'
+            }
+          });
+          if (vidResp.ok) {
+            const contentType = vidResp.headers.get('content-type');
+            if (!contentType || !contentType.includes('text/html')) {
+              videoBuffer = await vidResp.arrayBuffer();
+              workingVideoUrl = vidUrl;
+              console.log(`  🎬 [${title}] Found video candidate: ${vidUrl} (${(videoBuffer.byteLength / 1024 / 1024).toFixed(1)} MB)`);
+              break;
+            }
+          }
+        } catch (e) {
+          // Ignore and check next
+        }
       }
-    });
+      if (!videoBuffer) {
+        console.error(`  ❌ [${title}] All video candidates failed for bare v.redd.it URL`);
+        return null;
+      }
+    } else {
+      console.log(`  🎬 [${title}] Downloading video: ${cleanUrl}`);
+      const response = await fetch(cleanUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+          'Referer': 'https://www.reddit.com/'
+        }
+      });
 
-    if (!response.ok) {
-      console.error(`  ❌ [${title}] Video failed: HTTP ${response.status}`);
-      return null;
+      if (!response.ok) {
+        console.error(`  ❌ [${title}] Video failed: HTTP ${response.status}`);
+        return null;
+      }
+
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('text/html')) {
+        console.error(`  ❌ [${title}] Video URL returned HTML instead of video data`);
+        return null;
+      }
+
+      videoBuffer = await response.arrayBuffer();
     }
 
-    const contentType = response.headers.get('content-type');
-    if (contentType && contentType.includes('text/html')) {
-      console.error(`  ❌ [${title}] Video URL returned HTML instead of video data`);
-      return null;
-    }
-
-    const buffer = await response.arrayBuffer();
     const timestamp = Date.now();
     const finalFilename = `vid_${timestamp}.mp4`;
     
@@ -408,11 +461,11 @@ async function downloadVideo(url, title, dateStr) {
     const audioTempPath = `${dirPath}/temp_aud_${timestamp}.mp4`;
 
     await fs.mkdir(dirPath, { recursive: true });
-    await fs.writeFile(videoTempPath, Buffer.from(buffer));
-    console.log(`  ✅ [${title}] Video track saved (${(buffer.byteLength / 1024 / 1024).toFixed(1)} MB)`);
+    await fs.writeFile(videoTempPath, Buffer.from(videoBuffer));
+    console.log(`  ✅ [${title}] Video track saved (${(videoBuffer.byteLength / 1024 / 1024).toFixed(1)} MB)`);
 
     // Extract base URL and probe audio candidates
-    const cleanVideoUrl = cleanUrl.split('?')[0];
+    const cleanVideoUrl = workingVideoUrl.split('?')[0];
     const baseUrl = cleanVideoUrl.substring(0, cleanVideoUrl.lastIndexOf('/'));
     const audioCandidates = [
       `${baseUrl}/DASH_audio.mp4`,
