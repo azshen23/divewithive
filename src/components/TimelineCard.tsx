@@ -1,6 +1,8 @@
+import { forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import ImageCarousel from './ImageCarousel';
 import CustomVideoPlayer from './CustomVideoPlayer';
+
 
 const handleImageError = (src: string) => {
   if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
@@ -31,14 +33,15 @@ interface TimelineCardProps {
   openLightbox: (images: { src: string; alt: string }[], index: number, entryId: string) => void;
 }
 
-export default function TimelineCard({
+const TimelineCard = forwardRef<HTMLDivElement, TimelineCardProps>(({
   entry,
   carouselIndices,
   setCarouselIndices,
   openLightbox
-}: TimelineCardProps) {
+}, ref) => {
   return (
     <motion.article
+      ref={ref}
       layout
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -108,4 +111,8 @@ export default function TimelineCard({
       )}
     </motion.article>
   );
-}
+});
+
+TimelineCard.displayName = 'TimelineCard';
+
+export default TimelineCard;
