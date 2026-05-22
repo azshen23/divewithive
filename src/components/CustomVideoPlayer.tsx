@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useInView } from 'framer-motion';
+import { trackEvent } from '../utils/analytics';
+
 
 interface CustomVideoPlayerProps {
   src: string;
@@ -127,8 +129,10 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
     e.stopPropagation();
     if (videoRef.current) {
       if (isPlaying) {
+        trackEvent('Video Paused', { src });
         videoRef.current.pause();
       } else {
+        trackEvent('Video Played', { src });
         videoRef.current.play().catch(() => { });
       }
       setIsPlaying(!isPlaying);
@@ -145,9 +149,11 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
         }
         videoRef.current.muted = false;
         setIsMuted(false);
+        trackEvent('Video Muted', { src, muted: false });
       } else {
         videoRef.current.muted = true;
         setIsMuted(true);
+        trackEvent('Video Muted', { src, muted: true });
       }
     }
   };
@@ -163,6 +169,8 @@ export default function CustomVideoPlayer({ src }: CustomVideoPlayerProps) {
       doc.webkitFullscreenElement ||
       (video && video.webkitDisplayingFullscreen)
     );
+
+    trackEvent('Video Fullscreen Toggled', { src, fullscreen: !isCurrentlyFullscreen });
 
     if (!isCurrentlyFullscreen) {
       if (container && container.requestFullscreen) {

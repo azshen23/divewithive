@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { trackEvent } from '../utils/analytics';
+
 
 interface YTPlayer {
   loadVideoById: (id: string) => void;
@@ -113,7 +115,7 @@ export default function MusicPlayer() {
         events: {
           onStateChange: (event: YTEvent) => {
             if (event.data === window.YT.PlayerState.ENDED) {
-              nextSong();
+              nextSong(false);
             } else if (event.data === window.YT.PlayerState.PLAYING) {
               setIsPlaying(true);
             } else if (event.data === window.YT.PlayerState.PAUSED) {
@@ -145,19 +147,27 @@ export default function MusicPlayer() {
   const togglePlay = () => {
     if (playerRef.current) {
       if (isPlaying) {
+        trackEvent('Music Paused', { songTitle: currentSong.title, artist: currentSong.artist });
         playerRef.current.pauseVideo();
       } else {
+        trackEvent('Music Played', { songTitle: currentSong.title, artist: currentSong.artist });
         playerRef.current.playVideo();
       }
       setIsPlaying(!isPlaying);
     }
   };
 
-  const nextSong = () => {
+  const nextSong = (manual = false) => {
+    if (manual) {
+      trackEvent('Music Skipped', { direction: 'next', fromSong: currentSong.title });
+    }
     setCurrentSongIndex((prev) => (prev + 1) % songs.length);
   };
 
-  const prevSong = () => {
+  const prevSong = (manual = false) => {
+    if (manual) {
+      trackEvent('Music Skipped', { direction: 'prev', fromSong: currentSong.title });
+    }
     setCurrentSongIndex((prev) => (prev - 1 + songs.length) % songs.length);
   };
 
@@ -186,7 +196,7 @@ export default function MusicPlayer() {
         {/* Controls */}
         <div className="flex items-center gap-5 justify-center mb-5 py-2">
           <button
-            onClick={prevSong}
+            onClick={() => prevSong(true)}
             className="text-white/40 hover:text-white transition-colors hover:scale-110 active:scale-95 cursor-pointer"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z" /></svg>
@@ -204,7 +214,7 @@ export default function MusicPlayer() {
           </button>
 
           <button
-            onClick={nextSong}
+            onClick={() => nextSong(true)}
             className="text-white/40 hover:text-white transition-colors hover:scale-110 active:scale-95 cursor-pointer"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" /></svg>

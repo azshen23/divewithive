@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { trackEvent } from '../utils/analytics';
+
 
 const handleImageError = (src: string) => {
   if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
@@ -30,10 +33,20 @@ export default function LightboxModal({
   setCarouselIndices,
   onLightboxToggle
 }: LightboxModalProps) {
+  useEffect(() => {
+    if (selectedGallery) {
+      trackEvent('Lightbox Opened', { entryId: selectedGallery.entryId, totalImages: selectedGallery.images.length });
+      return () => {
+        trackEvent('Lightbox Closed', { entryId: selectedGallery.entryId });
+      };
+    }
+  }, [selectedGallery]);
+
   if (!selectedGallery) return null;
 
   const nextLightbox = (e?: React.MouseEvent) => {
     e?.stopPropagation();
+    trackEvent('Lightbox Slide Changed', { direction: 'next', toIndex: (lightboxIndex + 1) % selectedGallery.images.length });
     setLightboxDirection(1);
     const nextIdx = (lightboxIndex + 1) % selectedGallery.images.length;
     setLightboxIndex(nextIdx);
@@ -42,6 +55,7 @@ export default function LightboxModal({
 
   const prevLightbox = (e?: React.MouseEvent) => {
     e?.stopPropagation();
+    trackEvent('Lightbox Slide Changed', { direction: 'prev', toIndex: (lightboxIndex - 1 + selectedGallery.images.length) % selectedGallery.images.length });
     setLightboxDirection(-1);
     const prevIdx = (lightboxIndex - 1 + selectedGallery.images.length) % selectedGallery.images.length;
     setLightboxIndex(prevIdx);
@@ -169,6 +183,7 @@ export default function LightboxModal({
                 onClick={(e) => { 
                   e.stopPropagation(); 
                   if (i === lightboxIndex) return;
+                  trackEvent('Lightbox Thumbnail Clicked', { fromIndex: lightboxIndex, toIndex: i });
                   setLightboxDirection(i > lightboxIndex ? 1 : -1);
                   setLightboxIndex(i); 
                   setCarouselIndices(prev => ({ ...prev, [selectedGallery.entryId]: i }));

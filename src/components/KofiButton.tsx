@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
+import { trackEvent } from '../utils/analytics';
 
 interface KofiButtonProps {
   isVisible?: boolean;
@@ -12,6 +13,7 @@ export default function KofiButton({ isVisible = true }: KofiButtonProps) {
           href="https://ko-fi.com/G2G21ZKPT6"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackEvent('Support Clicked', { platform: 'Ko-fi' })}
           initial={{ opacity: 0, y: 20, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.9 }}

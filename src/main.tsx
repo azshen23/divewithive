@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App.tsx";
 import ErrorBoundary from "./components/ErrorBoundary.tsx";
 import { Analytics } from "@vercel/analytics/react";
+import "./utils/analytics";
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
