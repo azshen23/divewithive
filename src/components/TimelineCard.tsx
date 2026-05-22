@@ -96,7 +96,7 @@ const TimelineCard = forwardRef<HTMLDivElement, TimelineCardProps>(({
         <div className="w-full rounded-lg overflow-hidden aspect-video">
           <iframe
             className="w-full h-full"
-            src={`https://www.youtube.com/embed/${entry.videoId}?rel=0`}
+            src={`https://www.youtube.com/embed/${entry.videoId}?rel=0&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
             title={entry.title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen

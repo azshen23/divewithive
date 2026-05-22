@@ -104,7 +104,7 @@ export default function FancamSection() {
                 {playingId === fancam.videoId ? (
                   <iframe
                     className="absolute inset-0 w-full h-full"
-                    src={`https://www.youtube.com/embed/${fancam.videoId}?autoplay=1&rel=0`}
+                    src={`https://www.youtube.com/embed/${fancam.videoId}?autoplay=1&rel=0&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
                     title={fancam.title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen

@@ -111,6 +111,7 @@ export default function MusicPlayer() {
           modestbranding: 1,
           rel: 0,
           showinfo: 0,
+          origin: typeof window !== 'undefined' ? window.location.origin : '',
         },
         events: {
           onStateChange: (event: YTEvent) => {

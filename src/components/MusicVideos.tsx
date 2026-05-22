@@ -130,7 +130,7 @@ export default function MusicVideos() {
               <div className="relative pt-[56.25%] bg-black">
                 <iframe
                   className="absolute inset-0 w-full h-full"
-                  src={`https://www.youtube.com/embed/${videos[activeVideo].videoId}?rel=0`}
+                  src={`https://www.youtube.com/embed/${videos[activeVideo].videoId}?rel=0&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
                   title={`IVE - ${videos[activeVideo].title} MV`}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
