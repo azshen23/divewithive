@@ -224,10 +224,8 @@ async function enrichPost(post) {
   // Strip trailing slash AND any query parameters to ensure clean .json append
   const cleanUrl = postUrl.replace(/\/$/, '').split('?')[0];
 
-  // Attempt direct fetch first (highly reliable on local residential IPs).
   // Fall back to proxies if direct fails (needed on datacenter environments like GitHub Actions).
   const jsonUrls = [
-    cleanUrl + '.json',
     'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(cleanUrl + '.json'),
     'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(cleanUrl.replace('www.reddit.com', 'old.reddit.com') + '.json'),
     'https://corsproxy.io/?' + encodeURIComponent(cleanUrl + '.json'),
@@ -236,25 +234,24 @@ async function enrichPost(post) {
 
   for (const jsonUrl of jsonUrls) {
     try {
-      const isDirect = jsonUrl === cleanUrl + '.json';
       const resp = await fetch(jsonUrl, { headers: REDDIT_HEADERS });
 
       const contentType = resp.headers.get('content-type') || '';
       const bodyText = await resp.text();
 
       if (!resp.ok) {
-        console.warn(`  ⚠️  [${title}] ${isDirect ? 'Direct fetch' : 'Proxy ' + jsonUrl.split('?')[0]} failed: HTTP ${resp.status}`);
+        console.warn(`  ⚠️  [${title}] Proxy ${jsonUrl.split('?')[0]} failed: HTTP ${resp.status}`);
         continue;
       }
 
       if (!bodyText || bodyText.trim() === '') {
-        console.warn(`  ⚠️  [${title}] ${isDirect ? 'Direct fetch' : 'Proxy ' + jsonUrl.split('?')[0]} returned empty body`);
+        console.warn(`  ⚠️  [${title}] Proxy ${jsonUrl.split('?')[0]} returned empty body`);
         continue;
       }
 
       const trimmed = bodyText.trim();
       if (!trimmed.startsWith('{') && !trimmed.startsWith('[')) {
-        console.warn(`  ⚠️  [${title}] ${isDirect ? 'Direct fetch' : 'Proxy ' + jsonUrl.split('?')[0]} returned HTML/non-JSON response`);
+        console.warn(`  ⚠️  [${title}] Proxy ${jsonUrl.split('?')[0]} returned HTML/non-JSON response`);
         continue;
       }
 
