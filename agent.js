@@ -361,56 +361,64 @@ async function downloadImage(url, title, index, dateStr) {
     return null;
   }
 
-  try {
-    console.log(`  🖼️  [${title}] Downloading image ${index}: ${cleanUrl}`);
-    const response = await fetch(cleanUrl, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-        'Referer': 'https://www.reddit.com/'
+  const maxAttempts = 3;
+  const retryDelayMs = 30000;
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      console.log(`  🖼️  [${title}] Downloading image ${index} (Attempt ${attempt}/${maxAttempts}): ${cleanUrl}`);
+      const response = await fetch(cleanUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+          'Referer': 'https://www.reddit.com/'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
       }
-    });
 
-    if (!response.ok) {
-      console.error(`  ❌ [${title}] Image ${index} failed: HTTP ${response.status}`);
-      return null;
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('text/html')) {
+        throw new Error(`Returned HTML instead of image data`);
+      }
+
+      const buffer = await response.arrayBuffer();
+      const urlObj = new URL(cleanUrl);
+      const ext = path.extname(urlObj.pathname) || '.jpg';
+      const filename = `img_${Date.now()}_${index}${ext}`;
+
+      if (s3Client && B2_PUBLIC_URL) {
+        const s3Key = `images/${dateStr}/${filename}`;
+        console.log(`  ☁️  [${title}] Uploading image ${index} directly to Backblaze B2 (${s3Key})...`);
+        await s3Client.send(new PutObjectCommand({
+          Bucket: B2_BUCKET_NAME,
+          Key: s3Key,
+          Body: Buffer.from(buffer),
+          ContentType: contentType || 'image/jpeg',
+        }));
+        console.log(`  ✅ [${title}] Uploaded image ${index} → ${B2_PUBLIC_URL}/${s3Key}`);
+        return `${B2_PUBLIC_URL}/${s3Key}`;
+      } else {
+        const dirPath = `./public/images/${dateStr}`;
+        const filePath = `${dirPath}/${filename}`;
+
+        await fs.mkdir(dirPath, { recursive: true });
+        await fs.writeFile(filePath, Buffer.from(buffer));
+
+        console.log(`  ✅ [${title}] Saved image ${index} locally → ${filePath}`);
+        return `/images/${dateStr}/${filename}`;
+      }
+    } catch (error) {
+      console.error(`  ❌ [${title}] Image ${index} failed (Attempt ${attempt}/${maxAttempts}):`, error.message);
+      if (attempt < maxAttempts) {
+        console.log(`  ⏳ Waiting 30 seconds before retrying image ${index} download...`);
+        await new Promise(resolve => setTimeout(resolve, retryDelayMs));
+      }
     }
-
-    const contentType = response.headers.get('content-type');
-    if (contentType && contentType.includes('text/html')) {
-      console.error(`  ❌ [${title}] Image ${index} returned HTML instead of image data`);
-      return null;
-    }
-
-    const buffer = await response.arrayBuffer();
-    const urlObj = new URL(cleanUrl);
-    const ext = path.extname(urlObj.pathname) || '.jpg';
-    const filename = `img_${Date.now()}_${index}${ext}`;
-
-    if (s3Client && B2_PUBLIC_URL) {
-      const s3Key = `images/${dateStr}/${filename}`;
-      console.log(`  ☁️  [${title}] Uploading image ${index} directly to Backblaze B2 (${s3Key})...`);
-      await s3Client.send(new PutObjectCommand({
-        Bucket: B2_BUCKET_NAME,
-        Key: s3Key,
-        Body: Buffer.from(buffer),
-        ContentType: contentType || 'image/jpeg',
-      }));
-      console.log(`  ✅ [${title}] Uploaded image ${index} → ${B2_PUBLIC_URL}/${s3Key}`);
-      return `${B2_PUBLIC_URL}/${s3Key}`;
-    } else {
-      const dirPath = `./public/images/${dateStr}`;
-      const filePath = `${dirPath}/${filename}`;
-
-      await fs.mkdir(dirPath, { recursive: true });
-      await fs.writeFile(filePath, Buffer.from(buffer));
-
-      console.log(`  ✅ [${title}] Saved image ${index} locally → ${filePath}`);
-      return `/images/${dateStr}/${filename}`;
-    }
-  } catch (error) {
-    console.error(`  ❌ [${title}] Image ${index} download error:`, error.message);
-    return null;
   }
+
+  return null;
 }
 
 async function downloadVideo(url, title, dateStr) {
@@ -673,6 +681,12 @@ async function run() {
           uniqueImageUrls.map((imgUrl, i) => downloadImage(imgUrl, update.title, i + 1, today))
         );
         localImagePaths = results.filter(Boolean);
+
+        // If the post has multiple images, but we couldn't download all of them, skip the entire post.
+        if (uniqueImageUrls.length > 1 && localImagePaths.length < uniqueImageUrls.length) {
+          console.log(`   ⚠️  [${update.title}] Has ${uniqueImageUrls.length} images but only ${localImagePaths.length} downloaded successfully. Skipping timeline entry.`);
+          continue;
+        }
       }
 
       // --- Video ---
