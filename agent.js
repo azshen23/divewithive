@@ -97,29 +97,55 @@ async function askAI(posts, existingTitles) {
     Return [] if no posts qualify.
   `;
 
-  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/` + GEMINI_MODEL + `:generateContent?key=${GEMINI_API_KEY}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: { response_mime_type: "application/json" }
-    })
-  });
+  const maxRetries = 5;
+  const retryDelayMs = 60000;
 
-  const data = await response.json();
-  
-  if (data.error) {
-    console.error('❌ Gemini API Error:', JSON.stringify(data.error, null, 2));
-    throw new Error(`Gemini API Error: ${data.error.message}`);
+  for (let attempt = 1; attempt <= maxRetries + 1; attempt++) {
+    try {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/` + GEMINI_MODEL + `:generateContent?key=${GEMINI_API_KEY}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { response_mime_type: "application/json" }
+        })
+      });
+
+      if (!response.ok) {
+        let errDetails = `HTTP ${response.status} ${response.statusText}`;
+        try {
+          const errData = await response.json();
+          if (errData.error) {
+            errDetails = JSON.stringify(errData.error, null, 2);
+          }
+        } catch (_) {}
+        throw new Error(errDetails);
+      }
+
+      const data = await response.json();
+      
+      if (data.error) {
+        throw new Error(JSON.stringify(data.error, null, 2));
+      }
+
+      if (!data.candidates || data.candidates.length === 0) {
+        throw new Error('Gemini API returned no candidates.');
+      }
+
+      const rawResponse = data.candidates[0].content.parts[0].text;
+      return JSON.parse(rawResponse);
+
+    } catch (error) {
+      console.error(`❌ Attempt ${attempt} failed:`, error.message);
+      if (attempt <= maxRetries) {
+        console.log(`⏳ Waiting 1 minute before retrying (Attempt ${attempt}/${maxRetries} retries)...`);
+        await new Promise(resolve => setTimeout(resolve, retryDelayMs));
+      } else {
+        console.error(`❌ All ${maxRetries} retries exhausted.`);
+        throw error;
+      }
+    }
   }
-
-  if (!data.candidates || data.candidates.length === 0) {
-    console.error('❌ Gemini API returned no candidates:', JSON.stringify(data, null, 2));
-    throw new Error('Gemini API returned no candidates.');
-  }
-
-  const rawResponse = data.candidates[0].content.parts[0].text;
-  return JSON.parse(rawResponse);
 }
 
 // Headers for Reddit JSON API
