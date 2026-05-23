@@ -1,6 +1,58 @@
 [
   {
     "date": "May 18, 2026",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE - LUCID DREAM D-2 Pre-Release Teaser (Photo by Liz)",
+    "body": "A new pre-release teaser image for 'LUCID DREAM' has been unveiled, credited to Liz for the photography.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1tghgpb/260518_ive_lucid_dream_d2_prerelease_teaser_image",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-18/img_1779109833947_1.jpeg",
+        "alt": "IVE - LUCID DREAM D-2 Pre-Release Teaser (Photo by Liz)"
+      }
+    ]
+  },
+  {
+    "date": "May 18, 2026",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung for Tommy Jeans 2026 Summer Collection Lookbook",
+    "body": "Wonyoung features in the new 2026 Summer Collection Lookbook for Tommy Jeans.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1tgghn1/260518_wonyoung_tommy_jeans_2026_summer",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-18/img_1779109840914_1.jpg",
+        "alt": "Wonyoung for Tommy Jeans 2026 Summer Collection Lookbook"
+      },
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-18/img_1779109840911_2.jpg",
+        "alt": "Wonyoung for Tommy Jeans 2026 Summer Collection Lookbook"
+      },
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-18/img_1779109840912_3.jpg",
+        "alt": "Wonyoung for Tommy Jeans 2026 Summer Collection Lookbook"
+      },
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-18/img_1779109840931_4.jpg",
+        "alt": "Wonyoung for Tommy Jeans 2026 Summer Collection Lookbook"
+      },
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-18/img_1779109840939_5.jpg",
+        "alt": "Wonyoung for Tommy Jeans 2026 Summer Collection Lookbook"
+      },
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-18/img_1779109840937_6.jpg",
+        "alt": "Wonyoung for Tommy Jeans 2026 Summer Collection Lookbook"
+      },
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-18/img_1779109840945_7.jpg",
+        "alt": "Wonyoung for Tommy Jeans 2026 Summer Collection Lookbook"
+      }
+    ]
+  },
+  {
+    "date": "May 18, 2026",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
     "title": "Leeseo's Y Magazine Instagram Update",
