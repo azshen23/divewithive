@@ -70,7 +70,7 @@ async function askAI(posts, existingTitles) {
 
     RULES FOR INCLUSION:
     - DUPLICATE PREVENTION: Here are the titles of the most recent updates already on the timeline: ${JSON.stringify(existingTitles)}. DO NOT include any news that is already semantically covered by these existing updates!
-    - FILTERING: DO NOT include random fan chat posts, low-effort memes, or totally context-free selfies with no notable occasion. Everything else is fair game.
+    - FILTERING: DO NOT include weekly discussion threads, general community chats, pinned megathreads, random fan chat posts, low-effort memes, or totally context-free selfies with no notable occasion. Everything else is fair game.
     - DO INCLUDE: Group comebacks/MV releases, member magazine pictorials/covers, official brand ambassador content, concert previews, major awards, official YouTube content, Instagram updates (photos or videos) from members or official brand/magazine accounts.
 
     For the 'tag' field, use one of: "Tour", "Award", "Member", "Fansite", "Release".
@@ -626,6 +626,15 @@ async function run() {
       
       // Filter by Title (exact match or very high similarity check)
       if (existingTitlesNormalized.has(cleanTitle)) return false;
+
+      // Filter out Weekly/Daily Discussion Threads and generic pinned chat threads
+      if (
+        cleanTitle.includes('discussion thread') ||
+        cleanTitle.includes('weekly thread') ||
+        cleanTitle.includes('weekly chat')
+      ) {
+        return false;
+      }
 
       // Heuristic: If title is very similar to an existing one (e.g. contains same member name and "Instagram")
       // this is a bit risky but good for these specific cases.
