@@ -1,0 +1,34 @@
+name: Weekly B2 Storage Pruner
+
+on:
+  schedule:
+    # Runs at 00:00 every Sunday (UTC)
+    - cron: '0 0 * * 0'
+  # Allows manual runs from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  run-prune:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run B2 Storage Pruner
+        env:
+          B2_ENDPOINT: ${{ secrets.B2_ENDPOINT }}
+          B2_REGION: ${{ secrets.B2_REGION }}
+          B2_KEY_ID: ${{ secrets.B2_KEY_ID }}
+          B2_APPLICATION_KEY: ${{ secrets.B2_APPLICATION_KEY }}
+          B2_BUCKET_NAME: ${{ secrets.B2_BUCKET_NAME }}
+          B2_PUBLIC_URL: ${{ secrets.B2_PUBLIC_URL }}
+        run: node prune.js --commit
