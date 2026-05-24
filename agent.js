@@ -383,28 +383,77 @@ async function downloadImage(url, title, index, dateStr) {
       const buffer = await response.arrayBuffer();
       const urlObj = new URL(cleanUrl);
       const ext = path.extname(urlObj.pathname) || '.jpg';
-      const filename = `img_${Date.now()}_${index}${ext}`;
+      const timestamp = Date.now();
+      const isGif = ext.toLowerCase() === '.gif';
+
+      const tempDir = `./temp/images/${dateStr}`;
+      const rawTempPath = `${tempDir}/raw_${timestamp}_${index}${ext}`;
+      const compressedTempPath = `${tempDir}/compressed_${timestamp}_${index}.webp`;
+      const filename = `img_${timestamp}_${index}.webp`;
+
+      await fs.mkdir(tempDir, { recursive: true });
+      await fs.writeFile(rawTempPath, Buffer.from(buffer));
+
+      let ffmpegCommand = '';
+      if (isGif) {
+        // Convert GIF to Animated WebP (caps width at 1200, quality 75)
+        ffmpegCommand = `${FFMPEG_PATH} -y -i "${path.resolve(rawTempPath)}" -vf "scale='min(1200,iw)':-1" -loop 0 -quality 75 "${path.resolve(compressedTempPath)}"`;
+      } else {
+        // Convert static images to WebP (caps width at 1600, quality 75)
+        ffmpegCommand = `${FFMPEG_PATH} -y -i "${path.resolve(rawTempPath)}" -vf "scale='min(1600,iw)':-1" -q:v 75 "${path.resolve(compressedTempPath)}"`;
+      }
+
+      let finalFilePath = compressedTempPath;
+      let finalContentType = 'image/webp';
+      let usedCompression = false;
+
+      try {
+        console.log(`  🎬 [${title}] Compressing image ${index} with FFmpeg...`);
+        execSync(ffmpegCommand, { stdio: 'ignore' });
+        usedCompression = true;
+      } catch (err) {
+        console.error(`  ❌ [${title}] FFmpeg compression failed for image ${index}: ${err.message}. Falling back to raw image.`);
+        finalFilePath = rawTempPath;
+        finalContentType = contentType || 'image/jpeg';
+      }
 
       if (s3Client && B2_PUBLIC_URL) {
-        const s3Key = `images/${dateStr}/${filename}`;
+        const finalFilename = usedCompression ? filename : `img_${timestamp}_${index}${ext}`;
+        const s3Key = `images/${dateStr}/${finalFilename}`;
         console.log(`  ☁️  [${title}] Uploading image ${index} directly to Backblaze B2 (${s3Key})...`);
+        const fileBuffer = await fs.readFile(finalFilePath);
         await s3Client.send(new PutObjectCommand({
           Bucket: B2_BUCKET_NAME,
           Key: s3Key,
-          Body: Buffer.from(buffer),
-          ContentType: contentType || 'image/jpeg',
+          Body: fileBuffer,
+          ContentType: finalContentType,
         }));
         console.log(`  ✅ [${title}] Uploaded image ${index} → ${B2_PUBLIC_URL}/${s3Key}`);
+
+        // Clean up temporary files
+        try { await fs.unlink(rawTempPath); } catch (_) {}
+        if (usedCompression) {
+          try { await fs.unlink(compressedTempPath); } catch (_) {}
+        }
+
         return `${B2_PUBLIC_URL}/${s3Key}`;
       } else {
         const dirPath = `./public/images/${dateStr}`;
-        const filePath = `${dirPath}/${filename}`;
+        const finalFilename = usedCompression ? filename : `img_${timestamp}_${index}${ext}`;
+        const filePath = `${dirPath}/${finalFilename}`;
 
         await fs.mkdir(dirPath, { recursive: true });
-        await fs.writeFile(filePath, Buffer.from(buffer));
+        await fs.copyFile(finalFilePath, filePath);
 
         console.log(`  ✅ [${title}] Saved image ${index} locally → ${filePath}`);
-        return `/images/${dateStr}/${filename}`;
+
+        // Clean up temporary files
+        try { await fs.unlink(rawTempPath); } catch (_) {}
+        if (usedCompression) {
+          try { await fs.unlink(compressedTempPath); } catch (_) {}
+        }
+
+        return `/images/${dateStr}/${finalFilename}`;
       }
     } catch (error) {
       console.error(`  ❌ [${title}] Image ${index} failed (Attempt ${attempt}/${maxAttempts}):`, error.message);
