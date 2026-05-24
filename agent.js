@@ -851,7 +851,7 @@ async function run() {
       const imagePath = (latestPost.images && latestPost.images.length > 0)
         ? latestPost.images[0].src
         : '/images/2026-05-13/singapore_concert_group.jpg';
-      const fullImageUrl = `https://divewithive.com${imagePath}`;
+      const fullImageUrl = imagePath.startsWith('http') ? imagePath : `https://divewithive.com${imagePath}`;
 
       html = html.replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${title}" />`);
       html = html.replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${desc}" />`);
