@@ -118,12 +118,12 @@ async function askAI(posts, existingTitles) {
           if (errData.error) {
             errDetails = JSON.stringify(errData.error, null, 2);
           }
-        } catch (_) { }
+        } catch (_) {}
         throw new Error(errDetails);
       }
 
       const data = await response.json();
-
+      
       if (data.error) {
         throw new Error(JSON.stringify(data.error, null, 2));
       }
@@ -188,7 +188,7 @@ function parseImagesFromHtml(html) {
   for (const match of matches) {
     const originalUrl = match[0].replace(/&amp;/g, '&');
     const normalized = normalizeMediaUrl(originalUrl);
-
+    
     if (!seenNormalized.has(normalized)) {
       seenNormalized.add(normalized);
       results.push(originalUrl); // Keep original for download, but skip duplicates
@@ -215,8 +215,7 @@ function parseMediaFromRSS(text, postUrl) {
 
   // Fall back to image extraction
   const images = parseImagesFromHtml(text);
-  const isGallery = text.includes('reddit.com/gallery/');
-  return images.length > 0 ? { image_urls: images, is_fallback_gallery: isGallery } : {};
+  return images.length > 0 ? { image_urls: images } : {};
 }
 
 // ─── Step 3: Enrich a single selected post with media data ─────────────────
@@ -328,7 +327,6 @@ async function enrichPost(post) {
 
   // All JSON attempts failed — parse media from RSS HTML as last resort
   const rssMedia = parseMediaFromRSS(text, postUrl);
-  const isGalleryUrl = cleanUrl.includes('reddit.com/gallery');
   if (rssMedia.youtube_id) {
     console.log(`  ▶️  [${title}] YouTube detected via RSS fallback: ${rssMedia.youtube_id}`);
     return rssMedia;
@@ -339,7 +337,7 @@ async function enrichPost(post) {
   }
   if (rssMedia.image_urls?.length > 0) {
     console.log(`  🖼️  [${title}] RSS HTML fallback: ${rssMedia.image_urls.length} image(s) found`);
-    return { ...rssMedia, is_fallback_gallery: rssMedia.is_fallback_gallery || isGalleryUrl };
+    return rssMedia;
   }
 
   console.warn(`  ⚠️  [${title}] All enrichment methods failed — entry will have no media`);
@@ -433,9 +431,9 @@ async function downloadImage(url, title, index, dateStr) {
         console.log(`  ✅ [${title}] Uploaded image ${index} → ${B2_PUBLIC_URL}/${s3Key}`);
 
         // Clean up temporary files
-        try { await fs.unlink(rawTempPath); } catch (_) { }
+        try { await fs.unlink(rawTempPath); } catch (_) {}
         if (usedCompression) {
-          try { await fs.unlink(compressedTempPath); } catch (_) { }
+          try { await fs.unlink(compressedTempPath); } catch (_) {}
         }
 
         return `${B2_PUBLIC_URL}/${s3Key}`;
@@ -450,9 +448,9 @@ async function downloadImage(url, title, index, dateStr) {
         console.log(`  ✅ [${title}] Saved image ${index} locally → ${filePath}`);
 
         // Clean up temporary files
-        try { await fs.unlink(rawTempPath); } catch (_) { }
+        try { await fs.unlink(rawTempPath); } catch (_) {}
         if (usedCompression) {
-          try { await fs.unlink(compressedTempPath); } catch (_) { }
+          try { await fs.unlink(compressedTempPath); } catch (_) {}
         }
 
         return `/images/${dateStr}/${finalFilename}`;
@@ -554,7 +552,7 @@ async function downloadVideo(url, title, dateStr) {
 
     const timestamp = Date.now();
     const finalFilename = `vid_${timestamp}.mp4`;
-
+    
     // Use temp directory if uploading to S3, otherwise use public directory
     const dirPath = s3Client ? `./temp/videos/${dateStr}` : `./public/videos/${dateStr}`;
     const finalFilePath = `${dirPath}/${finalFilename}`;
@@ -612,7 +610,7 @@ async function downloadVideo(url, title, dateStr) {
         console.log(`  ✅ [${title}] Video compressed and saved with sound → ${finalFilePath}`);
       } catch (mergeErr) {
         console.error(`  ❌ [${title}] ffmpeg merge/compress failed: ${mergeErr.message}. Falling back to uncompressed video.`);
-        try { await fs.unlink(audioTempPath); } catch (_) { }
+        try { await fs.unlink(audioTempPath); } catch (_) {}
         await fs.rename(videoTempPath, finalFilePath);
       }
     } else {
@@ -638,9 +636,9 @@ async function downloadVideo(url, title, dateStr) {
         ContentType: 'video/mp4',
       }));
       console.log(`  ✅ [${title}] Uploaded video → ${B2_PUBLIC_URL}/${s3Key}`);
-
+      
       // Clean up local temp file
-      try { await fs.unlink(finalFilePath); } catch (_) { }
+      try { await fs.unlink(finalFilePath); } catch (_) {}
       return `${B2_PUBLIC_URL}/${s3Key}`;
     } else {
       return `/videos/${dateStr}/${finalFilename}`;
@@ -671,10 +669,10 @@ async function run() {
     const filteredPosts = posts.filter(p => {
       const cleanUrl = p.url.replace(/\/$/, '').split('?')[0].toLowerCase();
       const cleanTitle = p.title.toLowerCase().trim();
-
+      
       // Filter by URL
       if (existingUrls.has(cleanUrl)) return false;
-
+      
       // Filter by Title (exact match or very high similarity check)
       if (existingTitlesNormalized.has(cleanTitle)) return false;
 
@@ -718,13 +716,7 @@ async function run() {
 
       // Build URL lookup for the source post
       const sourcePost = posts.find(p => p.url.replace(/\/$/, '') === (update.post_url || '').replace(/\/$/, ''));
-      const media = await enrichPost(sourcePost || { url: update.post_url, title: update.title, text: '' }, redditToken);
-
-      // Skip gallery posts if we fell back to the RSS parser (which only yields 1 photo/thumbnail)
-      if (media.is_fallback_gallery) {
-        console.log(`   ⚠️  [${update.title}] Is a gallery post, but JSON fetch failed and fallback only has 1 image. Skipping timeline entry.`);
-        continue;
-      }
+      const media = await enrichPost(sourcePost || { url: update.post_url, title: update.title, text: '' });
 
       // --- Images ---
       // Download all available images from the gallery
@@ -760,9 +752,9 @@ async function run() {
 
       // --- Build entry ---
       const hasMedia = localImagePaths.length > 0 ||
-        !!media.youtube_id ||
-        !!localVideoPath ||
-        !!(media.is_video && media.video_url);
+                       !!media.youtube_id ||
+                       !!localVideoPath ||
+                       !!(media.is_video && media.video_url);
 
       if (!hasMedia) {
         console.log(`   ⚠️  No picture or video found for "${update.title}". Skipping timeline entry.`);
@@ -807,14 +799,14 @@ async function run() {
     // 5. Update timeline.json
     console.log(`\n📝 Writing ${newEntries.length} new entries to timeline.json...`);
     const updatedTimeline = [...newEntries, ...timelineData];
-
+    
     // Implement JSON Sharding to prevent timeline.json from growing infinitely
     const MAX_ENTRIES = 50;
     if (updatedTimeline.length > MAX_ENTRIES) {
       console.log(`📦 Timeline exceeds ${MAX_ENTRIES} entries. Sharding older entries into archive...`);
       const mainTimeline = updatedTimeline.slice(0, MAX_ENTRIES);
       const archivedEntries = updatedTimeline.slice(MAX_ENTRIES);
-
+      
       // Group archived entries by Year-Month
       const archivesByMonth = {};
       for (const entry of archivedEntries) {
@@ -835,13 +827,13 @@ async function run() {
       for (const [ym, entries] of Object.entries(archivesByMonth)) {
         const archivePath = `${archiveDir}/timeline-${ym}.json`;
         let existingArchive = [];
-        try { existingArchive = JSON.parse(await fs.readFile(archivePath, 'utf-8')); } catch (_) { }
+        try { existingArchive = JSON.parse(await fs.readFile(archivePath, 'utf-8')); } catch (_) {}
         // Merge and deduplicate by title/url
         const merged = [...entries, ...existingArchive];
         const unique = Array.from(new Map(merged.map(item => [item.post_url || item.title, item])).values());
         await fs.writeFile(archivePath, JSON.stringify(unique, null, 2));
       }
-
+      
       await fs.writeFile(TIMELINE_PATH, JSON.stringify(mainTimeline, null, 2));
     } else {
       await fs.writeFile(TIMELINE_PATH, JSON.stringify(updatedTimeline, null, 2));
