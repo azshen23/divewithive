@@ -1,5 +1,20 @@
 [
   {
+    "date": "Jun 1, 2026",
+    "last_updated": "2026-06-01T00:35:44.972Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Rei's May 26th Fansite Update",
+    "body": "Latest fansite photos of Rei have been shared.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1ts18fd/260524_rei_fansite_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-01/img_1780274172090_1.webp",
+        "alt": "Rei's May 26th Fansite Update"
+      }
+    ]
+  },
+  {
     "date": "May 31, 2026",
     "last_updated": "2026-05-31T20:24:18.428Z",
     "tag": "Fansite",
@@ -689,24 +704,5 @@
     "body": "IVE has released the official audio for their new track, 'JIGSAW'.",
     "post_url": "https://www.reddit.com/r/ive/comments/1tocnkc/260527_ive_jigsaw_audio",
     "videoId": "1cH5w9nHrRM"
-  },
-  {
-    "date": "May 26, 2026",
-    "last_updated": "2026-05-26T17:06:27.499Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Gaeul's May 26th Instagram Stories",
-    "body": "Gaeul shared a series of updates through her Instagram stories on May 26th.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1tocd2v/260526_gaeul_instagram_stories_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-26/img_1779815472656_1.webp",
-        "alt": "Gaeul's May 26th Instagram Stories"
-      },
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-26/img_1779815472654_2.webp",
-        "alt": "Gaeul's May 26th Instagram Stories"
-      }
-    ]
   }
 ]
