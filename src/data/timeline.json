@@ -1,6 +1,16 @@
 [
   {
     "date": "Jun 2, 2026",
+    "last_updated": "2026-06-02T21:02:49.618Z",
+    "tag": "Tour",
+    "tagColor": "text-emerald-400 bg-emerald-400/10",
+    "title": "IVE Releases World Tour Note #5: Kuala Lumpur & Osaka",
+    "body": "IVE shares a new tour note video, capturing behind-the-scenes moments and performances from their 'SHOW WHAT I AM' World Tour stops in Kuala Lumpur and Osaka.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1turz8o/260602_ive_note_5_kuala_lumpur_osakaive_world",
+    "videoId": "JlDNRp4tvlE"
+  },
+  {
+    "date": "Jun 2, 2026",
     "last_updated": "2026-06-02T17:32:15.543Z",
     "tag": "Release",
     "tagColor": "text-rose-400 bg-rose-400/10",
@@ -627,15 +637,5 @@
         "alt": "Yujin & Rei May 24th Fansite Update"
       }
     ]
-  },
-  {
-    "date": "May 28, 2026",
-    "last_updated": "2026-05-28T13:09:59.627Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei for FULLY Official Instagram Update",
-    "body": "Rei features in a new official Instagram update for the brand FULLY.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1tpxw9q/260528_fully_official_instagram_update_with_rei",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-05-28/vid_1779973893456.mp4"
   }
 ]
