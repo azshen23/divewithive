@@ -1,6 +1,16 @@
 [
   {
     "date": "Jun 2, 2026",
+    "last_updated": "2026-06-02T17:32:15.543Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "Yujin Releases 'Sad Saltiness' OST",
+    "body": "Yujin has officially released 'Sad Saltiness,' her original soundtrack for 'The Legend of Kitchen Soldier Part 3.' The track is now available for fans to enjoy.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1tuldm4/260602_yujin_sad_saltiness_the_legend_of_kitchen",
+    "videoId": "Exv3da2e0xs"
+  },
+  {
+    "date": "Jun 2, 2026",
     "last_updated": "2026-06-02T13:12:14.935Z",
     "tag": "Release",
     "tagColor": "text-rose-400 bg-rose-400/10",
@@ -627,28 +637,5 @@
     "body": "Rei features in a new official Instagram update for the brand FULLY.",
     "post_url": "https://www.reddit.com/r/ive/comments/1tpxw9q/260528_fully_official_instagram_update_with_rei",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-05-28/vid_1779973893456.mp4"
-  },
-  {
-    "date": "May 28, 2026",
-    "last_updated": "2026-05-28T13:09:59.627Z",
-    "tag": "Award",
-    "tagColor": "text-amber-400 bg-amber-400/10",
-    "title": "Rei's ASEA 2026 Backstage Photos",
-    "body": "Official Twitter shares new backstage photos of Rei from the ASEA 2026 event.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1tpxvat/260528_asea_official_twitter_update_with_rei_asea",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-28/img_1779973905261_1.webp",
-        "alt": "Rei's ASEA 2026 Backstage Photos"
-      },
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-28/img_1779973905670_2.webp",
-        "alt": "Rei's ASEA 2026 Backstage Photos"
-      },
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-28/img_1779973905261_3.webp",
-        "alt": "Rei's ASEA 2026 Backstage Photos"
-      }
-    ]
   }
 ]
