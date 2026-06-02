@@ -1,6 +1,21 @@
 [
   {
     "date": "Jun 2, 2026",
+    "last_updated": "2026-06-02T13:12:14.935Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE Announces Everland Theme Park Collaboration",
+    "body": "IVE is set to collaborate with Everland Theme Park, with the official event scheduled to take place on July 1st.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1tujcxi/260602_ive_and_everland_theme_park_collaboration",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-02/img_1780406028046_1.webp",
+        "alt": "IVE Announces Everland Theme Park Collaboration"
+      }
+    ]
+  },
+  {
+    "date": "Jun 2, 2026",
     "last_updated": "2026-06-02T00:39:33.669Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -635,15 +650,5 @@
         "alt": "Rei's ASEA 2026 Backstage Photos"
       }
     ]
-  },
-  {
-    "date": "May 28, 2026",
-    "last_updated": "2026-05-28T13:09:59.627Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Yujin & Wonyoung's Latest Official TikTok Update",
-    "body": "Yujin and Wonyoung star in a new official IVE TikTok update.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1tpx4io/260528_ive_official_tiktok_update_with_yujin",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-05-28/vid_1779973917980.mp4"
   }
 ]
