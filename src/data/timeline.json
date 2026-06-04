@@ -1,5 +1,20 @@
 [
   {
+    "date": "Jun 4, 2026",
+    "last_updated": "2026-06-04T00:44:10.486Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Liz's May 30th Fansite Update",
+    "body": "Newly shared photos of Liz from a fansite, capturing her on May 30th.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1tw71sg/260530_liz_fansite_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-04/img_1780533883772_1.webp",
+        "alt": "Liz's May 30th Fansite Update"
+      }
+    ]
+  },
+  {
     "date": "Jun 3, 2026",
     "last_updated": "2026-06-03T17:39:33.795Z",
     "tag": "Member",
@@ -626,21 +641,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-29/img_1780032396485_1.webp",
         "alt": "Wonyoung for Amuse Thailand Official Twitter Update"
-      }
-    ]
-  },
-  {
-    "date": "May 28, 2026",
-    "last_updated": "2026-05-28T20:47:34.540Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei Featured in Red Velvet Joy's Instagram Stories",
-    "body": "Red Velvet's Joy shared Instagram story updates featuring IVE's Rei, showcasing their interaction.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1tqfmbz/260528_red_velvet_joy_instagram_story_updates",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-28/img_1780001279157_1.webp",
-        "alt": "Rei Featured in Red Velvet Joy's Instagram Stories"
       }
     ]
   }
