@@ -1,6 +1,21 @@
 [
   {
     "date": "Jun 7, 2026",
+    "last_updated": "2026-06-07T20:26:20.267Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Gaeul's June 6th Fansite Update",
+    "body": "DIVEs share new photos of Gaeul captured at a recent event, showcased in a fansite update.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1tzbkiv/260606_gaeul_fansite_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-07/img_1780864048426_1.webp",
+        "alt": "Gaeul's June 6th Fansite Update"
+      }
+    ]
+  },
+  {
+    "date": "Jun 7, 2026",
     "last_updated": "2026-06-07T16:29:41.564Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -636,21 +651,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-30/img_1780143938885_1.webp",
         "alt": "Yujin & Rei Promote 'LUCID DREAM' on IVE Japan Twitter"
-      }
-    ]
-  },
-  {
-    "date": "May 30, 2026",
-    "last_updated": "2026-05-30T05:16:32.053Z",
-    "tag": "Fansite",
-    "tagColor": "text-pink-400 bg-pink-400/10",
-    "title": "Gaeul's May 26th Fansite Update",
-    "body": "Explore the latest photos shared by a fansite, showcasing Gaeul on May 26th.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1trh25a/260524_gaeul_fansite_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-30/img_1780118221694_1.webp",
-        "alt": "Gaeul's May 26th Fansite Update"
       }
     ]
   }
