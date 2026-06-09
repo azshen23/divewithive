@@ -1,5 +1,20 @@
 [
   {
+    "date": "Jun 9, 2026",
+    "last_updated": "2026-06-09T05:22:03.535Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Wonyoung's June 6th Fansite Update",
+    "body": "A new fansite update features Wonyoung from an event on June 6th.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1u0nadg/260606_wonyoung_fansite_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-09/img_1780982559044_1.webp",
+        "alt": "Wonyoung's June 6th Fansite Update"
+      }
+    ]
+  },
+  {
     "date": "Jun 8, 2026",
     "last_updated": "2026-06-08T20:48:32.314Z",
     "tag": "Tour",
@@ -636,21 +651,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-31/img_1780259156453_1.webp",
         "alt": "Liz's May 30th Instagram Update"
-      }
-    ]
-  },
-  {
-    "date": "May 31, 2026",
-    "last_updated": "2026-05-31T20:24:18.428Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung's May 30th Instagram Update",
-    "body": "Wonyoung shares new photos on her official Instagram, delighting fans with her latest stunning visuals.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1ts0ucd/260530_wonyoung_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-31/img_1780259179539_1.webp",
-        "alt": "Wonyoung's May 30th Instagram Update"
       }
     ]
   }
