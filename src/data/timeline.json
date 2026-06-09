@@ -1,6 +1,36 @@
 [
   {
     "date": "Jun 9, 2026",
+    "last_updated": "2026-06-09T12:57:16.805Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "IVE Official Twitter Update with Yujin & Rei",
+    "body": "IVE's official Twitter account shares a special post featuring Yujin and Rei for 'Dukongz Day'.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1u0ywdf/260609_ive_official_twitter_update_with_yujin_rei",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-09/img_1781009981714_1.webp",
+        "alt": "IVE Official Twitter Update with Yujin & Rei"
+      }
+    ]
+  },
+  {
+    "date": "Jun 9, 2026",
+    "last_updated": "2026-06-09T12:57:16.805Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Yujin for NEPA Official Instagram Update",
+    "body": "Yujin is featured in a new official Instagram update for the brand NEPA.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1u0y4dl/260609_nepa_official_instagram_update_with_yujin",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-09/img_1781010005272_1.webp",
+        "alt": "Yujin for NEPA Official Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "Jun 9, 2026",
     "last_updated": "2026-06-09T05:22:03.535Z",
     "tag": "Fansite",
     "tagColor": "text-pink-400 bg-pink-400/10",
@@ -623,35 +653,5 @@
     "body": "Leeseo showcases her captivating moves in a new official TikTok update, participating in the 'LUCID DREAM' challenge.",
     "post_url": "https://www.reddit.com/r/ive/comments/1tsptsg/260531_ive_official_tiktok_update_with_leeseo_i",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-05-31/vid_1780259118303.mp4"
-  },
-  {
-    "date": "May 31, 2026",
-    "last_updated": "2026-05-31T20:24:18.428Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung for EIDER Official Instagram Update",
-    "body": "Wonyoung features in EIDER's latest Instagram update, highlighting her brand ambassador activities for the outdoor clothing line.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1ts3fzm/260530_eider_official_instagram_update_with",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-31/img_1780259147258_1.webp",
-        "alt": "Wonyoung for EIDER Official Instagram Update"
-      }
-    ]
-  },
-  {
-    "date": "May 31, 2026",
-    "last_updated": "2026-05-31T20:24:18.428Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Liz's May 30th Instagram Update",
-    "body": "Liz shares new photos on her official Instagram, treating fans to her charismatic presence.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1ts1fd5/260530_liz_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-31/img_1780259156453_1.webp",
-        "alt": "Liz's May 30th Instagram Update"
-      }
-    ]
   }
 ]
