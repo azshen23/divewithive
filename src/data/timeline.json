@@ -1,6 +1,21 @@
 [
   {
     "date": "Jun 10, 2026",
+    "last_updated": "2026-06-10T09:12:15.264Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Rei's June 10th Instagram Update",
+    "body": "Rei shares new photos on her personal Instagram account.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1u1ucsb/260610_rei_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-10/img_1781082836212_1.webp",
+        "alt": "Rei's June 10th Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "Jun 10, 2026",
     "last_updated": "2026-06-10T00:38:20.614Z",
     "tag": "Fansite",
     "tagColor": "text-pink-400 bg-pink-400/10",
@@ -641,21 +656,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-31/img_1780259088998_1.webp",
         "alt": "Wonyoung's May 31st Fansite Update"
-      }
-    ]
-  },
-  {
-    "date": "May 31, 2026",
-    "last_updated": "2026-05-31T20:24:18.428Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung's May 31st Instagram Update",
-    "body": "Wonyoung shares her latest photos on Instagram, captivating fans with her stunning visuals.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1tsrctf/260531_wonyoung_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-31/img_1780259104117_1.webp",
-        "alt": "Wonyoung's May 31st Instagram Update"
       }
     ]
   }
