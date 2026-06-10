@@ -1,6 +1,21 @@
 [
   {
     "date": "Jun 10, 2026",
+    "last_updated": "2026-06-10T13:06:07.723Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "IVE Official Twitter Update with Yujin & Rei (June 9th)",
+    "body": "IVE released a new official Twitter update featuring members Yujin and Rei.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1u1ubxq/260609_ive_twitter_update_with_yujin_rei",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-10/img_1781096856168_1.webp",
+        "alt": "IVE Official Twitter Update with Yujin & Rei (June 9th)"
+      }
+    ]
+  },
+  {
+    "date": "Jun 10, 2026",
     "last_updated": "2026-06-10T09:12:15.264Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -641,21 +656,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-01/img_1780274172090_1.webp",
         "alt": "Rei's May 26th Fansite Update"
-      }
-    ]
-  },
-  {
-    "date": "May 31, 2026",
-    "last_updated": "2026-05-31T20:24:18.428Z",
-    "tag": "Fansite",
-    "tagColor": "text-pink-400 bg-pink-400/10",
-    "title": "Wonyoung's May 31st Fansite Update",
-    "body": "Newly released photos capture Wonyoung in a series of candid and beautiful moments from a recent event.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1tssym0/260531_wonyoung_fansite_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-05-31/img_1780259088998_1.webp",
-        "alt": "Wonyoung's May 31st Fansite Update"
       }
     ]
   }
