@@ -1,5 +1,20 @@
 [
   {
+    "date": "Jun 17, 2026",
+    "last_updated": "2026-06-17T00:39:59.771Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "DIVE Shares Photos from IVE's 'SHOW WHAT I AM' Sydney Concert",
+    "body": "A devoted DIVE shares a collection of photos and videos, offering a fan's perspective from IVE's recent 'SHOW WHAT I AM' world tour stop in Sydney.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1u79s45/some_of_my_photos_from_the_sydney_concert",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-17/img_1781656821816_1.webp",
+        "alt": "DIVE Shares Photos from IVE's 'SHOW WHAT I AM' Sydney Concert"
+      }
+    ]
+  },
+  {
     "date": "Jun 16, 2026",
     "last_updated": "2026-06-16T21:02:22.324Z",
     "tag": "Member",
@@ -598,20 +613,5 @@
     "body": "Dyson Korea shares a new Instagram update featuring Wonyoung promoting the Airwrap Co-Anda 2X.",
     "post_url": "https://www.reddit.com/r/ive/comments/1u2owhh/260611_dyson_korea_instagram_update_with_wonyoung",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-06-11/vid_1781170277157.mp4"
-  },
-  {
-    "date": "Jun 11, 2026",
-    "last_updated": "2026-06-11T09:27:26.819Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung for KÉRASTASE Japan Twitter Update",
-    "body": "KÉRASTASE Japan shares a new Twitter update featuring Wonyoung, promoting their latest products.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1u2ossw/260610_k%c3%a9rastase_japan_twitter_update_with",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-11/img_1781170294939_1.webp",
-        "alt": "Wonyoung for KÉRASTASE Japan Twitter Update"
-      }
-    ]
   }
 ]
