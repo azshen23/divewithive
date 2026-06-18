@@ -1,6 +1,21 @@
 [
   {
     "date": "Jun 18, 2026",
+    "last_updated": "2026-06-18T05:34:40.094Z",
+    "tag": "Award",
+    "tagColor": "text-amber-400 bg-amber-400/10",
+    "title": "Grammys Introduce 'Best Asian Pop Music Performance' Category",
+    "body": "The Recording Academy has announced a new category for the Grammy Awards, 'Best Asian Pop Music Performance,' which could potentially recognize future IVE projects.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1u8gqrw/grammys_new_category_best_asian_pop_music",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-18/img_1781760907270_1.webp",
+        "alt": "Grammys Introduce 'Best Asian Pop Music Performance' Category"
+      }
+    ]
+  },
+  {
+    "date": "Jun 18, 2026",
     "last_updated": "2026-06-18T00:41:14.448Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -613,15 +628,5 @@
     "body": "Rei participates in the 'In My Hands' challenge on MEOVV's official TikTok, alongside MEOVV members Sooin and Anna.",
     "post_url": "https://www.reddit.com/r/ive/comments/1u2xa7u/260611_meovv_tiktok_update_with_rei_%f0%9d%96%a6%f0%9d%97%88%f0%9d%97%8d_%f0%9d%97%8d%f0%9d%97%81%f0%9d%96%be_%f0%9d%97%82%f0%9d%97%87_%f0%9d%97%86%f0%9d%97%92",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-06-11/vid_1781198272181.mp4"
-  },
-  {
-    "date": "Jun 11, 2026",
-    "last_updated": "2026-06-11T17:13:14.357Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei & MEOVV Sooin & Anna Take On 'DDI RO RI' TikTok Challenge",
-    "body": "Rei collaborates with MEOVV's Sooin and Anna for the 'DDI RO RI' challenge in a new official TikTok update.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1u2wj48/260611_meovv_tiktok_update_with_rei_rei_hear_that",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-06-11/vid_1781198305948.mp4"
   }
 ]
