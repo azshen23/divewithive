@@ -2,6 +2,31 @@
   {
     "date": "Jun 14, 2026",
     "last_updated": "2026-06-14T12:37:05.769Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Yujin's June 13th Fansite Update",
+    "body": "A fansite shares new photos of Yujin, capturing her recent activities.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1u5i1b6/260613_yujin_fansite_update",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-06-14/vid_1781440665196.mp4"
+  },
+  {
+    "date": "Jun 14, 2026",
+    "last_updated": "2026-06-14T12:37:05.769Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung's June 14th Instagram Update",
+    "body": "Wonyoung posts new photos to her personal Instagram, sharing moments with DIVEs.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1u5h9yv/260614_wonyoung_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-14/img_1781440688126_1.webp",
+        "alt": "Wonyoung's June 14th Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "Jun 14, 2026",
+    "last_updated": "2026-06-14T12:37:05.769Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
     "title": "Wonyoung for rolarola Instagram Update (June 14th)",
