@@ -1,5 +1,30 @@
 [
   {
+    "date": "Jun 23, 2026",
+    "last_updated": "2026-06-23T09:05:27.357Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Liz's June 26th Instagram Update",
+    "body": "Liz shares a new series of photos on her official Instagram account, giving fans a glimpse into her latest activities.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1udapik/260623_liz_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-23/img_1782205623354_1.webp",
+        "alt": "Liz's June 26th Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "Jun 23, 2026",
+    "last_updated": "2026-06-23T09:05:27.357Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE Releases 'IVE ON: U.S. Promotion Behind #1'",
+    "body": "IVE shares a behind-the-scenes look at their recent U.S. promotions through the first episode of their official 'IVE ON' YouTube series.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1uclej4/260622_ive_ive_on_us_promotion_behind_1",
+    "videoId": "p8UAndL_AqI"
+  },
+  {
     "date": "Jun 22, 2026",
     "last_updated": "2026-06-22T13:51:34.765Z",
     "tag": "Member",
@@ -613,30 +638,5 @@
         "alt": "Liz for TONYMOLY Twitter Update"
       }
     ]
-  },
-  {
-    "date": "Jun 15, 2026",
-    "last_updated": "2026-06-15T05:46:00.836Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung for EIDER Official Instagram Update (June 15th)",
-    "body": "IVE's Wonyoung features in a new official Instagram update for the brand EIDER, showcasing their latest collection.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1u65wih/260615_eider_official_instagram_update_with",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-15/img_1781502392479_1.webp",
-        "alt": "Wonyoung for EIDER Official Instagram Update (June 15th)"
-      }
-    ]
-  },
-  {
-    "date": "Jun 15, 2026",
-    "last_updated": "2026-06-15T05:46:00.836Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei for WEGO 2026 Summer Visual",
-    "body": "Rei is featured in the official 2026 Summer Visual campaign for the brand WEGO, showcasing their upcoming summer collection.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1u64qpy/260615_rei_wego_2026_summer_visual",
-    "videoId": "rbORtFcfWUQ"
   }
 ]
