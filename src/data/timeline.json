@@ -1,5 +1,30 @@
 [
   {
+    "date": "Jun 26, 2026",
+    "last_updated": "2026-06-26T09:04:05.271Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE Official TikTok Update with Yujin & Rei",
+    "body": "Yujin and Rei share a new TikTok video titled \"otukare,\" delighting fans with their latest interaction.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1ufzqht/260626_ive_official_tiktok_update_with_yujin_rei",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-06-26/vid_1782464688703.mp4"
+  },
+  {
+    "date": "Jun 26, 2026",
+    "last_updated": "2026-06-26T09:04:05.271Z",
+    "tag": "Tour",
+    "tagColor": "text-emerald-400 bg-emerald-400/10",
+    "title": "Official Review and Content Release for IVE's Tokyo Dome Concert",
+    "body": "An official review, video, and images have been released, commemorating IVE's successful \"SHOW WHAT I AM\" World Tour stop at Tokyo Dome.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1ufrq1d/260626_ive_tokyo_dome_concert_official_release",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-26/img_1782464728455_1.webp",
+        "alt": "Official Review and Content Release for IVE's Tokyo Dome Concert"
+      }
+    ]
+  },
+  {
     "date": "Jun 25, 2026",
     "last_updated": "2026-06-25T16:46:07.177Z",
     "tag": "Member",
@@ -606,31 +631,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-17/img_1781689094592_1.webp",
         "alt": "Gaeul & Rei's 'Sentimentalz' Twitter Update"
-      }
-    ]
-  },
-  {
-    "date": "Jun 17, 2026",
-    "last_updated": "2026-06-17T09:35:21.151Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Gaeul's Official TikTok Update: Round Cheese Balls",
-    "body": "Gaeul shares a cute new TikTok video, charming DIVEs with her 'round cheese balls' concept and playful demeanor.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1u8499z/260617_ive_official_tiktok_update_with_gaeul",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-06-17/vid_1781689117309.mp4"
-  },
-  {
-    "date": "Jun 17, 2026",
-    "last_updated": "2026-06-17T09:35:21.151Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Gaeul & Rei for Hama Film Melbourne Instagram Update",
-    "body": "Gaeul and Rei are featured in an Instagram update from Hama Film Melbourne, showcasing their charming presence during the tour.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1u83q1y/260617_hama_film_melbourne_instagram_update_with",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-17/img_1781689153806_1.webp",
-        "alt": "Gaeul & Rei for Hama Film Melbourne Instagram Update"
       }
     ]
   }
