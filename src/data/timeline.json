@@ -1,5 +1,45 @@
 [
   {
+    "date": "Jun 27, 2026",
+    "last_updated": "2026-06-27T12:25:23.063Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE for CDTV Official Instagram Update",
+    "body": "IVE shares an update on CDTV's official Instagram, potentially teasing an upcoming appearance or performance.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1ugzsfj/260627_cdtv_official_instagram_update_with_ive",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-06-27/vid_1782563198558.mp4"
+  },
+  {
+    "date": "Jun 27, 2026",
+    "last_updated": "2026-06-27T12:25:23.063Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "IVE's Gaeul, Yujin, Rei, & Liz for Berriz Update",
+    "body": "Gaeul, Yujin, Rei, and Liz feature in a new update for the brand Berriz, showcasing their latest collaboration.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1ugk1v5/260626_ive_berriz_update_with_gaeul_ft_yujin_rei",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-27/img_1782563220920_1.webp",
+        "alt": "IVE's Gaeul, Yujin, Rei, & Liz for Berriz Update"
+      }
+    ]
+  },
+  {
+    "date": "Jun 27, 2026",
+    "last_updated": "2026-06-27T12:25:23.063Z",
+    "tag": "Tour",
+    "tagColor": "text-emerald-400 bg-emerald-400/10",
+    "title": "IVE Announced for Inkigayo Live in Tokyo",
+    "body": "IVE is confirmed to perform at Inkigayo Live in Tokyo, taking place at Belluna Dome on September 22nd and 23rd.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1ugf6r4/260626_ive_to_perform_at_inkigayo_live_in_tokyo",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-27/img_1782563242582_1.webp",
+        "alt": "IVE Announced for Inkigayo Live in Tokyo"
+      }
+    ]
+  },
+  {
     "date": "Jun 26, 2026",
     "last_updated": "2026-06-26T20:33:45.747Z",
     "tag": "Member",
@@ -608,40 +648,5 @@
     "body": "Rei participates in a fun Instagram Reels update from shipdo_by_starship, featuring LE SSERAFIM's Kazuha.",
     "post_url": "https://www.reddit.com/r/ive/comments/1u93jx8/260618_shipdo_by_starship_instagram_reels_update",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-06-19/vid_1781861795277.mp4"
-  },
-  {
-    "date": "Jun 19, 2026",
-    "last_updated": "2026-06-19T00:44:37.509Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei's TikTok Challenge with LE SSERAFIM's Kazuha",
-    "body": "Rei participated in the 'BOOMPALA Challenge' with LE SSERAFIM's Kazuha in a fun new TikTok update.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1u93xen/260618_le_sserafim_tiktok_update_with_rei",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-06-19/vid_1781829913789.mp4"
-  },
-  {
-    "date": "Jun 19, 2026",
-    "last_updated": "2026-06-19T00:44:37.509Z",
-    "tag": "Release",
-    "tagColor": "text-rose-400 bg-rose-400/10",
-    "title": "Rei's 'Follow REI' Episode 86 with LE SSERAFIM's Kazuha",
-    "body": "Rei hosted LE SSERAFIM's Kazuha on Episode 86 of 'Follow REI', where they discussed future plans for a meal together.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1u925il/260618_rei_guest_le_sserafim_kazuha_episode_86",
-    "videoId": "cLZMzeYPGbs"
-  },
-  {
-    "date": "Jun 19, 2026",
-    "last_updated": "2026-06-19T00:44:37.509Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Gaeul's Instagram Update ft. Yujin, Rei & Liz",
-    "body": "Gaeul shared a new Instagram update featuring fellow members Yujin, Rei, and Liz, delighting DIVEs with a group photo.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1u916jl/260618_gaeul_instagram_update_ft_yujin_rei_liz",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-19/img_1781829971105_1.webp",
-        "alt": "Gaeul's Instagram Update ft. Yujin, Rei & Liz"
-      }
-    ]
   }
 ]
