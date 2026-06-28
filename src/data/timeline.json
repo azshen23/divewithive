@@ -1,6 +1,46 @@
 [
   {
     "date": "Jun 28, 2026",
+    "last_updated": "2026-06-28T12:26:06.089Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Rei's June 28th Instagram Update Featuring Yujin",
+    "body": "Rei shared new photos on Instagram, featuring fellow member Yujin in a sweet interaction.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1uhumb2/260628_rei_instagram_update_ft_yujin",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-28/img_1782649593859_1.webp",
+        "alt": "Rei's June 28th Instagram Update Featuring Yujin"
+      }
+    ]
+  },
+  {
+    "date": "Jun 28, 2026",
+    "last_updated": "2026-06-28T12:26:06.089Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Yujin's June 28th Instagram Update",
+    "body": "Yujin posted new photos on her official Instagram account, showcasing her latest look.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1uhri51/260628_yujin_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-28/img_1782649630208_1.webp",
+        "alt": "Yujin's June 28th Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "Jun 28, 2026",
+    "last_updated": "2026-06-28T12:26:06.089Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE Official TikTok Update: Yujin & Gaeul in Tokyo (I-VIEW)",
+    "body": "IVE released a new official TikTok video featuring Yujin and Gaeul, capturing moments from their time in Tokyo as part of their 'I-VIEW' series.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1uhpu9e/260627_ive_official_tiktok_update_with_yujin",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-06-28/vid_1782649647539.mp4"
+  },
+  {
+    "date": "Jun 28, 2026",
     "last_updated": "2026-06-28T05:29:27.114Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -608,50 +648,5 @@
     "body": "IVE releases a new 15-second commercial film for Pepsi Extra Fizz, showcasing their refreshing energy for the brand.",
     "post_url": "https://www.reddit.com/r/ive/comments/1u9wygw/260619_ive_new_pepsi_extra_fizz_15_seconds_ver_cf",
     "videoId": "sl7Myo42ps8"
-  },
-  {
-    "date": "Jun 19, 2026",
-    "last_updated": "2026-06-19T09:34:16.848Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Leeseo's June 19th Instagram Update",
-    "body": "Leeseo shares a fresh set of photos through her official Instagram account, updating DIVEs on her latest activities.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1u9vmyt/260619_leeseo_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-19/img_1781861724277_1.webp",
-        "alt": "Leeseo's June 19th Instagram Update"
-      }
-    ]
-  },
-  {
-    "date": "Jun 19, 2026",
-    "last_updated": "2026-06-19T09:34:16.848Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Yujin for NEPA Official Instagram Update",
-    "body": "NEPA's official Instagram shares new content featuring IVE's Yujin, highlighting her continued partnership with the brand.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1u9v96o/260619_nepa_official_instagram_update_with_yujin",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-19/img_1781861751703_1.webp",
-        "alt": "Yujin for NEPA Official Instagram Update"
-      }
-    ]
-  },
-  {
-    "date": "Jun 19, 2026",
-    "last_updated": "2026-06-19T09:34:16.848Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Yujin's June 19th Instagram Update",
-    "body": "Yujin shares new photos on her personal Instagram, giving DIVEs a glimpse into her recent moments.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1u9t9k7/260619_yujin_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-19/img_1781861773677_1.webp",
-        "alt": "Yujin's June 19th Instagram Update"
-      }
-    ]
   }
 ]
