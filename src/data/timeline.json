@@ -1,6 +1,31 @@
 [
   {
     "date": "Jun 29, 2026",
+    "last_updated": "2026-06-29T20:36:28.090Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung's June 29th Instagram Story Update",
+    "body": "Wonyoung shares new moments in her latest Instagram story update.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1uivg16/260629_wonyoung_instagram_story_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-29/img_1782765424972_1.webp",
+        "alt": "Wonyoung's June 29th Instagram Story Update"
+      }
+    ]
+  },
+  {
+    "date": "Jun 29, 2026",
+    "last_updated": "2026-06-29T20:36:28.090Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE Releases '[IVE ON] REI ASEA 2024 MC BEHIND'",
+    "body": "A new 'IVE ON' episode takes fans behind the scenes of Rei's MC activities at the Asia Star Entertainer Awards (ASEA).",
+    "post_url": "https://www.reddit.com/r/ive/comments/1uitdmz/260629_ive_ive_on_rei_asea_2026_mc_behind",
+    "videoId": "RzhRLBsXA60"
+  },
+  {
+    "date": "Jun 29, 2026",
     "last_updated": "2026-06-29T13:26:02.277Z",
     "tag": "Release",
     "tagColor": "text-rose-400 bg-rose-400/10",
@@ -623,30 +648,5 @@
         "alt": "Rei for WEGO Official Twitter Update"
       }
     ]
-  },
-  {
-    "date": "Jun 22, 2026",
-    "last_updated": "2026-06-22T00:38:42.736Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei's Instagram Update ft. Yujin, Gaeul, Liz & Leeseo",
-    "body": "Rei shares new photos on Instagram featuring fellow members Yujin, Gaeul, Liz, and Leeseo, giving fans a glimpse of their interactions.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1ublpdi/260621_rei_instagram_update_ft_yujin_gaeul_liz",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-22/img_1782088814138_1.webp",
-        "alt": "Rei's Instagram Update ft. Yujin, Gaeul, Liz & Leeseo"
-      }
-    ]
-  },
-  {
-    "date": "Jun 22, 2026",
-    "last_updated": "2026-06-22T00:38:42.736Z",
-    "tag": "Release",
-    "tagColor": "text-rose-400 bg-rose-400/10",
-    "title": "IVE Official TikTok Update with Rei & Liz - Dive in OIᯓ✮",
-    "body": "IVE's Rei and Liz participate in a new official TikTok update, inviting fans to 'Dive in OIᯓ✮' with their latest challenge.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1ubkj01/260621_ive_official_tiktok_update_with_rei_liz",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-06-22/vid_1782088848807.mp4"
   }
 ]
