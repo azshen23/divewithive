@@ -1,5 +1,40 @@
 [
   {
+    "date": "Jun 23, 2026",
+    "last_updated": "2026-06-23T16:48:02.107Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE TikTok Update with Rei & Wonyoung in Auckland",
+    "body": "Rei and Wonyoung share behind-the-scenes moments from Auckland in a new official IVE TikTok video.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1udcdn9/260623_ive_official_tiktok_update_with_rei",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-06-23/vid_1782233362544.mp4"
+  },
+  {
+    "date": "Jun 23, 2026",
+    "last_updated": "2026-06-23T09:05:27.357Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Liz's June 26th Instagram Update",
+    "body": "Liz shares a new series of photos on her official Instagram account, giving fans a glimpse into her latest activities.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1udapik/260623_liz_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-23/img_1782205623354_1.webp",
+        "alt": "Liz's June 26th Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "Jun 23, 2026",
+    "last_updated": "2026-06-23T09:05:27.357Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE Releases 'IVE ON: U.S. Promotion Behind #1'",
+    "body": "IVE shares a behind-the-scenes look at their recent U.S. promotions through the first episode of their official 'IVE ON' YouTube series.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1uclej4/260622_ive_ive_on_us_promotion_behind_1",
+    "videoId": "p8UAndL_AqI"
+  },
+  {
     "date": "Jun 22, 2026",
     "last_updated": "2026-06-22T13:51:34.765Z",
     "tag": "Member",
