@@ -1,6 +1,46 @@
 [
   {
     "date": "Jul 3, 2026",
+    "last_updated": "2026-07-03T13:46:21.917Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Gaeul Featured in shipdo_by_starship Instagram Update",
+    "body": "Gaeul shares new photos on shipdo_by_starship's official Instagram account.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1umco8a/260703_shipdo_by_starship_instagram_update_with",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-03/img_1783086456698_1.webp",
+        "alt": "Gaeul Featured in shipdo_by_starship Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "Jul 3, 2026",
+    "last_updated": "2026-07-03T13:46:21.917Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung's July 3rd Instagram Update",
+    "body": "Wonyoung posts new personal photos on her official Instagram.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1um9rpf/260703_wonyoung_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-03/img_1783086518392_1.webp",
+        "alt": "Wonyoung's July 3rd Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "Jul 3, 2026",
+    "last_updated": "2026-07-03T13:46:21.917Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE Releases 'JIGSAW' Recording Behind-the-Scenes",
+    "body": "IVE shares a special behind-the-scenes video showcasing the recording process for their song 'JIGSAW'.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1um9q3l/260703_ive_jigsaw_recording_behind",
+    "videoId": "sm80MKtYXPM"
+  },
+  {
+    "date": "Jul 3, 2026",
     "last_updated": "2026-07-03T10:28:13.105Z",
     "tag": "Release",
     "tagColor": "text-rose-400 bg-rose-400/10",
@@ -558,40 +598,5 @@
         "alt": "Yujin's June 28th Instagram Update"
       }
     ]
-  },
-  {
-    "date": "Jun 28, 2026",
-    "last_updated": "2026-06-28T12:26:06.089Z",
-    "tag": "Release",
-    "tagColor": "text-rose-400 bg-rose-400/10",
-    "title": "IVE Official TikTok Update: Yujin & Gaeul in Tokyo (I-VIEW)",
-    "body": "IVE released a new official TikTok video featuring Yujin and Gaeul, capturing moments from their time in Tokyo as part of their 'I-VIEW' series.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1uhpu9e/260627_ive_official_tiktok_update_with_yujin",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-06-28/vid_1782649647539.mp4"
-  },
-  {
-    "date": "Jun 28, 2026",
-    "last_updated": "2026-06-28T05:29:27.114Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung's June 27th Instagram Story Update",
-    "body": "Wonyoung shares a new update on her official Instagram story for June 27th, giving fans a glimpse into her day.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1uh1gc0/260627_wonyoung_instagram_story_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-28/img_1782624601575_1.webp",
-        "alt": "Wonyoung's June 27th Instagram Story Update"
-      }
-    ]
-  },
-  {
-    "date": "Jun 27, 2026",
-    "last_updated": "2026-06-27T12:25:23.063Z",
-    "tag": "Release",
-    "tagColor": "text-rose-400 bg-rose-400/10",
-    "title": "IVE for CDTV Official Instagram Update",
-    "body": "IVE shares an update on CDTV's official Instagram, potentially teasing an upcoming appearance or performance.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1ugzsfj/260627_cdtv_official_instagram_update_with_ive",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-06-27/vid_1782563198558.mp4"
   }
 ]
