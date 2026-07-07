@@ -1,6 +1,51 @@
 [
   {
     "date": "Jul 7, 2026",
+    "last_updated": "2026-07-07T14:11:12.591Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Gaeul's July 7th Instagram Update",
+    "body": "Gaeul shares new photos with Dives through her personal Instagram account.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1upt7kc/260707_gaeul_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-07/img_1783433546070_1.webp",
+        "alt": "Gaeul's July 7th Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "Jul 7, 2026",
+    "last_updated": "2026-07-07T14:11:12.591Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Yujin's July 7th Instagram Update",
+    "body": "Yujin updates her fans with new images on her personal Instagram.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1upruil/260707_yujin_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-07/img_1783433593830_1.webp",
+        "alt": "Yujin's July 7th Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "Jul 7, 2026",
+    "last_updated": "2026-07-07T14:11:12.591Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung's July 7th Instagram Update",
+    "body": "Wonyoung posts new captivating content on her personal Instagram for fans.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1upqdds/260707_wonyoung_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-07/img_1783433679256_1.webp",
+        "alt": "Wonyoung's July 7th Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "Jul 7, 2026",
     "last_updated": "2026-07-07T07:31:26.676Z",
     "tag": "Tour",
     "tagColor": "text-emerald-400 bg-emerald-400/10",
@@ -568,40 +613,5 @@
     "body": "An official visualizer for IVE's 'LUCID DREAM (Taku Takahashi Remix)' has been released, providing a captivating visual accompaniment to the track.",
     "post_url": "https://www.reddit.com/r/ive/comments/1ukgxuk/260701_ive_lucid_dream_taku_takahashi_remix",
     "videoId": "joe-bNMjYvs"
-  },
-  {
-    "date": "Jul 1, 2026",
-    "last_updated": "2026-07-01T12:55:41.083Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung for Hapa Kristin Korea Twitter Update",
-    "body": "Hapa Kristin Korea shared a new Twitter update featuring Wonyoung, showcasing her latest visuals for the brand.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1ukdvs8/260701_hapa_kristin_korea_twitter_update_with",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-01/vid_1782910882109.mp4"
-  },
-  {
-    "date": "Jun 30, 2026",
-    "last_updated": "2026-06-30T20:37:09.820Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung's June 30th Instagram Story Update",
-    "body": "Wonyoung shares a new update on her personal Instagram story, keeping fans connected with her daily activities.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1ujv5ds/260630_wonyoung_instagram_story_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-06-30/img_1782851856850_1.webp",
-        "alt": "Wonyoung's June 30th Instagram Story Update"
-      }
-    ]
-  },
-  {
-    "date": "Jun 30, 2026",
-    "last_updated": "2026-06-30T20:37:09.820Z",
-    "tag": "Release",
-    "tagColor": "text-rose-400 bg-rose-400/10",
-    "title": "IVE Releases 'LUCID DREAM (Taku Takahashi Remix)'",
-    "body": "IVE releases a new remix of their song 'LUCID DREAM' by Taku Takahashi, offering a fresh take on the track.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1ujseo0/260701_ive_lucid_dream_taku_takahashi_remix",
-    "videoId": "dmfC8awlC-Y"
   }
 ]
