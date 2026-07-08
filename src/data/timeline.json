@@ -1,6 +1,21 @@
 [
   {
     "date": "Jul 8, 2026",
+    "last_updated": "2026-07-08T10:09:28.755Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Rei Featured in shipdo_by_starship Instagram Update with (G)I-DLE's Minnie",
+    "body": "Rei collaborates with (G)I-DLE's Minnie for a new update on shipdo_by_starship's official Instagram, showcasing their interaction.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1uqoaqz/260708_shipdo_by_starship_instagram_update_with",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-08/img_1783505490166_1.webp",
+        "alt": "Rei Featured in shipdo_by_starship Instagram Update with (G)I-DLE's Minnie"
+      }
+    ]
+  },
+  {
+    "date": "Jul 8, 2026",
     "last_updated": "2026-07-08T01:55:08.591Z",
     "tag": "Release",
     "tagColor": "text-rose-400 bg-rose-400/10",
@@ -596,21 +611,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-01/img_1782910679656_1.webp",
         "alt": "Rei Featured in shipdo_by_starship Instagram Update"
-      }
-    ]
-  },
-  {
-    "date": "Jul 1, 2026",
-    "last_updated": "2026-07-01T12:55:41.083Z",
-    "tag": "Release",
-    "tagColor": "text-rose-400 bg-rose-400/10",
-    "title": "eill Shares Twitter Update with IVE & Taku Takahashi",
-    "body": "Artist eill posted a Twitter update featuring IVE and ☆Taku Takahashi, celebrating their collaboration on the 'LUCID DREAM' remix.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1ukhctv/260701_eill_twitter_update_with_ive_feat_taku",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-01/img_1782910761057_1.webp",
-        "alt": "eill Shares Twitter Update with IVE & Taku Takahashi"
       }
     ]
   }
