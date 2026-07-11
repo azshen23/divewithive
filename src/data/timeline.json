@@ -1,6 +1,16 @@
 [
   {
     "date": "Jul 11, 2026",
+    "last_updated": "2026-07-11T20:40:35.915Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE Releases New '[IVE LOG] The Puppy of a P-type' Shanghai Vlog",
+    "body": "IVE shares a new episode of '[IVE LOG]' featuring a 3-day, 2-night vlog from their trip to Shanghai.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1utkxf9/260711_ive_ive_log_the_puppy_of_a_ptype",
+    "videoId": "jZpElJkBp6g"
+  },
+  {
+    "date": "Jul 11, 2026",
     "last_updated": "2026-07-11T12:59:58.298Z",
     "tag": "Fansite",
     "tagColor": "text-pink-400 bg-pink-400/10",
@@ -593,15 +603,5 @@
     "body": "Wonyoung graces the WWD Japan Instagram with a new update, highlighting her fashion presence.",
     "post_url": "https://www.reddit.com/r/ive/comments/1ulhzz9/260702_wwd_japan_instagram_update_with_wonyoung",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-02/vid_1782999850231.mp4"
-  },
-  {
-    "date": "Jul 2, 2026",
-    "last_updated": "2026-07-02T13:41:54.334Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung for madame FIGARO Japon Instagram Update",
-    "body": "Wonyoung features in a new Instagram update from madame FIGARO Japon, showcasing her elegance.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1ulhqji/260702_madame_figaro_japon_instagram_update_with",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-02/vid_1782999907249.mp4"
   }
 ]
