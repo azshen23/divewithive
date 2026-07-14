@@ -1,5 +1,45 @@
 [
   {
+    "date": "Jul 14, 2026",
+    "last_updated": "2026-07-14T17:05:34.509Z",
+    "tag": "Tour",
+    "tagColor": "text-emerald-400 bg-emerald-400/10",
+    "title": "Gaeul Shares 'Nubterview' from 'Show What I Am' Tour",
+    "body": "Gaeul stars in a new 'Nubterview' video, offering a behind-the-scenes look at IVE's 'Show What I Am' world tour experience.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1uw9vbq/260714_ive_gaeul_nubterview_ive_world_tour_show",
+    "videoId": "wfCyB0y8PHY"
+  },
+  {
+    "date": "Jul 14, 2026",
+    "last_updated": "2026-07-14T17:05:34.509Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Rei Featured in New Fansite Update",
+    "body": "A new collection of photos featuring Rei has been shared by a fansite.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1uw9ut7/260712_rei_fansite_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-14/img_1784048872042_1.webp",
+        "alt": "Rei Featured in New Fansite Update"
+      }
+    ]
+  },
+  {
+    "date": "Jul 14, 2026",
+    "last_updated": "2026-07-14T17:05:34.509Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung Shares New Instagram Update",
+    "body": "Wonyoung posted new photos and/or videos on her official Instagram account.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1uw5t80/260714_wonyoung_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-14/img_1784048946106_1.webp",
+        "alt": "Wonyoung Shares New Instagram Update"
+      }
+    ]
+  },
+  {
     "date": "Jul 13, 2026",
     "last_updated": "2026-07-13T17:49:21.358Z",
     "tag": "Member",
@@ -573,45 +613,5 @@
     "body": "ELLE Japan shares a new set of photos and videos featuring Wonyoung, offering more looks from her recent pictorial.",
     "post_url": "https://www.reddit.com/r/ive/comments/1um2b4t/260702_elle_japan_instagram_update_with_wonyoung_2",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-04/vid_1783159401902.mp4"
-  },
-  {
-    "date": "Jul 3, 2026",
-    "last_updated": "2026-07-03T13:46:21.917Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Gaeul Featured in shipdo_by_starship Instagram Update",
-    "body": "Gaeul shares new photos on shipdo_by_starship's official Instagram account.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1umco8a/260703_shipdo_by_starship_instagram_update_with",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-03/img_1783086456698_1.webp",
-        "alt": "Gaeul Featured in shipdo_by_starship Instagram Update"
-      }
-    ]
-  },
-  {
-    "date": "Jul 3, 2026",
-    "last_updated": "2026-07-03T13:46:21.917Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung's July 3rd Instagram Update",
-    "body": "Wonyoung posts new personal photos on her official Instagram.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1um9rpf/260703_wonyoung_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-03/img_1783086518392_1.webp",
-        "alt": "Wonyoung's July 3rd Instagram Update"
-      }
-    ]
-  },
-  {
-    "date": "Jul 3, 2026",
-    "last_updated": "2026-07-03T13:46:21.917Z",
-    "tag": "Release",
-    "tagColor": "text-rose-400 bg-rose-400/10",
-    "title": "IVE Releases 'JIGSAW' Recording Behind-the-Scenes",
-    "body": "IVE shares a special behind-the-scenes video showcasing the recording process for their song 'JIGSAW'.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1um9q3l/260703_ive_jigsaw_recording_behind",
-    "videoId": "sm80MKtYXPM"
   }
 ]
