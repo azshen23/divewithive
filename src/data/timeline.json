@@ -1,6 +1,31 @@
 [
   {
     "date": "Jul 15, 2026",
+    "last_updated": "2026-07-15T20:51:25.738Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE's 'Off The Record' Reaches 100 Million Spotify Streams",
+    "body": "IVE's song 'Off The Record' has officially surpassed 100 million streams on Spotify, marking their ninth track to achieve this significant milestone.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1ux9t84/ive_off_the_record_hits_100_million_streams_on",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-15/img_1784148765661_1.webp",
+        "alt": "IVE's 'Off The Record' Reaches 100 Million Spotify Streams"
+      }
+    ]
+  },
+  {
+    "date": "Jul 15, 2026",
+    "last_updated": "2026-07-15T20:51:25.738Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Gaeul Hosts New 'Gaeul's Book Club' Episode with Lee Seul-ah",
+    "body": "Gaeul features Lee Seul-ah in a new episode of 'Gaeul's Book Club,' discussing the complexities of human relationships.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1ux44u1/260715_gaeul_guest_lee_seulah_human_relationships",
+    "videoId": "hRNGdw-Q2LU"
+  },
+  {
+    "date": "Jul 15, 2026",
     "last_updated": "2026-07-15T09:53:09.043Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -586,36 +611,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-04/img_1783184522908_1.webp",
         "alt": "IVE Japan Official Twitter Shares Update with Rei"
-      }
-    ]
-  },
-  {
-    "date": "Jul 4, 2026",
-    "last_updated": "2026-07-04T16:55:29.523Z",
-    "tag": "Release",
-    "tagColor": "text-rose-400 bg-rose-400/10",
-    "title": "IVE Japan Official Twitter Update from 'THE MUSIC DAY 2026'",
-    "body": "IVE Japan's official Twitter account shares an update featuring the group at Nippon TV's 'THE MUSIC DAY 2026' event.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1un4wyq/260704_ive_japan_official_twitter_update_at",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-04/img_1783184585896_1.webp",
-        "alt": "IVE Japan Official Twitter Update from 'THE MUSIC DAY 2026'"
-      }
-    ]
-  },
-  {
-    "date": "Jul 4, 2026",
-    "last_updated": "2026-07-04T16:55:29.523Z",
-    "tag": "Release",
-    "tagColor": "text-rose-400 bg-rose-400/10",
-    "title": "THE MUSIC DAY 2026 Shares IVE Backstage Photos",
-    "body": "The official 'THE MUSIC DAY 2026' Twitter account releases exclusive backstage photos of IVE from their appearance.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1un4r2l/260704_the_music_day_2026_twitter_update_with_ive",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-04/img_1783184633577_1.webp",
-        "alt": "THE MUSIC DAY 2026 Shares IVE Backstage Photos"
       }
     ]
   }
