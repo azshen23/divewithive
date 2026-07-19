@@ -1,6 +1,16 @@
 [
   {
     "date": "Jul 19, 2026",
+    "last_updated": "2026-07-19T16:47:57.524Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Liz Featured in Stone Music Official Twitter Update",
+    "body": "Liz appears in a new official Twitter update from Stone Music Entertainment.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v0ne3r/260719_stone_music_official_twitter_update_with",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-19/vid_1784479743376.mp4"
+  },
+  {
+    "date": "Jul 19, 2026",
     "last_updated": "2026-07-19T12:58:38.276Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -623,15 +633,5 @@
     "body": "Gaeul features in a new episode of 'Gaeul's Mood,' offering tips for those looking to build muscle.",
     "post_url": "https://www.reddit.com/r/ive/comments/1uqra3r/260708_gaeul_if_you_are_someone_who_finds_it_hard",
     "videoId": "PN4jvXmU_qU"
-  },
-  {
-    "date": "Jul 8, 2026",
-    "last_updated": "2026-07-08T13:45:04.042Z",
-    "tag": "Release",
-    "tagColor": "text-rose-400 bg-rose-400/10",
-    "title": "IVE Releases Official Visualizer for 'LUCID DREAM' (Shin Sakiura Remix)",
-    "body": "IVE shares an official visualizer for their recently released 'LUCID DREAM' Shin Sakiura Remix, providing new visuals for the track.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1uqn9l9/260708_ive_lucid_dream_shin_sakiura_remix",
-    "videoId": "DPI1q38hHFA"
   }
 ]
