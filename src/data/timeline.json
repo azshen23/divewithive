@@ -1,5 +1,35 @@
 [
   {
+    "date": "Jul 19, 2026",
+    "last_updated": "2026-07-19T06:24:06.898Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Liz Shares Reflection on IVE's Music Station Appearance",
+    "body": "Liz expressed her honor and gratitude for IVE's performance on Music Station's 1500th-anniversary episode, wishing fans a wonderful day.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1uzpghh/260718_ive_japan_official_twitter_update_with_liz",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-19/img_1784442331838_1.webp",
+        "alt": "Liz Shares Reflection on IVE's Music Station Appearance"
+      }
+    ]
+  },
+  {
+    "date": "Jul 19, 2026",
+    "last_updated": "2026-07-19T06:24:06.898Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Rei Reflects on Music Station Performance & Pre-Show Fun",
+    "body": "Rei shared her gratitude for performing on Music Station's 1500th episode and revealed that the members enjoyed omurice and shaved ice before the show.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1uzpepf/260718_ive_japan_official_twitter_update_with_rei",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-19/img_1784442384545_1.webp",
+        "alt": "Rei Reflects on Music Station Performance & Pre-Show Fun"
+      }
+    ]
+  },
+  {
     "date": "Jul 18, 2026",
     "last_updated": "2026-07-18T12:56:01.147Z",
     "tag": "Member",
@@ -608,30 +638,5 @@
         "alt": "Yujin's July 7th Instagram Update"
       }
     ]
-  },
-  {
-    "date": "Jul 7, 2026",
-    "last_updated": "2026-07-07T14:11:12.591Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung's July 7th Instagram Update",
-    "body": "Wonyoung posts new captivating content on her personal Instagram for fans.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1upqdds/260707_wonyoung_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-07/img_1783433679256_1.webp",
-        "alt": "Wonyoung's July 7th Instagram Update"
-      }
-    ]
-  },
-  {
-    "date": "Jul 7, 2026",
-    "last_updated": "2026-07-07T07:31:26.676Z",
-    "tag": "Tour",
-    "tagColor": "text-emerald-400 bg-emerald-400/10",
-    "title": "IVE Releases New '[IVE LOG] Eating Guinea Mango Mochi' Episode",
-    "body": "IVE shares a new 'KONG LOG' episode from their world tour, featuring the members enjoying Guinea Mango Mochi backstage.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1uoy8g0/260706_ive_ive_log_eating_guinea_mango_mochi_in",
-    "videoId": "xf5SZS-MSLY"
   }
 ]
