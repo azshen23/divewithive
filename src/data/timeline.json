@@ -1,6 +1,41 @@
 [
   {
     "date": "Jul 20, 2026",
+    "last_updated": "2026-07-20T13:51:21.304Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Liz Featured in MNet Fans' Choice Face Ep.01 Preview",
+    "body": "Liz showcases two distinct concepts – innocent and refreshing vs. cool and blue – for DIVE to choose from in a preview for MNet's Fans' Choice Face Episode 01.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v1i0gh/260720_liz_innocent_and_refreshing_vibes_vs_cool",
+    "videoId": "xxbdVM_eQn0"
+  },
+  {
+    "date": "Jul 20, 2026",
+    "last_updated": "2026-07-20T13:51:21.304Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Rei Joins LUCID DREAM Challenge in Official IVE TikTok Update",
+    "body": "Rei participates in the 'LUCID DREAM Challenge' (Taku Takahashi Remix Ver.) with MILK's Shiozaki Daichi in a new official IVE TikTok update.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v1fp0o/260720_ive_official_tiktok_update_with_rei_dream",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-20/vid_1784555588005.mp4"
+  },
+  {
+    "date": "Jul 20, 2026",
+    "last_updated": "2026-07-20T13:51:21.304Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung Features in New EIDER Official Instagram Update",
+    "body": "Wonyoung shares new promotional content in an official Instagram update from EIDER.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v1drm9/260720_eider_official_instagram_update_with",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-20/img_1784555672239_1.webp",
+        "alt": "Wonyoung Features in New EIDER Official Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "Jul 20, 2026",
     "last_updated": "2026-07-20T10:43:25.189Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -588,50 +623,5 @@
     "body": "IVE shares a new episode of '[IVE LOG]' featuring a 3-day, 2-night vlog from their trip to Shanghai.",
     "post_url": "https://www.reddit.com/r/ive/comments/1utkxf9/260711_ive_ive_log_the_puppy_of_a_ptype",
     "videoId": "jZpElJkBp6g"
-  },
-  {
-    "date": "Jul 11, 2026",
-    "last_updated": "2026-07-11T12:59:58.298Z",
-    "tag": "Fansite",
-    "tagColor": "text-pink-400 bg-pink-400/10",
-    "title": "IVE to Perform at Caribbean Bay Water Music Pool Party",
-    "body": "IVE is scheduled to perform at the Caribbean Bay Water Music Pool Party on August 16th. This event extends their recent appearance at Everland's water park.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1utgzdq/260711_ive_to_perform_at_caribbean_bay_water",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-11/img_1783774871650_1.webp",
-        "alt": "IVE to Perform at Caribbean Bay Water Music Pool Party"
-      }
-    ]
-  },
-  {
-    "date": "Jul 11, 2026",
-    "last_updated": "2026-07-11T12:59:58.298Z",
-    "tag": "Fansite",
-    "tagColor": "text-pink-400 bg-pink-400/10",
-    "title": "IVE Announces 'DIVE INTO MINIVE' Pop-Up Store in Seoul",
-    "body": "IVE has released a coming soon teaser poster for their official 'DIVE INTO MINIVE' pop-up store set to open in Seoul.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1utflkk/260711_ive_ive_x_minive_popup_store_dive_into",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-11/img_1783774922418_1.webp",
-        "alt": "IVE Announces 'DIVE INTO MINIVE' Pop-Up Store in Seoul"
-      }
-    ]
-  },
-  {
-    "date": "Jul 10, 2026",
-    "last_updated": "2026-07-10T17:41:44.642Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung Featured in EIDER Official Instagram Update",
-    "body": "Wonyoung appears in a new official Instagram update for EIDER, showcasing the brand's latest collection.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1uspivo/260710_eider_official_instagram_update_with",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-10/img_1783705374225_1.webp",
-        "alt": "Wonyoung Featured in EIDER Official Instagram Update"
-      }
-    ]
   }
 ]
