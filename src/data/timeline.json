@@ -1,5 +1,35 @@
 [
   {
+    "date": "Jul 21, 2026",
+    "last_updated": "2026-07-21T06:23:27.331Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung Shares New Instagram Update",
+    "body": "Wonyoung shared a fresh set of photos on her official Instagram, delighting fans with her latest look.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v28eum/260721_wonyoung_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-21/img_1784615084475_1.webp",
+        "alt": "Wonyoung Shares New Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "Jul 21, 2026",
+    "last_updated": "2026-07-21T06:23:27.331Z",
+    "tag": "Tour",
+    "tagColor": "text-emerald-400 bg-emerald-400/10",
+    "title": "IVE Unveils Official North American Tour Merchandise",
+    "body": "Details and pricing for the official tour merchandise available during IVE's North American leg of the concert series have been revealed, including items for the Toronto show.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v28afr/tour_merch_for_the_na_leg",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-21/img_1784615144411_1.webp",
+        "alt": "IVE Unveils Official North American Tour Merchandise"
+      }
+    ]
+  },
+  {
     "date": "Jul 20, 2026",
     "last_updated": "2026-07-20T21:03:25.196Z",
     "tag": "Member",
@@ -608,30 +638,5 @@
     "body": "A post showcasing Gaeul's acting skills has been shared by a fan on Reddit.",
     "post_url": "https://www.reddit.com/r/ive/comments/1uuddtx/gaeul_as_an_actress",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-13/vid_1783952184178.mp4"
-  },
-  {
-    "date": "Jul 13, 2026",
-    "last_updated": "2026-07-13T10:51:50.991Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung Featured in ARENA HOMME+ x BARRIE Greeting Video",
-    "body": "Wonyoung shares a special greeting video for her pictorial with ARENA HOMME+ and BARRIE for their August 2026 issue.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1uv5hsc/260713_wonyoung_arena_homme_x_barrie_august_2026",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-13/vid_1783939987283.mp4"
-  },
-  {
-    "date": "Jul 13, 2026",
-    "last_updated": "2026-07-13T10:51:50.991Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung Graces ARENA HOMME+ x BARRIE August 2026 Issue Cover",
-    "body": "Wonyoung's stunning cover preview for the August 2026 issue of ARENA HOMME+, in collaboration with BARRIE, has been released.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1uv5guf/260713_wonyoung_arena_homme_x_barrie_august_2026",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-13/img_1783940043886_1.webp",
-        "alt": "Wonyoung Graces ARENA HOMME+ x BARRIE August 2026 Issue Cover"
-      }
-    ]
   }
 ]
