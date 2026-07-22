@@ -1,6 +1,21 @@
 [
   {
     "date": "Jul 22, 2026",
+    "last_updated": "2026-07-22T13:24:40.602Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Fan Successfully Distributes Freebies at IVE's Toronto Concert",
+    "body": "A dedicated fan successfully distributed custom freebies to fellow DIVEs at various IVE pop-up locations and the arena during the Toronto concert, expressing hopes that recipients enjoyed them.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v3744b/freebies_giveaway_was_a_success_for_ive",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-22/img_1784726751068_1.webp",
+        "alt": "Fan Successfully Distributes Freebies at IVE's Toronto Concert"
+      }
+    ]
+  },
+  {
+    "date": "Jul 22, 2026",
     "last_updated": "2026-07-22T10:17:13.484Z",
     "tag": "Fansite",
     "tagColor": "text-pink-400 bg-pink-400/10",
@@ -633,20 +648,5 @@
     "body": "Gaeul features Lee Seul-ah in a new episode of 'Gaeul's Book Club,' discussing the complexities of human relationships.",
     "post_url": "https://www.reddit.com/r/ive/comments/1ux44u1/260715_gaeul_guest_lee_seulah_human_relationships",
     "videoId": "hRNGdw-Q2LU"
-  },
-  {
-    "date": "Jul 15, 2026",
-    "last_updated": "2026-07-15T09:53:09.043Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Gaeul Shares New Instagram Update",
-    "body": "Gaeul shared a new series of photos on her official Instagram account.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1ux0ucb/260715_gaeul_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-15/img_1784109265772_1.webp",
-        "alt": "Gaeul Shares New Instagram Update"
-      }
-    ]
   }
 ]
