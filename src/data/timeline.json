@@ -1,6 +1,31 @@
 [
   {
     "date": "Jul 23, 2026",
+    "last_updated": "2026-07-23T20:53:17.588Z",
+    "tag": "Tour",
+    "tagColor": "text-emerald-400 bg-emerald-400/10",
+    "title": "Scotiabank Arena Shares Official Photos from IVE's Toronto Concert",
+    "body": "The official Scotiabank Arena Twitter account released a series of professional photos from IVE's recent concert in Toronto, offering a stunning view of their performance.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v4nyic/260723_scotiabank_arena_official_twitter_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-23/img_1784840068990_1.webp",
+        "alt": "Scotiabank Arena Shares Official Photos from IVE's Toronto Concert"
+      }
+    ]
+  },
+  {
+    "date": "Jul 23, 2026",
+    "last_updated": "2026-07-23T20:53:17.588Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung Collaborates with Chef Kwon Sung-jun for Woori Bank 'Well-Done Sandwich'",
+    "body": "Wonyoung teamed up with Chef Kwon Sung-jun for Woori Bank, revealing a special 'Our Well-Done Sandwich' recipe as part of her brand ambassador activities.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v4gsek/260723_wonyoung_x_chef_kwon_sungjuns",
+    "videoId": "3x94TVjj6no"
+  },
+  {
+    "date": "Jul 23, 2026",
     "last_updated": "2026-07-23T17:12:25.575Z",
     "tag": "Fansite",
     "tagColor": "text-pink-400 bg-pink-400/10",
@@ -588,35 +613,5 @@
     "body": "Liz's highly anticipated OST, \"Tunnel,\" for the drama 'Spooky in Love' Part 1 has been officially released.",
     "post_url": "https://www.reddit.com/r/ive/comments/1v0ll5r/260719_liz_tunnel_spooky_in_love_ost_pt1",
     "videoId": "8QuIlXWdRos"
-  },
-  {
-    "date": "Jul 19, 2026",
-    "last_updated": "2026-07-19T06:24:06.898Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Liz Shares Reflection on IVE's Music Station Appearance",
-    "body": "Liz expressed her honor and gratitude for IVE's performance on Music Station's 1500th-anniversary episode, wishing fans a wonderful day.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1uzpghh/260718_ive_japan_official_twitter_update_with_liz",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-19/img_1784442331838_1.webp",
-        "alt": "Liz Shares Reflection on IVE's Music Station Appearance"
-      }
-    ]
-  },
-  {
-    "date": "Jul 19, 2026",
-    "last_updated": "2026-07-19T06:24:06.898Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei Reflects on Music Station Performance & Pre-Show Fun",
-    "body": "Rei shared her gratitude for performing on Music Station's 1500th episode and revealed that the members enjoyed omurice and shaved ice before the show.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1uzpepf/260718_ive_japan_official_twitter_update_with_rei",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-19/img_1784442384545_1.webp",
-        "alt": "Rei Reflects on Music Station Performance & Pre-Show Fun"
-      }
-    ]
   }
 ]
