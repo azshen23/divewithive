@@ -1,6 +1,21 @@
 [
   {
     "date": "Jul 25, 2026",
+    "last_updated": "2026-07-25T20:41:28.584Z",
+    "tag": "Tour",
+    "tagColor": "text-emerald-400 bg-emerald-400/10",
+    "title": "IVE Reveals Tour Merchandise at Newark Concert",
+    "body": "Fans attending IVE's Newark concert can view the official tour merchandise available for purchase, as shared in a new fan post.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v6galf/ive_tour_merch_newark",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-25/img_1785012159878_1.webp",
+        "alt": "IVE Reveals Tour Merchandise at Newark Concert"
+      }
+    ]
+  },
+  {
+    "date": "Jul 25, 2026",
     "last_updated": "2026-07-25T09:29:55.841Z",
     "tag": "Fansite",
     "tagColor": "text-pink-400 bg-pink-400/10",
@@ -636,21 +651,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-20/img_1784581623992_1.webp",
         "alt": "Liz Features in New IVE Official Twitter Update"
-      }
-    ]
-  },
-  {
-    "date": "Jul 20, 2026",
-    "last_updated": "2026-07-20T21:03:25.196Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung Stars in Fresh EIDER Official Instagram Update",
-    "body": "Wonyoung showcases new styles in an additional official Instagram update from EIDER, continuing her partnership with the brand.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1v1pfng/260720_eider_official_instagram_update_with",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-20/img_1784581684835_1.webp",
-        "alt": "Wonyoung Stars in Fresh EIDER Official Instagram Update"
       }
     ]
   }
