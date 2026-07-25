@@ -1,6 +1,36 @@
 [
   {
     "date": "Jul 25, 2026",
+    "last_updated": "2026-07-25T09:29:55.841Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Fan Plans Freebie Distribution for IVE's Austin Concert",
+    "body": "A fan shares their excitement for their first IVE concert and plans to distribute freebies at the Austin stop of the world tour.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v5wpoa/freebies_for_austin",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-25/img_1784971868664_1.webp",
+        "alt": "Fan Plans Freebie Distribution for IVE's Austin Concert"
+      }
+    ]
+  },
+  {
+    "date": "Jul 25, 2026",
+    "last_updated": "2026-07-25T09:29:55.841Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Fan Announces Freebie Distribution for Newark, LA, & Oakland Concerts",
+    "body": "A DIVE shares plans to distribute custom photocards at the upcoming IVE concerts in Newark, Los Angeles, and Oakland.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v5oflp/freebies_for_newark_la_oakland",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-25/img_1784971931473_1.webp",
+        "alt": "Fan Announces Freebie Distribution for Newark, LA, & Oakland Concerts"
+      }
+    ]
+  },
+  {
+    "date": "Jul 25, 2026",
     "last_updated": "2026-07-25T01:55:16.924Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -623,25 +653,5 @@
         "alt": "Wonyoung Stars in Fresh EIDER Official Instagram Update"
       }
     ]
-  },
-  {
-    "date": "Jul 20, 2026",
-    "last_updated": "2026-07-20T21:03:25.196Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "MLB Korea Promotes IVE's First Pitch at Citi Field",
-    "body": "MLB Korea releases a promotional video, urging fans not to miss IVE's upcoming first pitch event at Citi Field.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1v1mv2l/260720_ive_dont_miss_ives_first_pitch_at_citi",
-    "videoId": "UeeYBq2K-is"
-  },
-  {
-    "date": "Jul 20, 2026",
-    "last_updated": "2026-07-20T13:51:21.304Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Liz Featured in MNet Fans' Choice Face Ep.01 Preview",
-    "body": "Liz showcases two distinct concepts – innocent and refreshing vs. cool and blue – for DIVE to choose from in a preview for MNet's Fans' Choice Face Episode 01.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1v1i0gh/260720_liz_innocent_and_refreshing_vibes_vs_cool",
-    "videoId": "xxbdVM_eQn0"
   }
 ]
