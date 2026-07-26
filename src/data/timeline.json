@@ -1,5 +1,30 @@
 [
   {
+    "date": "Jul 26, 2026",
+    "last_updated": "2026-07-26T06:30:04.442Z",
+    "tag": "Tour",
+    "tagColor": "text-emerald-400 bg-emerald-400/10",
+    "title": "IVE Shares Official Twitter Update from Newark World Tour Stop",
+    "body": "IVE's official Twitter account shared an update from their \"SHOW WHAT I AM\" World Tour stop in Newark, featuring photos from the concert. The post captures moments from their performance for DIVEs in New Jersey.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v6sz6i/260726_ive_official_twitter_update_ive_world_tour",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-26/img_1785047465979_1.webp",
+        "alt": "IVE Shares Official Twitter Update from Newark World Tour Stop"
+      }
+    ]
+  },
+  {
+    "date": "Jul 26, 2026",
+    "last_updated": "2026-07-26T06:30:04.442Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Fan Fancam of IVE's Newark Soundcheck",
+    "body": "A 4K fancam capturing IVE's soundcheck performance at their \"SHOW WHAT I AM\" World Tour stop in Newark has been shared by a fan. The video provides a close-up look at the group's pre-show preparations.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v6mk2v/260726_4k_ive_%ec%95%84%ec%9d%b4%eb%b8%8c_soundcheck_show_what_i_am_in",
+    "videoId": "TFthoffrmmA"
+  },
+  {
     "date": "Jul 25, 2026",
     "last_updated": "2026-07-25T20:41:28.584Z",
     "tag": "Tour",
@@ -626,31 +651,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-20/img_1784581475920_1.webp",
         "alt": "Wonyoung Features in New Dr.Althea Korea Instagram Update"
-      }
-    ]
-  },
-  {
-    "date": "Jul 20, 2026",
-    "last_updated": "2026-07-20T21:03:25.196Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei Joins MILK Official TikTok for Bakuretsu Aishiteru Challenge",
-    "body": "Rei participates in the 'Bakuretsu Aishiteru Challenge' alongside MILK's Shiozaki Daichi in a new official TikTok update.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1v1pse7/260720_milk_official_tiktok_update_with_rei_milk",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-20/vid_1784581534468.mp4"
-  },
-  {
-    "date": "Jul 20, 2026",
-    "last_updated": "2026-07-20T21:03:25.196Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Liz Features in New IVE Official Twitter Update",
-    "body": "Liz shares new visuals in an official IVE Twitter update, delighting fans with her latest photos.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1v1ph93/260720_ive_official_twitter_update_with_liz",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-20/img_1784581623992_1.webp",
-        "alt": "Liz Features in New IVE Official Twitter Update"
       }
     ]
   }
