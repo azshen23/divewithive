@@ -1,5 +1,30 @@
 [
   {
+    "date": "Jul 27, 2026",
+    "last_updated": "2026-07-27T06:56:18.127Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE Shares Official Twitter Update with MLB New York Mets",
+    "body": "The group shared a new update on their official Twitter, featuring their collaboration with MLB New York Mets.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v7r8xs/260727_ive_official_twitter_update_2_mlb_new_york",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-27/img_1785135455811_1.webp",
+        "alt": "IVE Shares Official Twitter Update with MLB New York Mets"
+      }
+    ]
+  },
+  {
+    "date": "Jul 27, 2026",
+    "last_updated": "2026-07-27T06:56:18.127Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung Throws First Pitch at MLB New York Mets Game",
+    "body": "Wonyoung of IVE made a special appearance to throw the ceremonial first pitch before the New York Mets baseball game.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v7nu14/260727_ive_wonyoung_from_kpop_group_ive_threw_out",
+    "videoId": "j0hk6Gma6gg"
+  },
+  {
     "date": "Jul 26, 2026",
     "last_updated": "2026-07-26T20:47:50.068Z",
     "tag": "Member",
@@ -598,30 +623,5 @@
     "body": "IVE releases a new '[IVE ON]' behind-the-scenes video featuring Rei's collaboration with WEGO, showcasing her preparations and charm.",
     "post_url": "https://www.reddit.com/r/ive/comments/1v3h1o3/260722_ive_ive_on_rei_x_wego_behind",
     "videoId": "8TpYXLQPOlQ"
-  },
-  {
-    "date": "Jul 22, 2026",
-    "last_updated": "2026-07-22T17:10:56.630Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei Shares New Instagram Update (July 22nd)",
-    "body": "Rei updates her Instagram with new photos, delighting fans with her latest visuals.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1v3fw71/260722_rei_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-22/img_1784740440057_1.webp",
-        "alt": "Rei Shares New Instagram Update (July 22nd)"
-      }
-    ]
-  },
-  {
-    "date": "Jul 22, 2026",
-    "last_updated": "2026-07-22T17:10:56.630Z",
-    "tag": "Fansite",
-    "tagColor": "text-pink-400 bg-pink-400/10",
-    "title": "Full Fancam of IVE's Toronto Concert Released",
-    "body": "A fan shares a full concert fancam of IVE's 'SHOW WHAT I AM' World Tour stop in Toronto on July 21st, capturing the entire performance.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1v3fmc2/260721_ive_full_concert_ive_world_tour_show_what",
-    "videoId": "tPqvr3jiEdA"
   }
 ]
