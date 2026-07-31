@@ -2,6 +2,56 @@
   {
     "date": "Jul 26, 2026",
     "last_updated": "2026-07-26T13:02:20.482Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "DIVE Shares 'Choice Pics' from IVE's Newark Concert",
+    "body": "A fan shares a collection of their favorite photos from IVE's recent 'SHOW WHAT I AM' World Tour stop in Newark, highlighting the amazing concert experience.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v72imo/choice_pics_from_newark_nj_show",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-26/img_1785071078575_1.webp",
+        "alt": "DIVE Shares 'Choice Pics' from IVE's Newark Concert"
+      }
+    ]
+  },
+  {
+    "date": "Jul 26, 2026",
+    "last_updated": "2026-07-26T13:02:20.482Z",
+    "tag": "Tour",
+    "tagColor": "text-emerald-400 bg-emerald-400/10",
+    "title": "Fan Shares Highlights from IVE's Newark World Tour Concert",
+    "body": "A DIVE shares a video compilation of their personal favorite moments and highlights from IVE's 'SHOW WHAT I AM' World Tour concert in Newark, including Wonyoung's air drumming and Yujin's Kitsch dance.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v71kst/260725_highlights_from_what_i_am_world_tour",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-26/vid_1785071143395.mp4"
+  },
+  {
+    "date": "Jul 26, 2026",
+    "last_updated": "2026-07-26T13:02:20.482Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Eshy Gazit Shares Instagram Update with IVE",
+    "body": "Music industry executive Eshy Gazit posts an Instagram update featuring the members of IVE, commemorating their meeting or collaboration.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v70kwa/260726_eshy_gazit_instagram_update_with_ive",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-26/img_1785071310651_1.webp",
+        "alt": "Eshy Gazit Shares Instagram Update with IVE"
+      }
+    ]
+  },
+  {
+    "date": "Jul 26, 2026",
+    "last_updated": "2026-07-26T13:02:20.482Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung Stars in New Vogue Korea Instagram Update",
+    "body": "Wonyoung is featured in a stylish new Instagram update from Vogue Korea, showcasing her latest collaboration with the fashion magazine.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1v701ut/260726_vogue_korea_instagram_update_with_wonyoung",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-26/vid_1785071395560.mp4"
+  },
+  {
+    "date": "Jul 26, 2026",
+    "last_updated": "2026-07-26T13:02:20.482Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
     "title": "Yujin Features in New IVE Official TikTok 'I-VIEW' Episode from Montreal",
