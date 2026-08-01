@@ -1,6 +1,36 @@
 [
   {
     "date": "Aug 1, 2026",
+    "last_updated": "2026-08-01T06:22:12.047Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Fan Shares Custom Baseball Cards for LA Show",
+    "body": "A DIVE is creating and distributing custom IVE baseball cards for attendees of the upcoming LA concert, following a successful giveaway in Austin.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vc7ruk/freebies_for_la_show",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-01/img_1785565369241_1.webp",
+        "alt": "Fan Shares Custom Baseball Cards for LA Show"
+      }
+    ]
+  },
+  {
+    "date": "Aug 1, 2026",
+    "last_updated": "2026-08-01T06:22:12.047Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Fan Announces Freebie Distribution for Inglewood & Oakland Concerts",
+    "body": "A DIVE is planning to distribute freebies at the upcoming IVE concerts in Inglewood and Oakland, with details for distribution time and location to be announced.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vc66og/freebies_for_inglewood_oakland_la_ca",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-01/img_1785565372392_1.webp",
+        "alt": "Fan Announces Freebie Distribution for Inglewood & Oakland Concerts"
+      }
+    ]
+  },
+  {
+    "date": "Aug 1, 2026",
     "last_updated": "2026-08-01T02:02:48.346Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -598,30 +628,5 @@
         "alt": "IVE Featured in Naoto Yokoyama's Twitter Update (2)"
       }
     ]
-  },
-  {
-    "date": "Jul 26, 2026",
-    "last_updated": "2026-07-26T20:47:50.068Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "IVE Featured in Naoto Yokoyama's Twitter Update (1)",
-    "body": "IVE is showcased in a new Twitter update shared by Naoto Yokoyama, featuring new photos of the group.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1v79mrn/260726_naoto_yokoyama_twitter_update_with_ive_1",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-26/img_1785099215827_1.webp",
-        "alt": "IVE Featured in Naoto Yokoyama's Twitter Update (1)"
-      }
-    ]
-  },
-  {
-    "date": "Jul 26, 2026",
-    "last_updated": "2026-07-26T20:47:50.068Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Leeseo Joins fromis_9's Jiheon for 'Vitamin ME Challenge' on TikTok",
-    "body": "Leeseo participates in a fun TikTok challenge with fromis_9's Jiheon, sharing a 'Vitamin ME' update.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1v74u3u/260726_fromis_9_tiktok_update_with_leeseo_got_a",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-26/vid_1785099271850.mp4"
   }
 ]
