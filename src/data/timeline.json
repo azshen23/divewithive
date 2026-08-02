@@ -1,6 +1,31 @@
 [
   {
     "date": "Aug 2, 2026",
+    "last_updated": "2026-08-02T09:49:36.896Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Gaeul Stars in New Official TikTok Update",
+    "body": "Gaeul shares a charming new video on IVE's official TikTok account, featuring the caption 'Every time you do that ♡ɞ˚'.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vdd5b0/260802_ive_official_tiktok_update_with_gaeul",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-02/vid_1785664207515.mp4"
+  },
+  {
+    "date": "Aug 2, 2026",
+    "last_updated": "2026-08-02T09:49:36.896Z",
+    "tag": "Tour",
+    "tagColor": "text-emerald-400 bg-emerald-400/10",
+    "title": "IVE Shares Official Tour Update from Los Angeles",
+    "body": "IVE's official Twitter account posts an update featuring the group's 'SHOW WHAT I AM' World Tour stop in Los Angeles.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vdc865/260802_ive_official_twitter_update_ive_world_tour",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-02/img_1785664235256_1.webp",
+        "alt": "IVE Shares Official Tour Update from Los Angeles"
+      }
+    ]
+  },
+  {
+    "date": "Aug 2, 2026",
     "last_updated": "2026-08-02T01:59:04.607Z",
     "tag": "Fansite",
     "tagColor": "text-pink-400 bg-pink-400/10",
@@ -628,25 +653,5 @@
         "alt": "Gaeul Shares New Instagram Update"
       }
     ]
-  },
-  {
-    "date": "Jul 27, 2026",
-    "last_updated": "2026-07-27T17:37:07.456Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung Stars in Harper's BAZAAR Korea x Hapa Kristin Digital Cover",
-    "body": "Wonyoung is featured on the digital moving cover for the July 2026 issue of Harper's BAZAAR Korea, collaborating with Hapa Kristin.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1v7z293/260727_wonyoung_harpers_bazaar_korea_x_hapa",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-27/vid_1785174007444.mp4"
-  },
-  {
-    "date": "Jul 27, 2026",
-    "last_updated": "2026-07-27T17:37:07.456Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Mnet Plus Shares Official Twitter Update with Liz",
-    "body": "Mnet Plus releases an official Twitter update featuring Liz, promoting her appearance on 'FANS' CHOICE FACE'.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1v7vusr/260727_mnet_plus_twitter_update_with_liz",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-27/vid_1785174051096.mp4"
   }
 ]
