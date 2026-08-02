@@ -1,6 +1,16 @@
 [
   {
     "date": "Aug 2, 2026",
+    "last_updated": "2026-08-02T16:51:29.114Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "Liz Stars in New IVE Official YouTube 'Wax-crack ball' ASMR",
+    "body": "Liz creates a wax-crack ball in a new official IVE YouTube ASMR video, showcasing her unique charm.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vdix2c/260802_ive_ive_off_making_a_waxcrack_ball_with",
+    "videoId": "DP3DpXTXkIs"
+  },
+  {
+    "date": "Aug 2, 2026",
     "last_updated": "2026-08-02T09:49:36.896Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -636,21 +646,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-28/img_1785219737067_1.webp",
         "alt": "MLB Shares Official Twitter Update Featuring IVE"
-      }
-    ]
-  },
-  {
-    "date": "Jul 27, 2026",
-    "last_updated": "2026-07-27T17:37:07.456Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Gaeul Shares New Instagram Update",
-    "body": "Gaeul shares new photos on Instagram, giving fans a glimpse into her recent activities.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1v81nx4/260727_gaeul_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-27/img_1785173965804_1.webp",
-        "alt": "Gaeul Shares New Instagram Update"
       }
     ]
   }
