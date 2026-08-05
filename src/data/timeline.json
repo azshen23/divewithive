@@ -1,5 +1,20 @@
 [
   {
+    "date": "Aug 5, 2026",
+    "last_updated": "2026-08-05T06:22:20.003Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Fan Creates Posters for IVE's Oakland Concert",
+    "body": "A fan shared their handmade posters, completing them just in time for IVE's Oakland concert stop.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vfo7ec/i_finished_just_in_time_for_oakland",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-05/img_1785910989058_1.webp",
+        "alt": "Fan Creates Posters for IVE's Oakland Concert"
+      }
+    ]
+  },
+  {
     "date": "Aug 3, 2026",
     "last_updated": "2026-08-03T20:56:51.381Z",
     "tag": "Member",
@@ -621,21 +636,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-28/img_1785272650431_1.webp",
         "alt": "Liz Features in Mnet Plus FANS' CHOICE FACE Magazine Vol. 1 Pictorial Preview"
-      }
-    ]
-  },
-  {
-    "date": "Jul 28, 2026",
-    "last_updated": "2026-07-28T17:20:38.839Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Gaeul Shares New Instagram Stories Update",
-    "body": "Gaeul shared a series of new updates through her official Instagram stories.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1v93c47/260728_gaeul_instagram_stories_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-28/img_1785259309489_1.webp",
-        "alt": "Gaeul Shares New Instagram Stories Update"
       }
     ]
   }
