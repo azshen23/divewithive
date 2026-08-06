@@ -1,6 +1,36 @@
 [
   {
     "date": "Aug 6, 2026",
+    "last_updated": "2026-08-06T06:23:25.323Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung Shares New Instagram Update",
+    "body": "Wonyoung delights DIVEs with a fresh set of photos on her official Instagram account.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vgb3wf/260805_wonyoung_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-06/img_1785997459051_1.webp",
+        "alt": "Wonyoung Shares New Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "Aug 6, 2026",
+    "last_updated": "2026-08-06T06:23:25.323Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Yujin Shares New Instagram Update",
+    "body": "Yujin brightens up feeds with her latest post on her official Instagram account.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vg3ddi/260805_yujin_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-06/img_1785997470011_1.webp",
+        "alt": "Yujin Shares New Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "Aug 6, 2026",
     "last_updated": "2026-08-06T01:48:50.764Z",
     "tag": "Fansite",
     "tagColor": "text-pink-400 bg-pink-400/10",
@@ -613,35 +643,5 @@
     "body": "Leeseo gives fans a glimpse into her experience during IVE's World Tour stop in Newark through a new 'I-VIEW' episode on the official TikTok channel.",
     "post_url": "https://www.reddit.com/r/ive/comments/1v9oh3z/260729_ive_official_tiktok_update_with_leeseo",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-29/vid_1785333143437.mp4"
-  },
-  {
-    "date": "Jul 29, 2026",
-    "last_updated": "2026-07-29T06:25:07.328Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Yujin Shares New Instagram Update",
-    "body": "Yujin updates fans with new photos on her official Instagram account.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1v9nc3p/260729_yujin_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-29/img_1785306391208_1.webp",
-        "alt": "Yujin Shares New Instagram Update"
-      }
-    ]
-  },
-  {
-    "date": "Jul 29, 2026",
-    "last_updated": "2026-07-29T06:25:07.328Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "IVE Shares Official Twitter Update with Rei",
-    "body": "The official IVE Twitter account posts new photos featuring Rei.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1v9lnq4/260729_ive_twitter_update_with_rei",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-29/img_1785306445956_1.webp",
-        "alt": "IVE Shares Official Twitter Update with Rei"
-      }
-    ]
   }
 ]
