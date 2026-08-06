@@ -1,6 +1,41 @@
 [
   {
     "date": "Aug 6, 2026",
+    "last_updated": "2026-08-06T10:31:11.884Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung Hosts 'Dear DIVE's Worry Corner' with Harper's BAZAAR Korea",
+    "body": "Wonyoung engaged with Dives' concerns in a new video segment for Harper's BAZAAR Korea, offering her thoughts and advice.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vgyy17/260806_wonyoung_dear_dives_worry_corner_is_open",
+    "videoId": "vdeuZ4bu2VM"
+  },
+  {
+    "date": "Aug 6, 2026",
+    "last_updated": "2026-08-06T10:31:11.884Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Rei Stars in New Red Velvet Official TikTok with Joy",
+    "body": "Rei joined Red Velvet's Joy for a charming new official TikTok update, participating in a trending challenge.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vgy75d/260806_red_velvet_official_tiktok_update_with_rei",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-06/vid_1786012333018.mp4"
+  },
+  {
+    "date": "Aug 6, 2026",
+    "last_updated": "2026-08-06T10:31:11.884Z",
+    "tag": "Tour",
+    "tagColor": "text-emerald-400 bg-emerald-400/10",
+    "title": "IVE Shares Behind-The-Scenes of \"Show What I Am\" Tour in Austin with NYLON",
+    "body": "NYLON released exclusive behind-the-scenes content from IVE's \"Show What I Am\" Tour stop in Austin, giving fans a glimpse backstage.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vgutx2/260806_ive_behind_the_scenes_of_ives_show_what_i",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-06/img_1786012366332_1.webp",
+        "alt": "IVE Shares Behind-The-Scenes of \"Show What I Am\" Tour in Austin with NYLON"
+      }
+    ]
+  },
+  {
+    "date": "Aug 6, 2026",
     "last_updated": "2026-08-06T06:23:25.323Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -608,40 +643,5 @@
     "body": "Wonyoung features in a new interview with ARENA HOMME+, sharing insights into her 'queen's mindset'.",
     "post_url": "https://www.reddit.com/r/ive/comments/1vakjp0/260729_wonyoung_learn_the_queens_mindset_from",
     "videoId": "L3wp_7OT4w8"
-  },
-  {
-    "date": "Jul 30, 2026",
-    "last_updated": "2026-07-30T10:14:39.462Z",
-    "tag": "Tour",
-    "tagColor": "text-emerald-400 bg-emerald-400/10",
-    "title": "IVE Shares Official Instagram Update from Austin World Tour Stop",
-    "body": "IVE shares new photos from their 'SHOW WHAT I AM' World Tour stop in Austin, thanking DIVEs for their support.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vail8n/260730_ive_official_instagram_update_ive_world",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-30/img_1785406901438_1.webp",
-        "alt": "IVE Shares Official Instagram Update from Austin World Tour Stop"
-      }
-    ]
-  },
-  {
-    "date": "Jul 29, 2026",
-    "last_updated": "2026-07-29T13:50:26.102Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Gaeul Shares 'Midsummer Special Horror Radio Story' on Gaeul's Mood",
-    "body": "Gaeul surprises fans with a unique horror radio story on her 'Gaeul's Mood' YouTube series, offering chills for a midsummer treat.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1v9u9zs/260729_gaeul_a_midsummer_special_horror_radio",
-    "videoId": "QCeIRkPh5LE"
-  },
-  {
-    "date": "Jul 29, 2026",
-    "last_updated": "2026-07-29T13:50:26.102Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Leeseo Stars in New IVE Official TikTok 'I-VIEW' Episode from Newark",
-    "body": "Leeseo gives fans a glimpse into her experience during IVE's World Tour stop in Newark through a new 'I-VIEW' episode on the official TikTok channel.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1v9oh3z/260729_ive_official_tiktok_update_with_leeseo",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-29/vid_1785333143437.mp4"
   }
 ]
