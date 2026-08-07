@@ -1,6 +1,46 @@
 [
   {
     "date": "Aug 7, 2026",
+    "last_updated": "2026-08-07T08:47:54.337Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Rei Shares New Instagram Update",
+    "body": "Rei updates her Instagram with new photos for DIVEs.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vhtdmy/260807_rei_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-07/img_1786092500860_1.webp",
+        "alt": "Rei Shares New Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "Aug 7, 2026",
+    "last_updated": "2026-08-07T08:47:54.337Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung Features in DASHING DIVA Korea Twitter Update",
+    "body": "DASHING DIVA Korea shares new content featuring Wonyoung on their official Twitter.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vhsq17/260807_dashing_diva_korea_twitter_update_with",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-07/img_1786092514551_1.webp",
+        "alt": "Wonyoung Features in DASHING DIVA Korea Twitter Update"
+      }
+    ]
+  },
+  {
+    "date": "Aug 7, 2026",
+    "last_updated": "2026-08-07T08:47:54.337Z",
+    "tag": "Tour",
+    "tagColor": "text-emerald-400 bg-emerald-400/10",
+    "title": "Gaeul Stars in New 'I-VIEW' TikTok from Oakland",
+    "body": "IVE shares an official 'I-VIEW' TikTok update featuring Gaeul enjoying her time in Oakland.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vhsm58/260807_ive_official_tiktok_update_with_gaeul",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-07/vid_1786092525824.mp4"
+  },
+  {
+    "date": "Aug 7, 2026",
     "last_updated": "2026-08-07T05:28:25.417Z",
     "tag": "Fansite",
     "tagColor": "text-pink-400 bg-pink-400/10",
@@ -613,45 +653,5 @@
     "body": "Wonyoung stars in a new fashion film for Harper's BAZAAR Korea, part of her collaboration with Hapa Kristin for the July 2026 digital issue.",
     "post_url": "https://www.reddit.com/r/ive/comments/1vaos48/260730_wonyoung_harpers_bazaar_korea_x_hapa",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-31/vid_1785480066823.mp4"
-  },
-  {
-    "date": "Jul 31, 2026",
-    "last_updated": "2026-07-31T02:01:08.266Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Leeseo Shares New Instagram Update Featuring Rei",
-    "body": "Leeseo shares a new Instagram update, featuring fellow member Rei.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vb3c4b/260731_leeseo_instagram_update_feat_rei",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-31/img_1785463405287_1.webp",
-        "alt": "Leeseo Shares New Instagram Update Featuring Rei"
-      }
-    ]
-  },
-  {
-    "date": "Jul 30, 2026",
-    "last_updated": "2026-07-30T20:58:19.809Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Yujin Stars in New 'An-taxi' Episode Visiting Daejeon Restaurants",
-    "body": "Yujin takes DIVE on a culinary journey, exploring popular restaurants in Daejeon in the latest 'An-taxi' official YouTube episode.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vauksb/260730_ive_ive_off_antaxi_popular_daejeon",
-    "videoId": "SP8HmteiqPU"
-  },
-  {
-    "date": "Jul 30, 2026",
-    "last_updated": "2026-07-30T17:17:42.893Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei Announces Special Collaboration Stage with YOASOBI Lilas Ikuta at Inkigayo Live in Tokyo",
-    "body": "IVE's Rei will perform a special collaboration with YOASOBI's Lilas Ikuta during Inkigayo Live in Tokyo on September 22nd.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vaqc7c/260730_rei_to_perform_special_collaboration_stage",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-30/img_1785431934339_1.webp",
-        "alt": "Rei Announces Special Collaboration Stage with YOASOBI Lilas Ikuta at Inkigayo Live in Tokyo"
-      }
-    ]
   }
 ]
