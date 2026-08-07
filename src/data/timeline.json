@@ -1,6 +1,36 @@
 [
   {
     "date": "Aug 7, 2026",
+    "last_updated": "2026-08-07T05:28:25.417Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Yujin Captures Hearts at Sound Check",
+    "body": "A DIVE shares a cherished photo of Yujin from a tour sound check, expressing longing for another world tour.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vhjsss/i_miss_it_already",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-07/img_1786080534810_1.webp",
+        "alt": "Yujin Captures Hearts at Sound Check"
+      }
+    ]
+  },
+  {
+    "date": "Aug 7, 2026",
+    "last_updated": "2026-08-07T05:28:25.417Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Fan Shares Emotional First IVE Concert Experience in Oakland",
+    "body": "A DIVE recounts their memorable first-ever concert experience seeing IVE in Oakland, sharing their joy and appreciation for the performances and fellow fans.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vhi0w0/my_first_ever_concert_in_oakland",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-07/img_1786080557721_1.webp",
+        "alt": "Fan Shares Emotional First IVE Concert Experience in Oakland"
+      }
+    ]
+  },
+  {
+    "date": "Aug 7, 2026",
     "last_updated": "2026-08-07T00:50:40.187Z",
     "tag": "Fansite",
     "tagColor": "text-pink-400 bg-pink-400/10",
@@ -623,25 +653,5 @@
         "alt": "Rei Announces Special Collaboration Stage with YOASOBI Lilas Ikuta at Inkigayo Live in Tokyo"
       }
     ]
-  },
-  {
-    "date": "Jul 30, 2026",
-    "last_updated": "2026-07-30T10:14:39.462Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei Stars in 'Follow REI' Episode 91: Vintage Item Hunting",
-    "body": "Rei shares her favorite vintage item hunting experience in the latest episode of her YouTube series 'Follow REI'.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vapcma/260730_rei_episode_91_favourite_vintage_item",
-    "videoId": "Dtfr59SInF8"
-  },
-  {
-    "date": "Jul 30, 2026",
-    "last_updated": "2026-07-30T10:14:39.462Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei Shares New Official TikTok Update: 'Rei Peace'",
-    "body": "Rei features in a new official IVE TikTok update, bringing 'Rei Peace' to DIVEs.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vaojry/260730_ive_official_tiktok_update_with_rei_rei",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-30/vid_1785406642153.mp4"
   }
 ]
