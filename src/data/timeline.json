@@ -1,5 +1,40 @@
 [
   {
+    "date": "Aug 7, 2026",
+    "last_updated": "2026-08-07T00:50:40.187Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Fan Creates Rei-Inspired MINIVE Photocard Holder",
+    "body": "A dedicated DIVE shares their handcrafted photocard holder, inspired by Rei's MINIVE character Naori, ahead of the Seattle concert.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vhbglo/made_a_naori_inspired_pc_holder_for_my_bias_rei",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-07/img_1786063882162_1.webp",
+        "alt": "Fan Creates Rei-Inspired MINIVE Photocard Holder"
+      }
+    ]
+  },
+  {
+    "date": "Aug 7, 2026",
+    "last_updated": "2026-08-07T00:50:40.187Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Yujin Joins Choi Yuree for 'Love' Pre-release from 'Listen Up! Yuree's Forest 2'",
+    "body": "An Yujin collaborates with singer-songwriter Choi Yuree for a special pre-release of the song 'Love,' featured in Episode 5 of 'Listen Up! Yuree's Forest 2'.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vh6cbw/260806_yujin_with_choi_yuree_love_episode_5",
+    "videoId": "QHFJeUO5WtY"
+  },
+  {
+    "date": "Aug 7, 2026",
+    "last_updated": "2026-08-07T00:50:40.187Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Yujin Features in Choi Yuree's 'Welcome to Forest' Instagram Update",
+    "body": "Choi Yuree shares a 'Welcome to Forest' Instagram update featuring Yujin, teasing their collaboration on 'Listen Up! Yuree's Forest 2'.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vh0qc2/260806_choi_yuree_welcome_to_forest_instagram",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-07/vid_1786063913306.mp4"
+  },
+  {
     "date": "Aug 6, 2026",
     "last_updated": "2026-08-06T10:31:11.884Z",
     "tag": "Member",
@@ -608,40 +643,5 @@
     "body": "Rei features in a new official IVE TikTok update, bringing 'Rei Peace' to DIVEs.",
     "post_url": "https://www.reddit.com/r/ive/comments/1vaojry/260730_ive_official_tiktok_update_with_rei_rei",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-30/vid_1785406642153.mp4"
-  },
-  {
-    "date": "Jul 30, 2026",
-    "last_updated": "2026-07-30T10:14:39.462Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Liz Shares New Instagram Update",
-    "body": "Liz updates her Instagram with new photos for DIVEs.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vao8of/260730_liz_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-07-30/img_1785406707469_1.webp",
-        "alt": "Liz Shares New Instagram Update"
-      }
-    ]
-  },
-  {
-    "date": "Jul 30, 2026",
-    "last_updated": "2026-07-30T10:14:39.462Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Yujin Launches 'Antaxi Service' in New Official TikTok Update",
-    "body": "Yujin drives DIVEs wild with the launch of her 'Antaxi Service' in a fun new official IVE TikTok video.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vamgn7/260730_ive_official_tiktok_update_with_yujin",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-07-30/vid_1785406768291.mp4"
-  },
-  {
-    "date": "Jul 30, 2026",
-    "last_updated": "2026-07-30T10:14:39.462Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung Shares Her Mindset in New ARENA HOMME+ Interview",
-    "body": "Wonyoung features in a new interview with ARENA HOMME+, sharing insights into her 'queen's mindset'.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vakjp0/260729_wonyoung_learn_the_queens_mindset_from",
-    "videoId": "L3wp_7OT4w8"
   }
 ]
