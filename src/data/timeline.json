@@ -1,6 +1,21 @@
 [
   {
     "date": "Aug 9, 2026",
+    "last_updated": "2026-08-09T20:21:56.456Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Fan Creates Rock Covers Playlist of IVE Songs",
+    "body": "A DIVE has created a playlist featuring heavy rock versions of IVE's popular tracks, including 'LOVE DIVE', 'I AM', and 'After LIKE'.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vjtsug/my_playlist_rock_version_of_ive_song",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-09/img_1786306973222_1.webp",
+        "alt": "Fan Creates Rock Covers Playlist of IVE Songs"
+      }
+    ]
+  },
+  {
+    "date": "Aug 9, 2026",
     "last_updated": "2026-08-09T12:32:32.945Z",
     "tag": "Fansite",
     "tagColor": "text-pink-400 bg-pink-400/10",
@@ -628,20 +643,5 @@
     "body": "Liz joins DAY6's Young K for the #Shut_The_Door Challenge, featured in an official Twitter update from DAY6.",
     "post_url": "https://www.reddit.com/r/ive/comments/1vcozsa/260801_day6_official_twitter_update_with_liz_shut",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-01/vid_1785603142778.mp4"
-  },
-  {
-    "date": "Aug 1, 2026",
-    "last_updated": "2026-08-01T16:51:58.330Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei Shares New Photos on IVE's Official Twitter",
-    "body": "Rei posts a series of new photos on IVE's official Twitter account, promising more updates soon.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vcn5jb/260801_ive_twitter_update_with_rei_ill_upload_the",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-01/img_1785603172014_1.webp",
-        "alt": "Rei Shares New Photos on IVE's Official Twitter"
-      }
-    ]
   }
 ]
