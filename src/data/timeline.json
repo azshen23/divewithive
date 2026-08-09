@@ -1,6 +1,16 @@
 [
   {
     "date": "Aug 9, 2026",
+    "last_updated": "2026-08-09T12:32:32.945Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Fan Shares IVE's Epic Dance Routine from Seattle Concert",
+    "body": "A DIVE captured an energetic dance routine performance by IVE during their concert in Seattle, highlighting the group's powerful stage presence.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vjal8y/one_of_their_epic_dance_routines_seattle",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-09/vid_1786278821530.mp4"
+  },
+  {
+    "date": "Aug 9, 2026",
     "last_updated": "2026-08-09T08:32:31.780Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -633,15 +643,5 @@
         "alt": "Rei Shares New Photos on IVE's Official Twitter"
       }
     ]
-  },
-  {
-    "date": "Aug 1, 2026",
-    "last_updated": "2026-08-01T16:51:58.330Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung Stars in New 'I-VIEW' TikTok from Austin",
-    "body": "Wonyoung is featured in a new episode of 'I-VIEW' on IVE's official TikTok, documenting her time in Austin.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vcmka7/260801_ive_official_tiktok_update_with_wonyoung",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-01/vid_1785603183333.mp4"
   }
 ]
