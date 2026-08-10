@@ -1,6 +1,51 @@
 [
   {
     "date": "Aug 10, 2026",
+    "last_updated": "2026-08-10T20:33:40.397Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Fan Shares Sound Check Stills from Vancouver Concert",
+    "body": "A fan shares a collection of behind-the-scenes moments and sound check stills from IVE's Vancouver concert, including a short dilemma from the experience.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vkv31q/260809_ive_vancouver_concert",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-10/img_1786394085477_1.webp",
+        "alt": "Fan Shares Sound Check Stills from Vancouver Concert"
+      }
+    ]
+  },
+  {
+    "date": "Aug 10, 2026",
+    "last_updated": "2026-08-10T20:33:40.397Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung Stars in New Hapa Kristin 'Stay Pretty Kristin' CF",
+    "body": "Wonyoung features prominently in Hapa Kristin's latest commercial, showcasing the brand's 'Stay Pretty Kristin' campaign.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vkrvsk/260810_wonyoung_hapa_kristin_stay_pretty_kristin",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-10/vid_1786394146881.mp4"
+  },
+  {
+    "date": "Aug 10, 2026",
+    "last_updated": "2026-08-10T20:33:40.397Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung & Liz Feature in New 'I-VIEW' TikTok from Seattle",
+    "body": "IVE releases an official TikTok update titled 'I-VIEW' featuring Wonyoung and Liz enjoying their time in Seattle during the tour.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vknnzx/260810_ive_official_tiktok_update_with_wonyoung",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-10/vid_1786394222064.mp4"
+  },
+  {
+    "date": "Aug 10, 2026",
+    "last_updated": "2026-08-10T20:33:40.397Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Gaeul Stars in New '[IVE ON] GAEUL X ROGER & GALLET BEHIND' Video",
+    "body": "IVE shares a behind-the-scenes look at Gaeul's collaboration with the brand Roger & Gallet in a new 'IVE ON' episode.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vklq77/260810_ive_ive_on_gaeul_x_roger_gallet_behind",
+    "videoId": "FGyov-3f-Uk"
+  },
+  {
+    "date": "Aug 10, 2026",
     "last_updated": "2026-08-10T09:09:20.328Z",
     "tag": "Tour",
     "tagColor": "text-emerald-400 bg-emerald-400/10",
@@ -588,65 +633,5 @@
     "body": "Gaeul shares a charming new video on IVE's official TikTok account, featuring the caption 'Every time you do that ♡ɞ˚'.",
     "post_url": "https://www.reddit.com/r/ive/comments/1vdd5b0/260802_ive_official_tiktok_update_with_gaeul",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-02/vid_1785664207515.mp4"
-  },
-  {
-    "date": "Aug 2, 2026",
-    "last_updated": "2026-08-02T09:49:36.896Z",
-    "tag": "Tour",
-    "tagColor": "text-emerald-400 bg-emerald-400/10",
-    "title": "IVE Shares Official Tour Update from Los Angeles",
-    "body": "IVE's official Twitter account posts an update featuring the group's 'SHOW WHAT I AM' World Tour stop in Los Angeles.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vdc865/260802_ive_official_twitter_update_ive_world_tour",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-02/img_1785664235256_1.webp",
-        "alt": "IVE Shares Official Tour Update from Los Angeles"
-      }
-    ]
-  },
-  {
-    "date": "Aug 2, 2026",
-    "last_updated": "2026-08-02T01:59:04.607Z",
-    "tag": "Fansite",
-    "tagColor": "text-pink-400 bg-pink-400/10",
-    "title": "Fan Announces Rosette Freebies for LA Show",
-    "body": "A fan announces they will be handing out custom rosette freebies at the Kia Forum concert in Los Angeles, inviting others to trade or collect.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vd4k0t/ive_la_freebies",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-02/img_1785635981610_1.webp",
-        "alt": "Fan Announces Rosette Freebies for LA Show"
-      }
-    ]
-  },
-  {
-    "date": "Aug 2, 2026",
-    "last_updated": "2026-08-02T01:59:04.607Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Gaeul Shares Latest Instagram Update",
-    "body": "Gaeul shares her latest photos through an official Instagram update for fans.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vd2x34/260802_gaeul_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-02/img_1785635999013_1.webp",
-        "alt": "Gaeul Shares Latest Instagram Update"
-      }
-    ]
-  },
-  {
-    "date": "Aug 2, 2026",
-    "last_updated": "2026-08-02T01:59:04.607Z",
-    "tag": "Fansite",
-    "tagColor": "text-pink-400 bg-pink-400/10",
-    "title": "Fan Offers Handmade Photocards for LA Concert",
-    "body": "A fan announces they will be distributing handmade non-holo, holographic, and special Overframe photocards at the LA concert.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vcujxy/freebies_for_la_show_20260801",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-02/img_1785636021327_1.webp",
-        "alt": "Fan Offers Handmade Photocards for LA Concert"
-      }
-    ]
   }
 ]
