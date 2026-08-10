@@ -1,5 +1,20 @@
 [
   {
+    "date": "Aug 10, 2026",
+    "last_updated": "2026-08-10T09:09:20.328Z",
+    "tag": "Tour",
+    "tagColor": "text-emerald-400 bg-emerald-400/10",
+    "title": "IVE Shares Official Twitter Update from Vancouver Concert",
+    "body": "IVE officially updates fans on their World Tour 'SHOW WHAT I AM' with a post from Vancouver, building excitement for the upcoming show.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vkeuri/260810_ive_official_twitter_update_ive_world_tour",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-10/img_1786353028887_1.webp",
+        "alt": "IVE Shares Official Twitter Update from Vancouver Concert"
+      }
+    ]
+  },
+  {
     "date": "Aug 9, 2026",
     "last_updated": "2026-08-09T20:21:56.456Z",
     "tag": "Fansite",
@@ -633,15 +648,5 @@
         "alt": "Fan Offers Handmade Photocards for LA Concert"
       }
     ]
-  },
-  {
-    "date": "Aug 1, 2026",
-    "last_updated": "2026-08-01T16:51:58.330Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Liz Participates in DAY6 Young K's #Shut_The_Door Challenge",
-    "body": "Liz joins DAY6's Young K for the #Shut_The_Door Challenge, featured in an official Twitter update from DAY6.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vcozsa/260801_day6_official_twitter_update_with_liz_shut",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-01/vid_1785603142778.mp4"
   }
 ]
