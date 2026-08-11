@@ -1,6 +1,26 @@
 [
   {
     "date": "Aug 11, 2026",
+    "last_updated": "2026-08-11T12:44:48.656Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Gaeul Features in New Official IVE TikTok",
+    "body": "Gaeul shares a new official TikTok video with the caption 'all I ever wanted', delighting fans with her charming presence.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vleez6/260811_ive_official_tiktok_update_with_gaeul_all",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-11/vid_1786452360159.mp4"
+  },
+  {
+    "date": "Aug 11, 2026",
+    "last_updated": "2026-08-11T12:44:48.656Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung Shares New Official IVE TikTok",
+    "body": "Wonyoung posts a charming new official TikTok update, playfully titled 'anime lover🩷🎀 nyang ^. .^ ੭'.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vldvjy/260811_ive_official_tiktok_update_with_wonyoung",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-11/vid_1786452429823.mp4"
+  },
+  {
+    "date": "Aug 11, 2026",
     "last_updated": "2026-08-11T04:59:41.642Z",
     "tag": "Fansite",
     "tagColor": "text-pink-400 bg-pink-400/10",
@@ -611,36 +631,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-03/img_1785755729598_1.webp",
         "alt": "Director Michael Goi Shares Instagram Update with IVE"
-      }
-    ]
-  },
-  {
-    "date": "Aug 3, 2026",
-    "last_updated": "2026-08-03T11:14:17.103Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Gaeul Shares New Instagram Update",
-    "body": "Gaeul posts new photos on her official Instagram account.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1ve56q7/260803_gaeul_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-03/img_1785755751624_1.webp",
-        "alt": "Gaeul Shares New Instagram Update"
-      }
-    ]
-  },
-  {
-    "date": "Aug 3, 2026",
-    "last_updated": "2026-08-03T11:14:17.103Z",
-    "tag": "Fansite",
-    "tagColor": "text-pink-400 bg-pink-400/10",
-    "title": "Fan Shares Montreal Concert Photos",
-    "body": "A DIVE shares photos they captured from IVE's 'SHOW WHAT I AM' concert in Montreal.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1ve1sm8/260723_ive_montreal_concert_photos",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-03/img_1785755775148_1.webp",
-        "alt": "Fan Shares Montreal Concert Photos"
       }
     ]
   }
