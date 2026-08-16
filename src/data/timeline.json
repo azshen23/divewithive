@@ -1,6 +1,16 @@
 [
   {
     "date": "Aug 16, 2026",
+    "last_updated": "2026-08-16T20:12:49.006Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE Shares Official TikTok Update from Caribbean Bay",
+    "body": "IVE releases a new official TikTok video featuring their time at Caribbean Bay, showcasing fun moments with the group.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vpw2jh/260816_ive_official_tiktok_update_caribbean_bay",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-16/vid_1786911234495.mp4"
+  },
+  {
+    "date": "Aug 16, 2026",
     "last_updated": "2026-08-16T12:21:58.601Z",
     "tag": "Fansite",
     "tagColor": "text-pink-400 bg-pink-400/10",
@@ -611,21 +621,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-08/img_1786177940904_1.webp",
         "alt": "Gaeul Features in New 'shipdo_by_starship' Instagram Update with Won So-yoon"
-      }
-    ]
-  },
-  {
-    "date": "Aug 8, 2026",
-    "last_updated": "2026-08-08T08:30:09.756Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung Stars in New Hapa Kristin Korea Instagram Update",
-    "body": "Wonyoung features in a fresh Instagram update for Hapa Kristin Korea, showcasing her continued partnership with the brand.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vi5503/260807_hapa_kristin_korea_instagram_update_with",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-08/img_1786177949433_1.webp",
-        "alt": "Wonyoung Stars in New Hapa Kristin Korea Instagram Update"
       }
     ]
   }
