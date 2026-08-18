@@ -1,6 +1,31 @@
 [
   {
     "date": "Aug 18, 2026",
+    "last_updated": "2026-08-18T20:14:16.714Z",
+    "tag": "Award",
+    "tagColor": "text-amber-400 bg-amber-400/10",
+    "title": "IVE's 'REVIVE+' Album Ranks on Complex's Best K-Pop Albums List",
+    "body": "Complex magazine has included IVE's album 'REVIVE+' at #8 on their list of 'The Best K-Pop Albums Of 2026 (So Far)'.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vrs69d/260812_revive_is_included_in_complexs_the_best",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-18/img_1787084114821_1.webp",
+        "alt": "IVE's 'REVIVE+' Album Ranks on Complex's Best K-Pop Albums List"
+      }
+    ]
+  },
+  {
+    "date": "Aug 18, 2026",
+    "last_updated": "2026-08-18T20:14:16.714Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE Collaborates with EVERLAND for 'With IVE ForEVER' Video",
+    "body": "IVE releases new official content titled '💖With IVE ForEVER💖' in collaboration with EVERLAND, available on YouTube.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vrq3nr/260818_ive_with_ive_foreverwith_everland",
+    "videoId": "kX7PD3NzYw8"
+  },
+  {
+    "date": "Aug 18, 2026",
     "last_updated": "2026-08-18T12:28:44.431Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -608,30 +633,5 @@
     "body": "A fan shares a video from a concert, focusing on Rei and expressing appreciation for her performance despite feeling unwell.",
     "post_url": "https://www.reddit.com/r/ive/comments/1vjam80/rei_was_in_our_hearts_even_sick_video_zooms_in_a",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-09/vid_1786264418038.mp4"
-  },
-  {
-    "date": "Aug 9, 2026",
-    "last_updated": "2026-08-09T08:32:31.780Z",
-    "tag": "Fansite",
-    "tagColor": "text-pink-400 bg-pink-400/10",
-    "title": "Fan Shares Photos from IVE's Seattle Concert",
-    "body": "A DIVE shares a gallery of fan-captured photos from IVE's exciting performance in Seattle.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vj3tm6/260807_ive_in_seattle",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-09/img_1786264480927_1.webp",
-        "alt": "Fan Shares Photos from IVE's Seattle Concert"
-      }
-    ]
-  },
-  {
-    "date": "Aug 8, 2026",
-    "last_updated": "2026-08-08T16:22:25.974Z",
-    "tag": "Tour",
-    "tagColor": "text-emerald-400 bg-emerald-400/10",
-    "title": "IVE Shares 'Note #8: TOKYO' from World Tour 'SHOW WHAT I AM'",
-    "body": "IVE releases an official behind-the-scenes 'Note' video, giving fans a glimpse into their 'SHOW WHAT I AM' world tour experience in Tokyo.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1viwtye/260808_ive_note_8_tokyoive_world_tour_show_what_i",
-    "videoId": "8ldZDjIXGw4"
   }
 ]
