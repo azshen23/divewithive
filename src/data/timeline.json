@@ -1,5 +1,20 @@
 [
   {
+    "date": "Aug 18, 2026",
+    "last_updated": "2026-08-18T04:26:45.254Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Fan Receives Rei's Deling Magazine Photocards and Posters",
+    "body": "A fan shares the extensive collection of photocards and posters received from pre-ordering the three Deling magazines featuring Rei on the cover.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vrep80/rei_deling_photocards",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-18/img_1787027275223_1.webp",
+        "alt": "Fan Receives Rei's Deling Magazine Photocards and Posters"
+      }
+    ]
+  },
+  {
     "date": "Aug 17, 2026",
     "last_updated": "2026-08-17T12:26:57.946Z",
     "tag": "Release",
@@ -606,21 +621,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-08/img_1786177863339_1.webp",
         "alt": "Liz Transforms into a 'Human Cat' in New IVE Official Twitter Update"
-      }
-    ]
-  },
-  {
-    "date": "Aug 8, 2026",
-    "last_updated": "2026-08-08T08:30:09.756Z",
-    "tag": "Tour",
-    "tagColor": "text-emerald-400 bg-emerald-400/10",
-    "title": "IVE Shares Official Tour Update from Seattle Concert",
-    "body": "IVE posts a celebratory update on their official Twitter, commemorating their 'SHOW WHAT I AM' World Tour stop in Seattle.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vinj29/260808_ive_official_twitter_update_ive_world_tour",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-08/img_1786177885336_1.webp",
-        "alt": "IVE Shares Official Tour Update from Seattle Concert"
       }
     ]
   }
