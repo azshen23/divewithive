@@ -1,6 +1,21 @@
 [
   {
     "date": "Aug 22, 2026",
+    "last_updated": "2026-08-22T16:14:07.151Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Yujin Shares Latest Instagram Update",
+    "body": "Yujin updates fans with new photos on her personal Instagram account.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vv920p/260822_yujin_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-22/img_1787415300814_1.webp",
+        "alt": "Yujin Shares Latest Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "Aug 22, 2026",
     "last_updated": "2026-08-22T08:19:03.759Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -643,15 +658,5 @@
         "alt": "Liz Shares August 11 Instagram Update"
       }
     ]
-  },
-  {
-    "date": "Aug 11, 2026",
-    "last_updated": "2026-08-11T12:44:48.656Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Gaeul Features in New Official IVE TikTok",
-    "body": "Gaeul shares a new official TikTok video with the caption 'all I ever wanted', delighting fans with her charming presence.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vleez6/260811_ive_official_tiktok_update_with_gaeul_all",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-11/vid_1786452360159.mp4"
   }
 ]
