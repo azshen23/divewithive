@@ -1,5 +1,35 @@
 [
   {
+    "date": "Aug 22, 2026",
+    "last_updated": "2026-08-22T00:44:56.026Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Leeseo & Liz Share 'Berriz Live' Episode: Daegu Makchang",
+    "body": "Leeseo and Liz star in a new episode of Berriz Live, featuring their Daegu Makchang experience.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vui7ty/260821_ive_berriz_live_with_leeseo_daegu_makchang",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-22/img_1787359552510_1.webp",
+        "alt": "Leeseo & Liz Share 'Berriz Live' Episode: Daegu Makchang"
+      }
+    ]
+  },
+  {
+    "date": "Aug 22, 2026",
+    "last_updated": "2026-08-22T00:44:56.026Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE Performs at Daegu World Masters Athletics Championships Opening Ceremony Concert",
+    "body": "IVE delivers a special performance at the Daegu World Masters Athletics Championships Opening Ceremony Commemorative Concert.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vufgro/260821_ive_official_twitter_update_daegu_world",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-22/img_1787359634019_1.webp",
+        "alt": "IVE Performs at Daegu World Masters Athletics Championships Opening Ceremony Concert"
+      }
+    ]
+  },
+  {
     "date": "Aug 21, 2026",
     "last_updated": "2026-08-21T12:29:26.003Z",
     "tag": "Member",
@@ -618,30 +648,5 @@
     "body": "Wonyoung posts a charming new official TikTok update, playfully titled 'anime lover🩷🎀 nyang ^. .^ ੭'.",
     "post_url": "https://www.reddit.com/r/ive/comments/1vldvjy/260811_ive_official_tiktok_update_with_wonyoung",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-11/vid_1786452429823.mp4"
-  },
-  {
-    "date": "Aug 11, 2026",
-    "last_updated": "2026-08-11T04:59:41.642Z",
-    "tag": "Fansite",
-    "tagColor": "text-pink-400 bg-pink-400/10",
-    "title": "Fan Shares Captivating Shot of Yujin from Seattle Concert",
-    "body": "A fan captured a stunning moment of Yujin performing live during IVE's concert in Seattle, sharing their experience from the show.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vl0ike/yujin_killing_me_in_seattle",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-11/vid_1786424456288.mp4"
-  },
-  {
-    "date": "Aug 11, 2026",
-    "last_updated": "2026-08-11T04:59:41.642Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei Shares New Instagram Update",
-    "body": "Rei delighted fans with her latest Instagram update, sharing new photos and connecting with DIVE.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vkgoj0/260810_rei_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-11/img_1786424521671_1.webp",
-        "alt": "Rei Shares New Instagram Update"
-      }
-    ]
   }
 ]

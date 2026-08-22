@@ -1,6 +1,31 @@
 [
   {
     "date": "Aug 11, 2026",
+    "last_updated": "2026-08-11T04:59:41.642Z",
+    "tag": "Fansite",
+    "tagColor": "text-pink-400 bg-pink-400/10",
+    "title": "Fan Shares Captivating Shot of Yujin from Seattle Concert",
+    "body": "A fan captured a stunning moment of Yujin performing live during IVE's concert in Seattle, sharing their experience from the show.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vl0ike/yujin_killing_me_in_seattle",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-11/vid_1786424456288.mp4"
+  },
+  {
+    "date": "Aug 11, 2026",
+    "last_updated": "2026-08-11T04:59:41.642Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Rei Shares New Instagram Update",
+    "body": "Rei delighted fans with her latest Instagram update, sharing new photos and connecting with DIVE.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vkgoj0/260810_rei_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-11/img_1786424521671_1.webp",
+        "alt": "Rei Shares New Instagram Update"
+      }
+    ]
+  },
+  {
+    "date": "Aug 11, 2026",
     "last_updated": "2026-08-11T01:05:02.696Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
