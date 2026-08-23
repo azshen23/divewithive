@@ -1,6 +1,16 @@
 [
   {
     "date": "Aug 23, 2026",
+    "last_updated": "2026-08-23T20:13:09.677Z",
+    "tag": "Tour",
+    "tagColor": "text-emerald-400 bg-emerald-400/10",
+    "title": "Gaeul & Liz Share Hearts with Dives at SWIA Tour in Vancouver",
+    "body": "Fan footage captures Gaeul and Liz interacting with Dives, making heart gestures during their 'Show What I Am' tour stop in Vancouver.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vvvimx/260809_vancouver_ive_swia_tour_gaeul_and_liz",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-23/vid_1787516043543.mp4"
+  },
+  {
+    "date": "Aug 23, 2026",
     "last_updated": "2026-08-23T16:15:59.645Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -638,20 +648,5 @@
     "body": "A fan captures a captivating moment of Wonyoung's solo stage during IVE's 'SHOW WHAT I AM' tour stop in Vancouver.",
     "post_url": "https://www.reddit.com/r/ive/comments/1vm3jhn/wonyoung_solo_in_vancouver",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-12/vid_1786512385161.mp4"
-  },
-  {
-    "date": "Aug 12, 2026",
-    "last_updated": "2026-08-12T05:25:25.513Z",
-    "tag": "Fansite",
-    "tagColor": "text-pink-400 bg-pink-400/10",
-    "title": "Fan Captures Liz's Charisma at Vancouver Concert",
-    "body": "A fan shares a striking image of Liz performing live during IVE's 'SHOW WHAT I AM' tour stop in Vancouver.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vm1ybx/260809_liz_in_vancouver",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-12/img_1786512589848_1.webp",
-        "alt": "Fan Captures Liz's Charisma at Vancouver Concert"
-      }
-    ]
   }
 ]
