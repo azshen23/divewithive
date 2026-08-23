@@ -1,5 +1,50 @@
 [
   {
+    "date": "Aug 23, 2026",
+    "last_updated": "2026-08-23T16:15:59.645Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung Shares New Instagram Update (260824)",
+    "body": "Wonyoung posted a new series of photos on her official Instagram account, giving fans a fresh look at her recent activities.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vw9n4n/260824_wonyoung_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-23/img_1787501828245_1.webp",
+        "alt": "Wonyoung Shares New Instagram Update (260824)"
+      }
+    ]
+  },
+  {
+    "date": "Aug 23, 2026",
+    "last_updated": "2026-08-23T16:15:59.645Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE Releases '[IVE OFF] Babsimliz in the ZOO' Episode",
+    "body": "Liz and Leeseo explore a zoo in Sydney, sharing their fun experience in a new official video from IVE's YouTube channel.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vw8088/260823_ive_ive_off_babsimliz_in_the_zoo_in_sydney",
+    "videoId": "rkwsNso1Lkw"
+  },
+  {
+    "date": "Aug 23, 2026",
+    "last_updated": "2026-08-23T16:15:59.645Z",
+    "tag": "Award",
+    "tagColor": "text-amber-400 bg-amber-400/10",
+    "title": "IVE Wins 'The Hottest International Group' at TMElive Awards",
+    "body": "IVE was honored with 'The Hottest International Group' award at the Tencent Music Entertainment International Music Awards (TIMA).",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vw4ov9/260823_ive_wins_the_hottest_international_group",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-23/vid_1787501931837.mp4"
+  },
+  {
+    "date": "Aug 23, 2026",
+    "last_updated": "2026-08-23T16:15:59.645Z",
+    "tag": "Award",
+    "tagColor": "text-amber-400 bg-amber-400/10",
+    "title": "IVE Graces the Red Carpet at TMElive Awards",
+    "body": "The members of IVE made a stunning appearance on the red carpet at the Tencent Music Entertainment International Music Awards (TIMA) 2026.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vw3k36/260823_ive_red_carpet_tmelive_international_music",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-23/vid_1787502042317.mp4"
+  },
+  {
     "date": "Aug 22, 2026",
     "last_updated": "2026-08-22T16:14:07.151Z",
     "tag": "Member",
@@ -606,56 +651,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-12/img_1786512589848_1.webp",
         "alt": "Fan Captures Liz's Charisma at Vancouver Concert"
-      }
-    ]
-  },
-  {
-    "date": "Aug 12, 2026",
-    "last_updated": "2026-08-12T05:25:25.513Z",
-    "tag": "Fansite",
-    "tagColor": "text-pink-400 bg-pink-400/10",
-    "title": "Fan Records Yujin's 'Kitsch' Performance at Vancouver Concert",
-    "body": "A fan captures Yujin's energetic performance of 'Kitsch' during IVE's 'SHOW WHAT I AM' tour stop in Vancouver.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vlxmvx/260809_ive_vancouver_concert_yujin_kitsch",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-12/vid_1786512631301.mp4"
-  },
-  {
-    "date": "Aug 11, 2026",
-    "last_updated": "2026-08-11T20:36:14.285Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung Stars in New 'Nubterview' for IVE's World Tour 'SHOW WHAT I AM'",
-    "body": "Wonyoung shares a special 'Nubterview' as part of the ongoing IVE World Tour 'SHOW WHAT I AM', offering fans an exclusive behind-the-scenes glimpse.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vlibin/260811_ive_jangwonyoung_nubterview_ive_world_tour",
-    "videoId": "1rHLkhOHq7c"
-  },
-  {
-    "date": "Aug 11, 2026",
-    "last_updated": "2026-08-11T16:49:13.759Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Yujin Shares August 11 Instagram Update",
-    "body": "IVE's leader Yujin shares new photos with DIVEs through her official Instagram account.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vldca3/260811_yujin_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-11/img_1786467009556_1.webp",
-        "alt": "Yujin Shares August 11 Instagram Update"
-      }
-    ]
-  },
-  {
-    "date": "Aug 11, 2026",
-    "last_updated": "2026-08-11T16:49:13.759Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Liz Shares August 11 Instagram Update",
-    "body": "IVE member Liz shares new photos with fans via her official Instagram account.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vldbu5/260811_liz_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-11/img_1786467063126_1.webp",
-        "alt": "Liz Shares August 11 Instagram Update"
       }
     ]
   }
