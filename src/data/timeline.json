@@ -1,5 +1,30 @@
 [
   {
+    "date": "Aug 24, 2026",
+    "last_updated": "2026-08-24T00:47:17.193Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Liz Features in hk01entertainment Instagram Reels",
+    "body": "Liz is seen enjoying Taeyeon's 'Disaster' performance in a new Instagram Reels update from hk01entertainment.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vweoe6/260823_hk01entertainment_instagram_reels_update",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-24/vid_1787532486009.mp4"
+  },
+  {
+    "date": "Aug 24, 2026",
+    "last_updated": "2026-08-24T00:47:17.193Z",
+    "tag": "Award",
+    "tagColor": "text-amber-400 bg-amber-400/10",
+    "title": "IVE Shares Official Twitter Update from TIMA 2026",
+    "body": "IVE shares a new official Twitter update from their appearance at the TIMA 2026 event.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vw9fc0/260823_ive_official_twitter_update_at_tima_2026",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-24/img_1787532528822_1.webp",
+        "alt": "IVE Shares Official Twitter Update from TIMA 2026"
+      }
+    ]
+  },
+  {
     "date": "Aug 23, 2026",
     "last_updated": "2026-08-23T20:13:09.677Z",
     "tag": "Tour",
@@ -628,25 +653,5 @@
     "body": "IVE releases a new official 'I-VIEW' TikTok featuring Gaeul and Rei, capturing moments from their time in Vancouver during the world tour.",
     "post_url": "https://www.reddit.com/r/ive/comments/1vm6ioa/260812_ive_official_tiktok_update_with_gaeul_rei",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-12/vid_1786539200039.mp4"
-  },
-  {
-    "date": "Aug 12, 2026",
-    "last_updated": "2026-08-12T09:03:31.805Z",
-    "tag": "Tour",
-    "tagColor": "text-emerald-400 bg-emerald-400/10",
-    "title": "Fan Discusses Rock Arrangements from 'Show What I Am' Tour",
-    "body": "A fan observes and discusses the new rock arrangements of songs like 'Attitude' and 'I AM' performed during IVE's 'Show What I Am' world tour, inquiring about official releases or higher quality audio.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vlyedo/show_what_i_am_tour_rock_arrangements",
-    "videoId": "-PFc17c4N0I"
-  },
-  {
-    "date": "Aug 12, 2026",
-    "last_updated": "2026-08-12T05:25:25.513Z",
-    "tag": "Fansite",
-    "tagColor": "text-pink-400 bg-pink-400/10",
-    "title": "Fan Shares Wonyoung's Solo Performance from Vancouver Concert",
-    "body": "A fan captures a captivating moment of Wonyoung's solo stage during IVE's 'SHOW WHAT I AM' tour stop in Vancouver.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vm3jhn/wonyoung_solo_in_vancouver",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-12/vid_1786512385161.mp4"
   }
 ]
