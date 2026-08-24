@@ -1,6 +1,21 @@
 [
   {
     "date": "Aug 24, 2026",
+    "last_updated": "2026-08-24T12:30:41.744Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Yujin Shares New Instagram Update (260824)",
+    "body": "Yujin shares her latest photos through an Instagram update for fans.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vww4t1/260824_yujin_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-24/img_1787574711985_1.webp",
+        "alt": "Yujin Shares New Instagram Update (260824)"
+      }
+    ]
+  },
+  {
+    "date": "Aug 24, 2026",
     "last_updated": "2026-08-24T08:38:14.285Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -638,20 +653,5 @@
     "body": "Gaeul features in a new YouTube video titled 'Poetry is not meant to be understood, but felt.' as part of her 'Gaeul's Mood' series.",
     "post_url": "https://www.reddit.com/r/ive/comments/1vmc5fa/260812_gaeul_poetry_is_not_meant_to_be_understood",
     "videoId": "BtjGIPD1OSI"
-  },
-  {
-    "date": "Aug 12, 2026",
-    "last_updated": "2026-08-12T12:50:15.816Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei Features in 'Shipdo by Starship' Instagram Update with Red Velvet's Joy",
-    "body": "Rei appears in a new official 'Shipdo by Starship' Instagram update, featuring a special appearance by Red Velvet's Joy.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vma4hc/260812_shipdo_by_starship_instagram_update_with",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-12/img_1786539148938_1.webp",
-        "alt": "Rei Features in 'Shipdo by Starship' Instagram Update with Red Velvet's Joy"
-      }
-    ]
   }
 ]
