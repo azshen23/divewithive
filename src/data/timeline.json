@@ -1,6 +1,16 @@
 [
   {
     "date": "Aug 24, 2026",
+    "last_updated": "2026-08-24T08:38:14.285Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Liz Features in New Official TikTok Update",
+    "body": "Liz showcases a charming new look in IVE's latest official TikTok update, captivating fans with her delightful presence.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1vwvw8s/260824_ive_official_tiktok_update_with_liz",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-24/vid_1787560761182.mp4"
+  },
+  {
+    "date": "Aug 24, 2026",
     "last_updated": "2026-08-24T00:47:17.193Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -643,15 +653,5 @@
         "alt": "Rei Features in 'Shipdo by Starship' Instagram Update with Red Velvet's Joy"
       }
     ]
-  },
-  {
-    "date": "Aug 12, 2026",
-    "last_updated": "2026-08-12T12:50:15.816Z",
-    "tag": "Tour",
-    "tagColor": "text-emerald-400 bg-emerald-400/10",
-    "title": "Gaeul & Rei Share New 'I-VIEW' TikTok Update from Vancouver",
-    "body": "IVE releases a new official 'I-VIEW' TikTok featuring Gaeul and Rei, capturing moments from their time in Vancouver during the world tour.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vm6ioa/260812_ive_official_tiktok_update_with_gaeul_rei",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-12/vid_1786539200039.mp4"
   }
 ]
