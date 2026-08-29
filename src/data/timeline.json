@@ -1,6 +1,31 @@
 [
   {
     "date": "Aug 29, 2026",
+    "last_updated": "2026-08-29T10:37:00.628Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "Yujin & Wonyoung Star in New Teaser Video for 'AN-YOUNG' Media Exhibition (260829)",
+    "body": "Yujin and Wonyoung star in a new teaser video for their 'AN-YOUNG: ANYUJIN x JANGWONYOUNG Media Exhibition', inviting fans to experience various shades of 'An-Young' through media.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1w1hia8/260829_yujin_wonyoung_anyoung_anyujin_x",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-29/vid_1787999927101.mp4"
+  },
+  {
+    "date": "Aug 29, 2026",
+    "last_updated": "2026-08-29T10:37:00.628Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Yujin Features in New tvN Joy Twitter Update (260829)",
+    "body": "Yujin is featured in a new tvN Joy Twitter update alongside Lee Eunji, OH MY GIRL's Mimi, and Lee Youngji.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1w1fwmu/260829_tvn_joy_twitter_update_with_yujin_feat_lee",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-29/img_1787999976659_1.webp",
+        "alt": "Yujin Features in New tvN Joy Twitter Update (260829)"
+      }
+    ]
+  },
+  {
+    "date": "Aug 29, 2026",
     "last_updated": "2026-08-29T00:17:04.078Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -636,31 +661,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-20/img_1787243124095_1.webp",
         "alt": "Rei Features in Miseki Seoul 26FW Collection Lookbook"
-      }
-    ]
-  },
-  {
-    "date": "Aug 20, 2026",
-    "last_updated": "2026-08-20T16:24:05.388Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei & Leeseo Star in 'Follow REI' Episode 93",
-    "body": "Rei welcomes Leeseo to Episode 93 of 'Follow REI', where they discuss Leeseo's coming-of-age day celebrations.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vtfa5o/260820_rei_leeseo_episode_93_what_did_the",
-    "videoId": "Cqc0VYgguPw"
-  },
-  {
-    "date": "Aug 20, 2026",
-    "last_updated": "2026-08-20T16:24:05.388Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung Shares Latest Instagram Update",
-    "body": "Wonyoung delights fans with her latest personal update shared on Instagram, showcasing her charming visuals.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vteypa/260820_wonyoung_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-20/img_1787243237734_1.webp",
-        "alt": "Wonyoung Shares Latest Instagram Update"
       }
     ]
   }
