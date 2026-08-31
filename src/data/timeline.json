@@ -1,6 +1,46 @@
 [
   {
     "date": "Aug 31, 2026",
+    "last_updated": "2026-08-31T18:30:38.511Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "IVE Celebrates Yujin's Birthday on Official Twitter",
+    "body": "The official IVE Twitter account posts a celebratory message and image for member Yujin's birthday.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1w3gbsa/260901_ive_official_twitter_update_happy_ive",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-31/img_1788201103072_1.webp",
+        "alt": "IVE Celebrates Yujin's Birthday on Official Twitter"
+      }
+    ]
+  },
+  {
+    "date": "Aug 31, 2026",
+    "last_updated": "2026-08-31T18:30:38.511Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung Stars in New 'Twenty-three Challenge' TikTok Update",
+    "body": "Wonyoung participates in a special 'Twenty-three Challenge' on IVE's official TikTok account, celebrating her birthday.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1w3fqv1/260831_ive_official_tiktok_update_with_wonyoung",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-31/vid_1788201145021.mp4"
+  },
+  {
+    "date": "Aug 31, 2026",
+    "last_updated": "2026-08-31T18:30:38.511Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Liz Shares Instagram Story Birthday Message for Wonyoung",
+    "body": "Liz posts a sweet birthday message for fellow member Wonyoung on her personal Instagram story, celebrating the special occasion.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1w3c679/260831_liz_instagram_story_update_birthday",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-31/img_1788201219696_1.webp",
+        "alt": "Liz Shares Instagram Story Birthday Message for Wonyoung"
+      }
+    ]
+  },
+  {
+    "date": "Aug 31, 2026",
     "last_updated": "2026-08-31T10:18:27.604Z",
     "tag": "Release",
     "tagColor": "text-rose-400 bg-rose-400/10",
@@ -618,45 +658,5 @@
     "body": "Liz shares a new short video on IVE's official TikTok account, delighting fans with her charming presence.",
     "post_url": "https://www.reddit.com/r/ive/comments/1vxtifk/260825_ive_official_tiktok_update_with_liz_%e0%a9%ad",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-08-25/vid_1787689283281.mp4"
-  },
-  {
-    "date": "Aug 25, 2026",
-    "last_updated": "2026-08-25T20:20:21.054Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung Shares New Instagram Story Update (260825)",
-    "body": "Wonyoung posted a new update on her Instagram Story, giving fans a glimpse into her day.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vxpwsk/260825_wonyoung_instagram_story_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-25/img_1787689352585_1.webp",
-        "alt": "Wonyoung Shares New Instagram Story Update (260825)"
-      }
-    ]
-  },
-  {
-    "date": "Aug 25, 2026",
-    "last_updated": "2026-08-25T16:26:29.745Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Liz Shares New Instagram Update (260825)",
-    "body": "Liz shares a new set of photos with Dives through her official Instagram account.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vy0vmn/260825_liz_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-08-25/img_1787675267471_1.webp",
-        "alt": "Liz Shares New Instagram Update (260825)"
-      }
-    ]
-  },
-  {
-    "date": "Aug 25, 2026",
-    "last_updated": "2026-08-25T16:26:29.745Z",
-    "tag": "Release",
-    "tagColor": "text-rose-400 bg-rose-400/10",
-    "title": "IVE Releases '[IVE ON] Leeseo X Lizda Behind' Episode",
-    "body": "A new behind-the-scenes episode features Leeseo and Lizda, offering a glimpse into their recent activities.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1vy0q7u/260825_ive_ive_on_leeseo_x_lizda_behind",
-    "videoId": "zntdwjyk4uY"
   }
 ]
