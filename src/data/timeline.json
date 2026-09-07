@@ -1,6 +1,21 @@
 [
   {
     "date": "Sep 7, 2026",
+    "last_updated": "2026-09-07T22:25:14.187Z",
+    "tag": "Tour",
+    "tagColor": "text-emerald-400 bg-emerald-400/10",
+    "title": "IVE Shares Official Update from Hong Kong Tour Day 3",
+    "body": "IVE's official Twitter account posted an update with photos from the third day of their 'SHOW WHAT I AM' world tour stop in Hong Kong.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1w8vig0/260906_ive_official_twitter_update_ive_world_tour",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-07/img_1788819983379_1.webp",
+        "alt": "IVE Shares Official Update from Hong Kong Tour Day 3"
+      }
+    ]
+  },
+  {
+    "date": "Sep 7, 2026",
     "last_updated": "2026-09-07T16:56:16.154Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -628,20 +643,5 @@
     "body": "Liz showcases her visuals in a new Instagram update from the cosmetics brand Tonymoly, highlighting their latest products.",
     "post_url": "https://www.reddit.com/r/ive/comments/1w48ibu/260901_tonymoly_instagram_update_with_liz",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-09-01/vid_1788301065221.mp4"
-  },
-  {
-    "date": "Sep 1, 2026",
-    "last_updated": "2026-09-01T22:14:10.436Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Yujin Holds Berriz Live Session for Birthday Celebration (260901)",
-    "body": "Yujin connected with fans through a special Berriz live session to celebrate her birthday, sharing moments and interacting with DIVEs.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1w47wzi/260901_yujin_berriz_birthday_livestream",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-01/img_1788301118317_1.webp",
-        "alt": "Yujin Holds Berriz Live Session for Birthday Celebration (260901)"
-      }
-    ]
   }
 ]
