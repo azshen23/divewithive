@@ -1,6 +1,21 @@
 [
   {
     "date": "Sep 9, 2026",
+    "last_updated": "2026-09-09T22:08:25.407Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Liz Features in New TONYMOLY Official Twitter Update",
+    "body": "Liz is featured in a new official update from TONYMOLY, showcasing her latest visuals for the brand.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1wberc3/260909_tonymoly_official_twitter_update_with_liz",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-09/img_1788991771211_1.webp",
+        "alt": "Liz Features in New TONYMOLY Official Twitter Update"
+      }
+    ]
+  },
+  {
+    "date": "Sep 9, 2026",
     "last_updated": "2026-09-09T18:57:54.846Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -638,15 +653,5 @@
         "alt": "Rei Stars in New AGE20’S Official Instagram Update"
       }
     ]
-  },
-  {
-    "date": "Sep 2, 2026",
-    "last_updated": "2026-09-02T22:13:00.102Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei Features in New AGE20’S Japan Twitter Update",
-    "body": "Rei appears in a recent update from AGE20’S Japan's official Twitter account.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1w5a6kb/260902_age20s_japan_twitter_update_with_rei",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-09-02/vid_1788387387899.mp4"
   }
 ]
