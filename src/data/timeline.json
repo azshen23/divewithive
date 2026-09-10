@@ -1,6 +1,21 @@
 [
   {
     "date": "Sep 10, 2026",
+    "last_updated": "2026-09-10T22:08:29.472Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "IVE Features in New MLB Korea Twitter Updates",
+    "body": "IVE shares new updates on MLB Korea's official Twitter, featuring group photos and promotional content.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1wciziu/260910_mlb_korea_twitter_updates_with_ive",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-10/img_1789078155995_1.webp",
+        "alt": "IVE Features in New MLB Korea Twitter Updates"
+      }
+    ]
+  },
+  {
+    "date": "Sep 10, 2026",
     "last_updated": "2026-09-10T15:34:50.961Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -643,15 +658,5 @@
         "alt": "Rei Shares New Instagram Update"
       }
     ]
-  },
-  {
-    "date": "Sep 3, 2026",
-    "last_updated": "2026-09-03T19:00:00.719Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Liz Features in New TONYMOLY Official Twitter Update",
-    "body": "Liz appears in a new official Twitter update for TONYMOLY, showcasing her latest visuals for the brand.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1w66fl8/260903_tonymoly_official_twitter_update_with_liz",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-09-03/vid_1788462284515.mp4"
   }
 ]
