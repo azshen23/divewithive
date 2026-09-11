@@ -1,5 +1,30 @@
 [
   {
+    "date": "Sep 11, 2026",
+    "last_updated": "2026-09-11T08:26:35.272Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Leeseo Shares Instagram Update with Rei",
+    "body": "Leeseo posts a new Instagram update featuring fellow member Rei.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1wd9z94/260911_leeseo_instagram_update_feat_rei",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-11/img_1789115267239_1.webp",
+        "alt": "Leeseo Shares Instagram Update with Rei"
+      }
+    ]
+  },
+  {
+    "date": "Sep 11, 2026",
+    "last_updated": "2026-09-11T08:26:35.272Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Leeseo Teams Up with MONSTA X Joohoney for 'MAGIC Challenge' TikTok",
+    "body": "Leeseo joins MONSTA X's Joohoney for a fun 'MAGIC Challenge' in a new TikTok update.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1wd9vug/260911_monsta_x_tiktok_update_with_leeseo_magic",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-09-11/vid_1789115329726.mp4"
+  },
+  {
     "date": "Sep 10, 2026",
     "last_updated": "2026-09-10T22:08:29.472Z",
     "tag": "Member",
@@ -633,30 +658,5 @@
     "body": "Liz shares a new special clip for her song 'Unreal', showcasing her unique vocal style.",
     "post_url": "https://www.reddit.com/r/ive/comments/1w68z3p/260903_liz_unreal_special_clip",
     "videoId": "Xe7admnJYK8"
-  },
-  {
-    "date": "Sep 3, 2026",
-    "last_updated": "2026-09-03T19:00:00.719Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei Features in Hearts2Hearts Instagram Update",
-    "body": "Rei joins Hearts2Hearts members Jiwoo and A-na for a fun 'Tang Tang Tang' challenge on Instagram.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1w67dry/260903_hearts2hearts_instagram_update_with_rei",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-09-03/vid_1788462132165.mp4"
-  },
-  {
-    "date": "Sep 3, 2026",
-    "last_updated": "2026-09-03T19:00:00.719Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei Shares New Instagram Update",
-    "body": "Rei posts a fresh update on her personal Instagram, delighting fans with new photos.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1w66nk8/260903_rei_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-03/img_1788462221694_1.webp",
-        "alt": "Rei Shares New Instagram Update"
-      }
-    ]
   }
 ]
