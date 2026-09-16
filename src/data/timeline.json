@@ -1,6 +1,16 @@
 [
   {
     "date": "Sep 16, 2026",
+    "last_updated": "2026-09-16T19:14:30.519Z",
+    "tag": "Tour",
+    "tagColor": "text-emerald-400 bg-emerald-400/10",
+    "title": "IVE Shares Official Twitter Update from 'SHOW WHAT I AM' World Tour in Taipei (260916)",
+    "body": "IVE posts a new official update on their Twitter, featuring moments from their 'SHOW WHAT I AM' World Tour stop in Taipei.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1whq6ye/260916_ive_official_twitter_update_%f0%9d%91%86%f0%9d%90%bb%f0%9d%91%82%f0%9d%91%8a_%f0%9d%91%8a%f0%9d%90%bb%f0%9d%90%b4%f0%9d%91%87_%f0%9d%90%bc_%f0%9d%90%b4%f0%9d%91%80",
+    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-09-16/vid_1789586142968.mp4"
+  },
+  {
+    "date": "Sep 16, 2026",
     "last_updated": "2026-09-16T15:51:01.435Z",
     "tag": "Tour",
     "tagColor": "text-emerald-400 bg-emerald-400/10",
@@ -638,15 +648,5 @@
     "body": "Gaeul released a new video on her 'Gaeul's Mood' series, inviting fans to join her in reading her book of the year, Siddhartha.",
     "post_url": "https://www.reddit.com/r/ive/comments/1wbjnf2/260909_gaeul_lets_read_my_book_of_the_year",
     "videoId": "8t5iaok08ek"
-  },
-  {
-    "date": "Sep 9, 2026",
-    "last_updated": "2026-09-09T18:57:54.846Z",
-    "tag": "Tour",
-    "tagColor": "text-emerald-400 bg-emerald-400/10",
-    "title": "IVE Shares 'I-VIEW' TikTok with Yujin & Leeseo from Hong Kong Tour",
-    "body": "IVE's official TikTok released a new 'I-VIEW' segment featuring Yujin and Leeseo, capturing moments from their time in Hong Kong during the world tour.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1wbihnt/260909_ive_official_tiktok_update_with_yujin",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-09-09/vid_1788980487780.mp4"
   }
 ]
