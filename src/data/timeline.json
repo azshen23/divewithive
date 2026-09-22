@@ -1,5 +1,50 @@
 [
   {
+    "date": "Sep 22, 2026",
+    "last_updated": "2026-09-22T08:55:34.664Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Gaeul Shares New Instagram Stories Update (260922)",
+    "body": "Gaeul posted a new update to her Instagram Stories for fans.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1wn24d8/260922_gaeul_instagram_stories_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-22/img_1790067403519_1.webp",
+        "alt": "Gaeul Shares New Instagram Stories Update (260922)"
+      }
+    ]
+  },
+  {
+    "date": "Sep 22, 2026",
+    "last_updated": "2026-09-22T08:55:34.664Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Liz Shares New Instagram Update (260922)",
+    "body": "Liz shared a new set of photos on her personal Instagram.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1wn17ip/260922_liz_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-22/img_1790067464508_1.webp",
+        "alt": "Liz Shares New Instagram Update (260922)"
+      }
+    ]
+  },
+  {
+    "date": "Sep 22, 2026",
+    "last_updated": "2026-09-22T08:55:34.664Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Rei Shares New Instagram Update (260922)",
+    "body": "Rei posted a new series of photos on her Instagram account.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1wn15w9/260922_rei_instagram_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-22/img_1790067520201_1.webp",
+        "alt": "Rei Shares New Instagram Update (260922)"
+      }
+    ]
+  },
+  {
     "date": "Sep 21, 2026",
     "last_updated": "2026-09-21T22:57:01.714Z",
     "tag": "Member",
@@ -613,45 +658,5 @@
     "body": "IVE posts a new official TikTok video featuring a 'BANG BANG (CUTE ver.)' challenge, delighting fans with their cute rendition.",
     "post_url": "https://www.reddit.com/r/ive/comments/1wg0pic/260914_ive_official_tiktok_update_bang_bang_cute",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-09-14/vid_1789406469509.mp4"
-  },
-  {
-    "date": "Sep 14, 2026",
-    "last_updated": "2026-09-14T17:18:52.908Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung Named Brand Ambassador for STANCE China",
-    "body": "Wonyoung has been officially selected as the brand ambassador for STANCE China, expanding her global endorsement portfolio.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1wfxgzb/260914_wonyoung_has_been_selected_as_the_brand",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-14/img_1789406541297_1.webp",
-        "alt": "Wonyoung Named Brand Ambassador for STANCE China"
-      }
-    ]
-  },
-  {
-    "date": "Sep 14, 2026",
-    "last_updated": "2026-09-14T17:18:52.908Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung Features in Dyson Korea's 'Burgundy Wood' Collection Lookbook",
-    "body": "Wonyoung showcases Dyson Korea's Limited Edition 'Burgundy Wood' Color Collection in a stunning new lookbook, highlighting her elegance.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1wfxg72/260914_wonyoung_dyson_korea_limited_edition",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-14/img_1789406601985_1.webp",
-        "alt": "Wonyoung Features in Dyson Korea's 'Burgundy Wood' Collection Lookbook"
-      }
-    ]
-  },
-  {
-    "date": "Sep 14, 2026",
-    "last_updated": "2026-09-14T17:18:52.908Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Rei Stars in New IVE Official TikTok Update - 'Tweet tweet'",
-    "body": "Rei shares a charming new official IVE TikTok update titled 'Tweet tweet (>-<)', captivating fans with her cuteness.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1wfxa7k/260914_ive_official_tiktok_update_with_rei_tweet",
-    "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-09-14/vid_1789406651434.mp4"
   }
 ]
