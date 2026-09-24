@@ -1,6 +1,21 @@
 [
   {
     "date": "Sep 24, 2026",
+    "last_updated": "2026-09-24T22:52:10.346Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Gaeul Shares New Instagram Story Update (260924)",
+    "body": "Gaeul posted a new update on her Instagram Story.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1wp14w2/260924_gaeul_instagram_story_update",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-24/img_1790290400935_1.webp",
+        "alt": "Gaeul Shares New Instagram Story Update (260924)"
+      }
+    ]
+  },
+  {
+    "date": "Sep 24, 2026",
     "last_updated": "2026-09-24T16:13:01.249Z",
     "tag": "Tour",
     "tagColor": "text-emerald-400 bg-emerald-400/10",
@@ -621,21 +636,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-18/img_1789769275343_1.webp",
         "alt": "Yujin Features in New IVE Official Twitter Update from tvN Space Rice Cake"
-      }
-    ]
-  },
-  {
-    "date": "Sep 18, 2026",
-    "last_updated": "2026-09-18T22:06:57.160Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Wonyoung Shares New Instagram Update (260918)",
-    "body": "Wonyoung updates her personal Instagram with new photos for her fans.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1wjmm21/260918_wonyoung_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-18/img_1789769332340_1.webp",
-        "alt": "Wonyoung Shares New Instagram Update (260918)"
       }
     ]
   }
