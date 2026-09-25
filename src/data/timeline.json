@@ -1,6 +1,46 @@
 [
   {
     "date": "Sep 25, 2026",
+    "last_updated": "2026-09-25T16:14:28.480Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE Releases New '[IVE-minute] Succeeded in Being Cute on Stage Today' Episode",
+    "body": "IVE shares a new episode of their 'IVE-minute' series, titled 'Succeeded in Being Cute on Stage Again Today'.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1wpx4ot/260925_ive_iveminute_succeeded_in_being_cute_on",
+    "videoId": "zBCDuw5mRGA"
+  },
+  {
+    "date": "Sep 25, 2026",
+    "last_updated": "2026-09-25T16:14:28.480Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "IVE Official Twitter Update Features Yujin at Space Rice Cake",
+    "body": "IVE's official Twitter account shares a new update featuring Yujin enjoying her time at Space Rice Cake.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1wpvq9x/260925_ive_official_twitter_update_with_yujin_at",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-25/img_1790352957353_1.webp",
+        "alt": "IVE Official Twitter Update Features Yujin at Space Rice Cake"
+      }
+    ]
+  },
+  {
+    "date": "Sep 25, 2026",
+    "last_updated": "2026-09-25T16:14:28.480Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Liz Features in New MLB Korea Twitter Update",
+    "body": "Liz is featured in a fresh update from MLB Korea's official Twitter account, showcasing new content.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1wpu6o3/260925_mlb_korea_twitter_update_with_liz",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-25/img_1790353008416_1.webp",
+        "alt": "Liz Features in New MLB Korea Twitter Update"
+      }
+    ]
+  },
+  {
+    "date": "Sep 25, 2026",
     "last_updated": "2026-09-25T09:14:09.424Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -586,51 +626,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-20/img_1789917076565_1.webp",
         "alt": "Wonyoung Features in New Dr.Althea Korea Instagram Update"
-      }
-    ]
-  },
-  {
-    "date": "Sep 20, 2026",
-    "last_updated": "2026-09-20T15:10:03.504Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "IVE Shares New Japan Official Twitter Update",
-    "body": "IVE's Japan official Twitter account shares a new update, featuring the group members.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1wldly1/260920_ive_japan_official_twitter_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-20/img_1789917138095_1.webp",
-        "alt": "IVE Shares New Japan Official Twitter Update"
-      }
-    ]
-  },
-  {
-    "date": "Sep 20, 2026",
-    "last_updated": "2026-09-20T15:10:03.504Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Liz Shares New Instagram Update (260920)",
-    "body": "Liz shares new photos on her personal Instagram account, captivating fans with her latest look.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1wlcz5h/260920_liz_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-20/img_1789917198499_1.webp",
-        "alt": "Liz Shares New Instagram Update (260920)"
-      }
-    ]
-  },
-  {
-    "date": "Sep 20, 2026",
-    "last_updated": "2026-09-20T15:10:03.504Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Yujin Shares New Instagram Update (260920)",
-    "body": "Yujin posts a new series of photos on her personal Instagram, giving fans a glimpse into her day.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1wlcxb3/260920_yujin_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-20/img_1789917239520_1.webp",
-        "alt": "Yujin Shares New Instagram Update (260920)"
       }
     ]
   }
