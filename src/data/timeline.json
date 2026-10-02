@@ -1,6 +1,51 @@
 [
   {
     "date": "Oct 2, 2026",
+    "last_updated": "2026-10-02T17:07:41.941Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Yujin Features in New IVE Official Twitter Update",
+    "body": "Yujin shares a new update from the official IVE Twitter account, seen at 'Space Rice Cake'.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1wvvuoc/261002_ive_official_twitter_update_with_yujin_at",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-10-02/img_1790960931515_1.webp",
+        "alt": "Yujin Features in New IVE Official Twitter Update"
+      }
+    ]
+  },
+  {
+    "date": "Oct 2, 2026",
+    "last_updated": "2026-10-02T17:07:41.941Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Leeseo Features in New MLB Korea Twitter Update",
+    "body": "Leeseo is highlighted in a new official Twitter update from MLB Korea.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1wvs1yz/261002_mlb_korea_twitter_update_with_leeseo",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-10-02/img_1790960980166_1.webp",
+        "alt": "Leeseo Features in New MLB Korea Twitter Update"
+      }
+    ]
+  },
+  {
+    "date": "Oct 2, 2026",
+    "last_updated": "2026-10-02T17:07:41.941Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE Releases New Teaser Images for 5th EP 'Looks Can Kill' (Cast Version)",
+    "body": "New 'Cast' version teaser images have been unveiled for IVE's upcoming 5th EP, 'Looks Can Kill'.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1wvqvj4/261002_ive_the_5th_ep_looks_can_kill_teaser",
+    "images": [
+      {
+        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-10-02/img_1790961040888_1.webp",
+        "alt": "IVE Releases New Teaser Images for 5th EP 'Looks Can Kill' (Cast Version)"
+      }
+    ]
+  },
+  {
+    "date": "Oct 2, 2026",
     "last_updated": "2026-10-02T10:11:13.854Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -596,46 +641,6 @@
       {
         "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-26/img_1790461148345_1.webp",
         "alt": "Yujin Features in New tvN Joy Twitter Update"
-      }
-    ]
-  },
-  {
-    "date": "Sep 26, 2026",
-    "last_updated": "2026-09-26T15:26:51.375Z",
-    "tag": "Release",
-    "tagColor": "text-rose-400 bg-rose-400/10",
-    "title": "IVE Releases New '[IVE LOG] NYOUNG LOG' Episode",
-    "body": "Wonyoung shares a new IVE LOG episode titled '21-Minute Speed Run⏱️ The Hammer Has Arrived' from their WORLD TOUR.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1wqramb/260926_ive_ive_log_21minute_speed_run_the_hammer",
-    "videoId": "cuueUOtV0RY"
-  },
-  {
-    "date": "Sep 26, 2026",
-    "last_updated": "2026-09-26T15:26:51.375Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Gaeul Features in New MLB Korea Twitter Update",
-    "body": "Gaeul shares a new Twitter update for MLB Korea, showcasing her latest look.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1wqr0zm/260926_mlb_korea_twitter_update_with_gaeul",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-26/img_1790436472297_1.webp",
-        "alt": "Gaeul Features in New MLB Korea Twitter Update"
-      }
-    ]
-  },
-  {
-    "date": "Sep 26, 2026",
-    "last_updated": "2026-09-26T15:26:51.375Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Liz Shares New Instagram Update (260926)",
-    "body": "Liz posts a new series of photos on Instagram, delighting fans with her latest update.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1wqnxae/260926_liz_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-09-26/img_1790436503223_1.webp",
-        "alt": "Liz Shares New Instagram Update (260926)"
       }
     ]
   }
