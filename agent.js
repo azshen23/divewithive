@@ -4,9 +4,12 @@ import { execSync } from 'child_process';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
 // --- CONFIGURATION ---
-const REDDIT_URL = 'https://api.rss2json.com/v1/api.json?rss_url=https://www.reddit.com/r/IVE/new/.rss';
+const ARCTIC_SHIFT_SEARCH_URL = 'https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=IVE&limit=25&sort=desc';
+const ARCTIC_SHIFT_IDS_URL = 'https://arctic-shift.photon-reddit.com/api/posts/ids';
+const REDDIT_RSS2JSON_URL = 'https://api.rss2json.com/v1/api.json?rss_url=https://www.reddit.com/r/IVE/new/.rss';
+const REDDIT_JSON_URL = 'https://www.reddit.com/r/IVE/new.json?limit=25';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_MODEL = 'gemini-2.5-flash';
+const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
 const TIMELINE_PATH = './src/data/timeline.json';
 // Use system ffmpeg on GitHub Actions/Linux, and local TrackMan binary on Windows dev machine
 const FFMPEG_PATH = process.env.GITHUB_ACTIONS || process.platform !== 'win32'
@@ -39,18 +42,98 @@ if (B2_ENDPOINT && B2_KEY_ID && B2_APPLICATION_KEY) {
 
 // Ensure you run this with: node agent.js
 
-// ─── Step 1: Fetch RSS (fast, no enrichment) ───────────────────────────────
-async function fetchRedditPosts() {
-  console.log('📡 Fetching latest updates from r/IVE via RSS proxy...');
-  const response = await fetch(REDDIT_URL);
-  if (!response.ok) throw new Error(`RSS API failed: ${response.statusText}`);
+// ─── Step 1: Fetch latest posts with multi-source fallback ───────────────────
+function normalizePostUrl(url) {
+  return (url || '').replace(/\/$/, '').split('?')[0].toLowerCase();
+}
+
+function mapRedditPostData(p) {
+  const url = p.permalink
+    ? `https://www.reddit.com${p.permalink}`
+    : `https://www.reddit.com/r/IVE/comments/${p.id}/`;
+  return {
+    title: p.title,
+    url,
+    text: p.selftext || '',
+    created_utc: p.created_utc ? new Date(p.created_utc * 1000).toISOString() : '',
+    rawData: p,
+  };
+}
+
+async function fetchFromArcticShift() {
+  const response = await fetch(ARCTIC_SHIFT_SEARCH_URL, {
+    headers: { 'Accept': 'application/json' },
+    signal: AbortSignal.timeout(15000),
+  });
+  if (!response.ok) throw new Error(`Arctic Shift HTTP ${response.status}`);
   const json = await response.json();
+  if (!Array.isArray(json?.data) || json.data.length === 0) {
+    throw new Error('Arctic Shift returned empty data');
+  }
+  return json.data.map(mapRedditPostData);
+}
+
+async function fetchFromRss2Json() {
+  const response = await fetch(REDDIT_RSS2JSON_URL, {
+    signal: AbortSignal.timeout(15000),
+  });
+  if (!response.ok) throw new Error(`RSS2JSON HTTP ${response.status}`);
+  const json = await response.json();
+  if (json?.status !== 'ok' || !Array.isArray(json?.items) || json.items.length === 0) {
+    throw new Error(`RSS2JSON error: ${json?.message || 'missing items'}`);
+  }
   return json.items.map(post => ({
     title: post.title,
     url: post.link,
-    text: post.description || '',
-    created_utc: post.pubDate
+    text: post.content || post.description || '',
+    created_utc: post.pubDate,
   }));
+}
+
+async function fetchFromRedditJson() {
+  const response = await fetch(REDDIT_JSON_URL, {
+    headers: {
+      'User-Agent': 'web:divewithive-agent:v1.0.0 (by /u/divewithive)',
+      'Accept': 'application/json',
+    },
+    signal: AbortSignal.timeout(15000),
+  });
+  if (!response.ok) throw new Error(`Reddit JSON HTTP ${response.status}`);
+  const json = await response.json();
+  const children = json?.data?.children;
+  if (!Array.isArray(children) || children.length === 0) {
+    throw new Error('Reddit JSON returned empty children');
+  }
+  return children.map(c => mapRedditPostData(c.data));
+}
+
+async function fetchRedditPosts() {
+  const sources = [
+    ['Arctic Shift', fetchFromArcticShift],
+    ['RSS2JSON', fetchFromRss2Json],
+    ['Reddit JSON', fetchFromRedditJson],
+  ];
+
+  const errors = [];
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    for (const [name, fn] of sources) {
+      try {
+        console.log(`📡 Fetching latest updates from r/IVE via ${name} (Attempt ${attempt}/2)...`);
+        const posts = await fn();
+        console.log(`✅ Fetched ${posts.length} posts via ${name}.`);
+        return posts;
+      } catch (err) {
+        console.warn(`⚠️ ${name} failed: ${err.message}`);
+        errors.push(`${name} (attempt ${attempt}): ${err.message}`);
+      }
+    }
+    if (attempt < 2) {
+      console.log('⏳ Waiting 5 seconds before retrying post fetch...');
+      await new Promise(resolve => setTimeout(resolve, 5000));
+    }
+  }
+
+  throw new Error(`All Reddit post sources failed: ${errors.join(' | ')}`);
 }
 
 // ─── Step 2: AI filters posts ──────────────────────────────────────────────
@@ -108,7 +191,8 @@ async function askAI(posts, existingTitles) {
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: { response_mime_type: "application/json" }
-        })
+        }),
+        signal: AbortSignal.timeout(60000),
       });
 
       if (!response.ok) {
@@ -202,7 +286,7 @@ function parseMediaFromRSS(text, postUrl) {
   if (!text) return {};
 
   // Check for YouTube links embedded in the description
-  const ytMatch = text.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  const ytMatch = text.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|live\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
   if (ytMatch) {
     return { youtube_id: ytMatch[1] };
   }
@@ -218,40 +302,130 @@ function parseMediaFromRSS(text, postUrl) {
   return images.length > 0 ? { image_urls: images } : {};
 }
 
+function extractMediaFromPostData(postData, title) {
+  if (!postData) return null;
+
+  const candidates = [postData];
+  if (Array.isArray(postData.crosspost_parent_list) && postData.crosspost_parent_list.length > 0) {
+    candidates.push(postData.crosspost_parent_list[0]);
+  }
+
+  for (const source of candidates) {
+    const destUrl = source.url_overridden_by_dest || source.url || '';
+
+    // YouTube
+    const ytMatch = destUrl.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|live\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+    if (ytMatch) {
+      console.log(`  ▶️  [${title}] YouTube: ${ytMatch[1]}`);
+      return { youtube_id: ytMatch[1] };
+    }
+
+    // Reddit-hosted video
+    if (source.is_video) {
+      const videoUrl =
+        source.secure_media?.reddit_video?.fallback_url ||
+        source.media?.reddit_video?.fallback_url ||
+        (destUrl.includes('v.redd.it') ? destUrl : null);
+      console.log(`  🎬 [${title}] Reddit video detected`);
+      return { is_video: true, video_url: videoUrl };
+    }
+
+    // Gallery (multiple images)
+    if (source.is_gallery && source.gallery_data && source.media_metadata) {
+      const imageUrls = (source.gallery_data.items || [])
+        .map(item => source.media_metadata[item.media_id])
+        .filter(meta => meta && meta.status === 'valid' && meta.s)
+        .map(meta => (meta.s.u || meta.s.gif || '').replace(/&amp;/g, '&'))
+        .filter(Boolean);
+      if (imageUrls.length > 0) {
+        console.log(`  🖼️  [${title}] Gallery: ${imageUrls.length} images`);
+        return { image_urls: imageUrls };
+      }
+    }
+
+    // Single image (direct link)
+    if (/\.(jpg|jpeg|png|gif|webp)/i.test(destUrl)) {
+      console.log(`  🖼️  [${title}] Single image`);
+      return { image_urls: [destUrl] };
+    }
+
+    // Preview image fallback
+    const previewUrl = source.preview?.images?.[0]?.source?.url?.replace(/&amp;/g, '&');
+    if (previewUrl) {
+      console.log(`  🖼️  [${title}] Preview image (fallback)`);
+      return { image_urls: [previewUrl] };
+    }
+  }
+
+  return {};
+}
+
 // ─── Step 3: Enrich a single selected post with media data ─────────────────
 async function enrichPost(post) {
-  const { url: postUrl, title, text } = post;
-  // Strip trailing slash AND any query parameters to ensure clean .json append
-  const cleanUrl = postUrl.replace(/\/$/, '').split('?')[0];
+  const { url: postUrl, title, text, rawData } = post;
 
-  // Fall back to proxies if direct fails (needed on datacenter environments like GitHub Actions).
+  // Use pre-fetched post metadata when available (e.g. from Arctic Shift or Reddit JSON)
+  if (rawData) {
+    const directMedia = extractMediaFromPostData(rawData, title);
+    if (directMedia && (directMedia.youtube_id || directMedia.is_video || directMedia.image_urls?.length)) {
+      return directMedia;
+    }
+  }
+
+  // Strip trailing slash AND any query parameters to ensure clean .json append
+  const cleanUrl = (postUrl || '').replace(/\/$/, '').split('?')[0];
+
+  // Try Arctic Shift single-post lookup by Reddit ID first (fast and reliable from CI)
+  const idMatch = cleanUrl.match(/\/comments\/([a-z0-9]+)/i);
+  if (idMatch) {
+    try {
+      const resp = await fetch(`${ARCTIC_SHIFT_IDS_URL}?ids=t3_${idMatch[1]}`, {
+        headers: { 'Accept': 'application/json' },
+        signal: AbortSignal.timeout(10000),
+      });
+      if (resp.ok) {
+        const json = await resp.json();
+        const postData = json?.data?.[0];
+        const media = extractMediaFromPostData(postData, title);
+        if (media && (media.youtube_id || media.is_video || media.image_urls?.length)) {
+          return media;
+        }
+      }
+    } catch (e) {
+      console.warn(`  ⚠️  [${title}] Arctic Shift ID lookup error: ${e.message}`);
+    }
+  }
+
+  // Fall back to direct Reddit JSON and working proxies
   const jsonUrls = [
+    cleanUrl + '.json',
+    'https://api.allorigins.win/get?url=' + encodeURIComponent(cleanUrl + '.json'),
     'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(cleanUrl + '.json'),
     'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(cleanUrl.replace('www.reddit.com', 'old.reddit.com') + '.json'),
-    'https://corsproxy.io/?' + encodeURIComponent(cleanUrl + '.json'),
-    'https://api.allorigins.win/get?url=' + encodeURIComponent(cleanUrl + '.json')
   ];
 
   for (const jsonUrl of jsonUrls) {
     try {
-      const resp = await fetch(jsonUrl, { headers: REDDIT_HEADERS });
+      const resp = await fetch(jsonUrl, {
+        headers: REDDIT_HEADERS,
+        signal: AbortSignal.timeout(10000),
+      });
 
-      const contentType = resp.headers.get('content-type') || '';
       const bodyText = await resp.text();
 
       if (!resp.ok) {
-        console.warn(`  ⚠️  [${title}] Proxy ${jsonUrl.split('?')[0]} failed: HTTP ${resp.status}`);
+        console.warn(`  ⚠️  [${title}] Source ${jsonUrl.split('?')[0]} failed: HTTP ${resp.status}`);
         continue;
       }
 
       if (!bodyText || bodyText.trim() === '') {
-        console.warn(`  ⚠️  [${title}] Proxy ${jsonUrl.split('?')[0]} returned empty body`);
+        console.warn(`  ⚠️  [${title}] Source ${jsonUrl.split('?')[0]} returned empty body`);
         continue;
       }
 
       const trimmed = bodyText.trim();
       if (!trimmed.startsWith('{') && !trimmed.startsWith('[')) {
-        console.warn(`  ⚠️  [${title}] Proxy ${jsonUrl.split('?')[0]} returned HTML/non-JSON response`);
+        console.warn(`  ⚠️  [${title}] Source ${jsonUrl.split('?')[0]} returned HTML/non-JSON response`);
         continue;
       }
 
@@ -275,46 +449,9 @@ async function enrichPost(post) {
       const postData = data?.[0]?.data?.children?.[0]?.data;
       if (!postData) continue;
 
-      const destUrl = postData.url_overridden_by_dest || '';
-
-      // YouTube
-      const ytMatch = destUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-      if (ytMatch) {
-        console.log(`  ▶️  [${title}] YouTube: ${ytMatch[1]}`);
-        return { youtube_id: ytMatch[1] };
-      }
-
-      // Reddit-hosted video
-      if (postData.is_video) {
-        const videoUrl =
-          postData.secure_media?.reddit_video?.fallback_url ||
-          postData.media?.reddit_video?.fallback_url || null;
-        console.log(`  🎬 [${title}] Reddit video detected`);
-        return { is_video: true, video_url: videoUrl };
-      }
-
-      // Gallery (multiple images)
-      if (postData.is_gallery && postData.gallery_data && postData.media_metadata) {
-        const imageUrls = (postData.gallery_data.items || [])
-          .map(item => postData.media_metadata[item.media_id])
-          .filter(meta => meta && meta.status === 'valid' && meta.s)
-          .map(meta => (meta.s.u || meta.s.gif || '').replace(/&amp;/g, '&'))
-          .filter(Boolean);
-        console.log(`  🖼️  [${title}] Gallery: ${imageUrls.length} images`);
-        return { image_urls: imageUrls };
-      }
-
-      // Single image (direct link)
-      if (/\.(jpg|jpeg|png|gif|webp)/i.test(destUrl)) {
-        console.log(`  🖼️  [${title}] Single image`);
-        return { image_urls: [destUrl] };
-      }
-
-      // Preview image fallback
-      const previewUrl = postData.preview?.images?.[0]?.source?.url?.replace(/&amp;/g, '&');
-      if (previewUrl) {
-        console.log(`  🖼️  [${title}] Preview image (fallback)`);
-        return { image_urls: [previewUrl] };
+      const media = extractMediaFromPostData(postData, title);
+      if (media && Object.keys(media).length > 0) {
+        return media;
       }
 
       console.log(`  ℹ️  [${title}] No media in JSON (text-only or external link)`);
@@ -665,9 +802,9 @@ async function run() {
     const posts = await fetchRedditPosts();
 
     // 2.5 Filter out posts already in timeline by URL to prevent duplicates
-    const existingUrls = new Set(timelineData.map(entry => entry.post_url).filter(Boolean));
+    const existingUrls = new Set(timelineData.map(entry => normalizePostUrl(entry.post_url)).filter(Boolean));
     const filteredPosts = posts.filter(p => {
-      const cleanUrl = p.url.replace(/\/$/, '').split('?')[0].toLowerCase();
+      const cleanUrl = normalizePostUrl(p.url);
       const cleanTitle = p.title.toLowerCase().trim();
       
       // Filter by URL
@@ -715,7 +852,8 @@ async function run() {
       await new Promise(r => setTimeout(r, 1500));
 
       // Build URL lookup for the source post
-      const sourcePost = posts.find(p => p.url.replace(/\/$/, '') === (update.post_url || '').replace(/\/$/, ''));
+      const targetUrl = normalizePostUrl(update.post_url);
+      const sourcePost = posts.find(p => normalizePostUrl(p.url) === targetUrl);
       const media = await enrichPost(sourcePost || { url: update.post_url, title: update.title, text: '' });
 
       // --- Images ---
@@ -768,7 +906,7 @@ async function run() {
         tagColor: update.tagColor,
         title: update.title,
         body: update.body,
-        post_url: (update.post_url || sourcePost?.url || '').replace(/\/$/, '').split('?')[0].toLowerCase(), // Store for duplicate prevention
+        post_url: normalizePostUrl(update.post_url || sourcePost?.url), // Store for duplicate prevention
       };
 
       if (localImagePaths.length > 0) {
