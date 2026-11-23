@@ -4,6 +4,12 @@ on:
   schedule:
     # Runs every 4 hours
     - cron: '0 */4 * * *'
+  # Triggers automatically when the agent or workflow is updated
+  push:
+    branches: [main]
+    paths:
+      - 'agent.js'
+      - '.github/workflows/daily-agent.yml'
   # Allows you to run the action manually from the Actions tab
   workflow_dispatch:
 
