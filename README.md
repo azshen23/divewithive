@@ -4,18 +4,18 @@
 [![React](https://img.shields.io/badge/React-18.3-61DAFB?style=for-the-badge&logo=react&logoColor=black)]()
 [![Vite](https://img.shields.io/badge/Vite-6.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)]()
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)]()
-[![Gemini AI](https://img.shields.io/badge/Gemini_2.5_Flash-AI_Curated-8E75B2?style=for-the-badge&logo=google&logoColor=white)]()
+[![Gemini AI](https://img.shields.io/badge/Gemini_4_Hydrogen-AI_Curated-8E75B2?style=for-the-badge&logo=google&logoColor=white)]()
 [![Cloudflare CDN](https://img.shields.io/badge/Cloudflare-Bandwidth_Alliance-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)]()
 [![Backblaze B2](https://img.shields.io/badge/Backblaze_B2-Cloud_Storage-E51A3B?style=for-the-badge&logo=backblaze&logoColor=white)]()
 
-**Dive with IVE** is an autonomous, AI-curated digital sanctuary and news aggregator for the K-pop group **IVE**. Built to showcase premium media layouts, buttery-smooth animations, and custom video experiences, the platform updates automatically every 4 hours using an intelligent scraping agent powered by Google Gemini 2.5 Flash.
+**Dive with IVE** is an autonomous, AI-curated digital sanctuary and news aggregator for the K-pop group **IVE**. Built to showcase premium media layouts, buttery-smooth animations, and custom video experiences, the platform updates automatically every 4 hours using an intelligent scraping agent powered by Google Gemini 4 Hydrogen.
 
 ---
 
 ## ✨ Key Features
 
 ### 🤖 Autonomous AI Curation (`agent.js`)
-* **Intelligent Filtering:** Powered by **Google Gemini 2.5 Flash**, the automated agent filters out low-effort posts, fan chatter, and duplicates, selecting only high-quality updates (comebacks, pictorials, ambassador news, concert previews).
+* **Intelligent Filtering:** Powered by **Google Gemini 4 Hydrogen**, the automated agent filters out low-effort posts, fan chatter, and duplicates, selecting only high-quality updates (comebacks, pictorials, ambassador news, concert previews).
 * **Smart Categorization:** Automatically assigns custom tags (`Tour`, `Award`, `Member`, `Fansite`, `Release`) with tailored UI styling.
 * **Dynamic SEO Enrichment:** Automatically injects the latest headline, description, and cover image into `index.html` OpenGraph and Twitter meta tags for flawless social sharing.
 
@@ -49,7 +49,7 @@ Every 4 hours, a GitHub Actions cron job triggers the automated workflow:
 ```mermaid
 graph TD
     A[GitHub Actions Cron / Local Bun] -->|Fetch RSS| B(r/IVE RSS Feed)
-    B --> C{Gemini 2.5 Flash AI}
+    B --> C{Gemini 4 Hydrogen AI}
     C -->|Filter & Categorize| D[Select High-Quality Posts]
     D --> E{Media Type}
     E -->|Images| F[Fetch Full-Res i.redd.it]
@@ -148,7 +148,7 @@ divewithive/
 
 * **Core:** React 18, TypeScript, Vite
 * **Styling & UI:** Tailwind CSS, Framer Motion, Lucide React
-* **AI & Scraping:** Google Gemini 2.5 Flash API, RSS2JSON, Multi-Proxy Fetch
+* **AI & Scraping:** Google Gemini 4 Hydrogen API (`@google/genai`), Arctic Shift, RSS2JSON, Multi-Proxy Fetch
 * **Cloud Storage & CDN:** Backblaze B2 Object Storage, Cloudflare CDN (Bandwidth Alliance), `@aws-sdk/client-s3`
 * **Media Processing:** FFmpeg (child_process/execSync H.264/AAC compression)
 * **Automation & DevOps:** GitHub Actions, Vercel Analytics, Husky, Lint-Staged

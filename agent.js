@@ -2,6 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { execSync } from 'child_process';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { GoogleGenAI } from '@google/genai';
 
 // --- CONFIGURATION ---
 const ARCTIC_SHIFT_SEARCH_URL = 'https://arctic-shift.photon-reddit.com/api/posts/search?subreddit=IVE&limit=25&sort=desc';
@@ -9,7 +10,7 @@ const ARCTIC_SHIFT_IDS_URL = 'https://arctic-shift.photon-reddit.com/api/posts/i
 const REDDIT_RSS2JSON_URL = 'https://api.rss2json.com/v1/api.json?rss_url=https://www.reddit.com/r/IVE/new/.rss';
 const REDDIT_JSON_URL = 'https://www.reddit.com/r/IVE/new.json?limit=25';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-4-hydrogen';
 const TIMELINE_PATH = './src/data/timeline.json';
 // Use system ffmpeg on GitHub Actions/Linux, and local TrackMan binary on Windows dev machine
 const FFMPEG_PATH = process.env.GITHUB_ACTIONS || process.platform !== 'win32'
@@ -180,43 +181,51 @@ async function askAI(posts, existingTitles) {
     Return [] if no posts qualify.
   `;
 
+  const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
   const maxRetries = 5;
   const retryDelayMs = 60000;
 
   for (let attempt = 1; attempt <= maxRetries + 1; attempt++) {
     try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/` + GEMINI_MODEL + `:generateContent?key=${GEMINI_API_KEY}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: { response_mime_type: "application/json" }
-        }),
-        signal: AbortSignal.timeout(60000),
-      });
+      const interaction = await ai.interactions.create(
+        {
+          model: GEMINI_MODEL,
+          input: prompt,
+          store: false,
+          generation_config: {
+            thinking_level: 'low',
+          },
+          response_format: {
+            type: 'text',
+            mime_type: 'application/json',
+            schema: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  title: { type: 'string' },
+                  body: { type: 'string' },
+                  tag: { type: 'string', enum: ['Tour', 'Award', 'Member', 'Fansite', 'Release'] },
+                  tagColor: { type: 'string' },
+                  post_url: { type: 'string' },
+                },
+                required: ['title', 'body', 'tag', 'tagColor', 'post_url'],
+              },
+            },
+          },
+        },
+        { timeout_ms: 60000 }
+      );
 
-      if (!response.ok) {
-        let errDetails = `HTTP ${response.status} ${response.statusText}`;
-        try {
-          const errData = await response.json();
-          if (errData.error) {
-            errDetails = JSON.stringify(errData.error, null, 2);
-          }
-        } catch (_) {}
-        throw new Error(errDetails);
+      if (interaction.status === 'failed') {
+        throw new Error(`Interaction failed: ${JSON.stringify(interaction)}`);
       }
 
-      const data = await response.json();
-      
-      if (data.error) {
-        throw new Error(JSON.stringify(data.error, null, 2));
+      const rawResponse = interaction.output_text;
+      if (!rawResponse) {
+        throw new Error('Gemini API returned empty output_text.');
       }
 
-      if (!data.candidates || data.candidates.length === 0) {
-        throw new Error('Gemini API returned no candidates.');
-      }
-
-      const rawResponse = data.candidates[0].content.parts[0].text;
       return JSON.parse(rawResponse);
 
     } catch (error) {
