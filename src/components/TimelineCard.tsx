@@ -33,46 +33,78 @@ interface TimelineCardProps {
   openLightbox: (images: { src: string; alt: string }[], index: number, entryId: string) => void;
 }
 
+const tagStyles: Record<string, string> = {
+  Release: 'text-rose-300 bg-rose-500/15 border-rose-400/25',
+  Member: 'text-pink-200 bg-pink-500/15 border-pink-400/25',
+  Award: 'text-amber-300 bg-amber-500/15 border-amber-400/25',
+  Tour: 'text-emerald-300 bg-emerald-500/15 border-emerald-400/25',
+  Fansite: 'text-sky-300 bg-sky-500/15 border-sky-400/25',
+};
+
 const TimelineCard = forwardRef<HTMLDivElement, TimelineCardProps>(({
   entry,
   carouselIndices,
   setCarouselIndices,
   openLightbox
 }, ref) => {
+  const badgeClass = tagStyles[entry.tag] || 'text-white/75 bg-white/[0.06] border-white/10';
+
   return (
     <motion.article
       ref={ref}
       layout
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.3 }}
-      className="card rounded-xl p-5 group"
+      exit={{ opacity: 0, y: -14 }}
+      transition={{ duration: 0.25 }}
+      className="card rounded-2xl p-5 sm:p-6 group"
     >
-      <div className="mb-2">
-        <span className="font-inter text-xs text-white/25">{entry.date}</span>
+      <div className="flex items-center justify-between gap-3 mb-2.5">
+        <div className="flex items-center gap-2.5 min-w-0">
+          <span className="font-inter text-xs text-white/50 font-medium">{entry.date}</span>
+          {entry.tag && (
+            <span className={`font-inter text-[11px] font-medium px-2 py-0.5 rounded-md border ${badgeClass}`}>
+              {entry.tag}
+            </span>
+          )}
+        </div>
+
+        {entry.post_url && (
+          <a
+            href={entry.post_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-inter text-xs text-white/40 hover:text-white/85 transition-colors inline-flex items-center gap-1 shrink-0"
+            aria-label={`View source post for ${entry.title}`}
+          >
+            <span>Source</span>
+            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M7 7h10v10" />
+            </svg>
+          </a>
+        )}
       </div>
 
-      <h3 className="font-outfit font-semibold text-[15px] text-white/90 leading-snug mb-1.5">
+      <h3 className="font-outfit font-semibold text-base sm:text-[17px] text-white/95 leading-snug mb-1.5">
         {entry.title}
       </h3>
 
-      <p className="font-inter text-sm text-white/40 leading-relaxed mb-3">
+      <p className="font-inter text-sm text-white/60 leading-relaxed max-w-[68ch]">
         {entry.body}
       </p>
 
       {/* Photo Carousel */}
       {entry.images && entry.images.length === 1 && (
         <div
-          className="mt-4 rounded-lg overflow-hidden w-full max-h-[500px] cursor-pointer group/img relative"
+          className="mt-4 rounded-xl overflow-hidden w-full max-h-[520px] cursor-pointer group/img relative border border-white/[0.06]"
           onClick={() => openLightbox(entry.images || [], 0, entry.title)}
         >
-          <div className="absolute inset-0 bg-white/0 group-hover/img:bg-white/10 transition-colors duration-300 z-10" />
+          <div className="absolute inset-0 bg-white/0 group-hover/img:bg-white/[0.06] transition-colors duration-300 z-10" />
           <motion.img
             src={entry.images[0].src}
             alt={entry.images[0].alt || entry.title}
-            className="w-full h-full max-h-[500px] object-cover"
-            whileHover={{ scale: 1.02 }}
+            className="w-full h-full max-h-[520px] object-cover"
+            whileHover={{ scale: 1.015 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             loading="lazy"
             onError={() => handleImageError(entry.images![0].src)}
@@ -93,7 +125,7 @@ const TimelineCard = forwardRef<HTMLDivElement, TimelineCardProps>(({
 
       {/* YouTube embed */}
       {entry.videoId && (
-        <div className="w-full rounded-lg overflow-hidden aspect-video">
+        <div className="mt-4 w-full rounded-xl overflow-hidden aspect-video border border-white/[0.06]">
           <iframe
             className="w-full h-full"
             src={`https://www.youtube.com/embed/${entry.videoId}?rel=0&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
@@ -107,7 +139,9 @@ const TimelineCard = forwardRef<HTMLDivElement, TimelineCardProps>(({
 
       {/* Reddit native video */}
       {entry.videoUrl && (
-        <CustomVideoPlayer src={entry.videoUrl} />
+        <div className="mt-4">
+          <CustomVideoPlayer src={entry.videoUrl} />
+        </div>
       )}
     </motion.article>
   );

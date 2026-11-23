@@ -87,7 +87,7 @@ export default function ImageCarousel({ images, currentIndex, onIndexChange, onS
   };
 
   return (
-    <div className="relative rounded-lg overflow-hidden w-full h-[500px] group/carousel bg-black/20">
+    <div className="relative rounded-xl overflow-hidden w-full h-[340px] sm:h-[460px] group/carousel bg-black/30 border border-white/[0.06]">
       <div 
         className="cursor-pointer relative h-full w-full flex items-center justify-center overflow-hidden"
         onClick={() => {

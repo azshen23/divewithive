@@ -5,7 +5,8 @@ export default {
     extend: {
       fontFamily: {
         outfit: ['Outfit', 'sans-serif'],
-        inter: ['Inter', 'sans-serif'],
+        inter: ['DM Sans', 'sans-serif'],
+        sans: ['DM Sans', 'sans-serif'],
       },
     },
   },

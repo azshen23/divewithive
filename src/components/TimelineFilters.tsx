@@ -8,76 +8,16 @@ interface TimelineFiltersProps {
 }
 
 const memberFilters = [
-  { 
-    name: 'All', 
-    gradient: 'from-emerald-500/30 to-teal-500/30', 
-    border: 'border-emerald-500/40', 
-    glow: 'shadow-[0_0_20px_rgba(16,185,129,0.2)]'
-  },
-  { 
-    name: 'Yujin', 
-    gradient: 'from-blue-500/30 to-indigo-500/30', 
-    border: 'border-blue-500/40', 
-    glow: 'shadow-[0_0_20px_rgba(59,130,246,0.2)]'
-  },
-  { 
-    name: 'Gaeul', 
-    gradient: 'from-amber-500/30 to-yellow-500/30', 
-    border: 'border-amber-500/40', 
-    glow: 'shadow-[0_0_20px_rgba(245,158,11,0.2)]'
-  },
-  { 
-    name: 'Rei', 
-    gradient: 'from-purple-500/30 to-violet-500/30', 
-    border: 'border-purple-500/40', 
-    glow: 'shadow-[0_0_20px_rgba(168,85,247,0.2)]'
-  },
-  { 
-    name: 'Wonyoung', 
-    gradient: 'from-rose-500/30 to-pink-500/30', 
-    border: 'border-rose-500/40', 
-    glow: 'shadow-[0_0_20px_rgba(244,63,94,0.2)]'
-  },
-  { 
-    name: 'Liz', 
-    gradient: 'from-orange-500/30 to-amber-500/30', 
-    border: 'border-orange-500/40', 
-    glow: 'shadow-[0_0_20px_rgba(249,115,22,0.2)]'
-  },
-  { 
-    name: 'Leeseo', 
-    gradient: 'from-cyan-500/30 to-blue-500/30', 
-    border: 'border-cyan-500/40', 
-    glow: 'shadow-[0_0_20px_rgba(6,182,212,0.2)]'
-  },
+  { name: 'All', dot: 'bg-emerald-400' },
+  { name: 'Yujin', dot: 'bg-sky-400' },
+  { name: 'Gaeul', dot: 'bg-amber-400' },
+  { name: 'Rei', dot: 'bg-emerald-300' },
+  { name: 'Wonyoung', dot: 'bg-rose-400' },
+  { name: 'Liz', dot: 'bg-orange-400' },
+  { name: 'Leeseo', dot: 'bg-pink-400' },
 ];
 
-const platformFilters = [
-  { 
-    name: 'All', 
-    gradient: 'from-emerald-500/30 to-teal-500/30', 
-    border: 'border-emerald-500/40', 
-    glow: 'shadow-[0_0_20px_rgba(16,185,129,0.2)]'
-  },
-  { 
-    name: 'YouTube', 
-    gradient: 'from-red-500/30 to-rose-500/30', 
-    border: 'border-red-500/40', 
-    glow: 'shadow-[0_0_20px_rgba(239,68,68,0.2)]'
-  },
-  { 
-    name: 'TikTok', 
-    gradient: 'from-cyan-500/30 to-pink-500/30', 
-    border: 'border-cyan-500/40', 
-    glow: 'shadow-[0_0_20px_rgba(6,182,212,0.2)]'
-  },
-  { 
-    name: 'Instagram', 
-    gradient: 'from-purple-500/30 to-pink-500/30', 
-    border: 'border-pink-500/40', 
-    glow: 'shadow-[0_0_20px_rgba(236,72,153,0.2)]'
-  },
-];
+const platformFilters = ['All', 'YouTube', 'TikTok', 'Instagram'];
 
 export default function TimelineFilters({
   selectedMember,
@@ -85,60 +25,90 @@ export default function TimelineFilters({
   selectedPlatform,
   setSelectedPlatform
 }: TimelineFiltersProps) {
+  const hasActiveFilter = selectedMember !== 'All' || selectedPlatform !== 'All';
+
   return (
-    <div className="flex flex-col gap-3 mb-6">
-      {/* Member Filter Bar */}
-      <div className="flex flex-wrap items-center gap-1.5 bg-white/[0.02] border border-white/[0.05] rounded-2xl backdrop-blur-md shadow-lg p-1.5">
+    <div className="card rounded-2xl p-3 sm:p-3.5 mb-5 space-y-2.5">
+      {/* Member Filter Row */}
+      <div className="flex flex-wrap items-center gap-1.5">
+        <span className="font-inter text-[11px] font-medium uppercase tracking-wider text-white/40 px-1.5 mr-1">
+          Member
+        </span>
         {memberFilters.map((filter) => {
           const isActive = selectedMember === filter.name;
           return (
             <button
+              type="button"
               key={filter.name}
               onClick={() => setSelectedMember(filter.name)}
-              className={`relative px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl font-inter text-xs sm:text-sm font-medium transition-all duration-300 cursor-pointer ${
-                isActive 
-                  ? 'text-white shadow-lg' 
-                  : 'text-white/50 hover:text-white/80 hover:bg-white/[0.04]'
+              aria-pressed={isActive}
+              className={`relative px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg font-inter text-xs sm:text-[13px] font-medium transition-colors duration-200 cursor-pointer flex items-center gap-1.5 ${
+                isActive
+                  ? 'text-[#0a0a0f] font-semibold'
+                  : 'text-white/65 hover:text-white hover:bg-white/[0.06]'
               }`}
             >
               {isActive && (
                 <motion.div
                   layoutId="activeMemberFilter"
-                  className={`absolute inset-0 rounded-xl bg-gradient-to-r ${filter.gradient} border ${filter.border} ${filter.glow} -z-10`}
-                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                  className="absolute inset-0 rounded-lg bg-white"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                 />
               )}
+              <span className={`relative z-10 w-1.5 h-1.5 rounded-full ${isActive ? 'bg-[#0a0a0f]/60' : filter.dot}`} />
               <span className="relative z-10">{filter.name}</span>
             </button>
           );
         })}
       </div>
 
-      {/* Platform Filter Bar */}
-      <div className="flex flex-wrap items-center gap-1.5 bg-white/[0.02] border border-white/[0.05] rounded-2xl backdrop-blur-md shadow-lg p-1.5">
-        {platformFilters.map((filter) => {
-          const isActive = selectedPlatform === filter.name;
-          return (
-            <button
-              key={filter.name}
-              onClick={() => setSelectedPlatform(filter.name)}
-              className={`relative px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl font-inter text-xs sm:text-sm font-medium transition-all duration-300 cursor-pointer ${
-                isActive 
-                  ? 'text-white shadow-lg' 
-                  : 'text-white/50 hover:text-white/80 hover:bg-white/[0.04]'
-              }`}
-            >
-              {isActive && (
-                <motion.div
-                  layoutId="activePlatformFilter"
-                  className={`absolute inset-0 rounded-xl bg-gradient-to-r ${filter.gradient} border ${filter.border} ${filter.glow} -z-10`}
-                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                />
-              )}
-              <span className="relative z-10">{filter.name}</span>
-            </button>
-          );
-        })}
+      <div className="h-px bg-white/[0.06]" />
+
+      {/* Platform Filter Row */}
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="font-inter text-[11px] font-medium uppercase tracking-wider text-white/40 px-1.5 mr-1">
+            Source
+          </span>
+          {platformFilters.map((platform) => {
+            const isActive = selectedPlatform === platform;
+            return (
+              <button
+                type="button"
+                key={platform}
+                onClick={() => setSelectedPlatform(platform)}
+                aria-pressed={isActive}
+                className={`relative px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg font-inter text-xs sm:text-[13px] font-medium transition-colors duration-200 cursor-pointer ${
+                  isActive
+                    ? 'text-rose-100 font-semibold'
+                    : 'text-white/65 hover:text-white hover:bg-white/[0.06]'
+                }`}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="activePlatformFilter"
+                    className="absolute inset-0 rounded-lg bg-rose-500/20 border border-rose-400/40"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{platform}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {hasActiveFilter && (
+          <button
+            type="button"
+            onClick={() => {
+              setSelectedMember('All');
+              setSelectedPlatform('All');
+            }}
+            className="font-inter text-xs text-white/55 hover:text-white px-2.5 py-1 rounded-lg hover:bg-white/[0.06] transition-colors cursor-pointer"
+          >
+            Reset
+          </button>
+        )}
       </div>
     </div>
   );

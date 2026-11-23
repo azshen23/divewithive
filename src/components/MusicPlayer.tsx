@@ -173,7 +173,7 @@ export default function MusicPlayer() {
   };
 
   return (
-    <div className="card rounded-xl p-5 w-full relative overflow-hidden">
+    <div className="card rounded-2xl p-5 w-full relative overflow-hidden">
       {/* Hidden YouTube Player (Must be in DOM to work) */}
       <div id="youtube-player" className="absolute opacity-0 pointer-events-none" />
 
@@ -181,56 +181,91 @@ export default function MusicPlayer() {
         {/* Header / Now Playing info */}
         <div className="mb-4">
           <div className="flex items-center justify-between gap-2 mb-1.5">
-            <span className="text-[10px] uppercase tracking-widest text-white/40 font-bold block">Now Playing</span>
-            {isPlaying && (
-              <motion.div
-                animate={{ opacity: [0.3, 1, 0.3] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]"
-              />
-            )}
+            <span className="text-[11px] uppercase tracking-wider text-white/50 font-semibold block">Now Playing</span>
+            <div className="flex items-center gap-2">
+              <span className="font-inter text-[11px] text-white/40 tabular-nums">
+                {String(currentSongIndex + 1).padStart(2, '0')} / {String(songs.length).padStart(2, '0')}
+              </span>
+              {isPlaying && (
+                <motion.div
+                  animate={{ opacity: [0.4, 1, 0.4] }}
+                  transition={{ duration: 1.8, repeat: Infinity }}
+                  className="w-2 h-2 rounded-full bg-rose-400"
+                />
+              )}
+            </div>
           </div>
           <h4 className="font-outfit font-bold text-white text-lg truncate leading-tight">{currentSong.title}</h4>
-          <p className="font-inter text-white/40 text-xs tracking-wider uppercase mt-0.5">{currentSong.artist}</p>
+          <p className="font-inter text-white/50 text-xs tracking-wider uppercase mt-0.5">{currentSong.artist}</p>
         </div>
 
         {/* Controls */}
-        <div className="flex items-center gap-5 justify-center mb-5 py-2">
+        <div className="flex items-center gap-5 justify-center mb-4 py-1.5">
           <button
+            type="button"
             onClick={() => prevSong(true)}
-            className="text-white/40 hover:text-white transition-colors hover:scale-110 active:scale-95 cursor-pointer"
+            aria-label="Previous track"
+            className="text-white/55 hover:text-white transition-colors hover:scale-110 active:scale-95 cursor-pointer p-1"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z" /></svg>
           </button>
 
           <button
+            type="button"
             onClick={togglePlay}
-            className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-xl cursor-pointer"
+            aria-label={isPlaying ? `Pause ${currentSong.title}` : `Play ${currentSong.title}`}
+            className="w-11 h-11 rounded-full bg-white text-[#0a0a0f] flex items-center justify-center hover:scale-105 active:scale-95 transition-transform cursor-pointer"
           >
             {isPlaying ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /></svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
             )}
           </button>
 
           <button
+            type="button"
             onClick={() => nextSong(true)}
-            className="text-white/40 hover:text-white transition-colors hover:scale-110 active:scale-95 cursor-pointer"
+            aria-label="Next track"
+            className="text-white/55 hover:text-white transition-colors hover:scale-110 active:scale-95 cursor-pointer p-1"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" /></svg>
           </button>
         </div>
 
+        {/* Quick Track Selector */}
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {songs.map((song, idx) => {
+            const active = idx === currentSongIndex;
+            return (
+              <button
+                type="button"
+                key={song.title}
+                onClick={() => {
+                  trackEvent('Music Selected', { songTitle: song.title });
+                  setCurrentSongIndex(idx);
+                }}
+                className={`px-2 py-1 rounded-md font-inter text-[11px] font-medium transition-colors cursor-pointer ${
+                  active
+                    ? 'bg-white/15 text-white border border-white/20'
+                    : 'bg-white/[0.03] text-white/50 hover:text-white/85 hover:bg-white/[0.07] border border-transparent'
+                }`}
+              >
+                {song.title}
+              </button>
+            );
+          })}
+        </div>
+
         {/* Volume Slider */}
-        <div className="flex items-center gap-3 mb-5 px-1 group/volume">
-          <div className="text-white/30 group-hover/volume:text-white/60 transition-colors">
+        <div className="flex items-center gap-3 mb-3 px-0.5 group/volume">
+          <div className="text-white/45 group-hover/volume:text-white/75 transition-colors">
             {volume === 0 ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M23 9l-6 6m0-6l6 6" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M23 9l-6 6m0-6l6 6" /></svg>
             ) : volume < 50 ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" /></svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" /></svg>
             )}
           </div>
           <div className="relative flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden cursor-pointer">
@@ -239,34 +274,36 @@ export default function MusicPlayer() {
               min="0"
               max="100"
               value={volume}
+              aria-label="Music player volume"
               onChange={(e) => setVolume(parseInt(e.target.value))}
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
             />
             <motion.div
               className="absolute inset-y-0 left-0 rounded-full"
               animate={{ width: `${volume}%` }}
-              style={{ backgroundColor: currentSong.color }}
+              style={{ backgroundColor: currentSong.color === '#1a1a2e' ? '#fb7185' : currentSong.color }}
             />
           </div>
-          <span className="text-[10px] font-bold text-white/20 min-w-[20px] tabular-nums">{volume}</span>
+          <span className="text-[11px] font-medium text-white/45 min-w-[22px] text-right tabular-nums">{volume}</span>
         </div>
 
         {/* Visualizer bars */}
-        <div className="flex items-end justify-between gap-[3px] h-4 px-1">
+        <div className="flex items-end justify-between gap-[3px] h-3.5 px-0.5 opacity-80">
           {[...Array(15)].map((_, i) => (
             <motion.div
               key={i}
               animate={{
-                height: isPlaying ? [2, Math.random() * 12 + 2, 2] : 2
+                height: isPlaying ? [3, ((i * 7) % 10) + 4, 3] : 3,
+                opacity: isPlaying ? 0.9 : 0.25,
               }}
               transition={{
-                duration: 0.3 + Math.random() * 0.4,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: i * 0.02
+                duration: 0.45 + (i % 4) * 0.12,
+                repeat: isPlaying ? Infinity : 0,
+                ease: 'easeInOut',
+                delay: i * 0.03,
               }}
               className="flex-1 rounded-full"
-              style={{ backgroundColor: currentSong.color }}
+              style={{ backgroundColor: currentSong.color === '#1a1a2e' ? '#fb7185' : currentSong.color }}
             />
           ))}
         </div>

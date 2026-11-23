@@ -3,7 +3,6 @@ import { motion, AnimatePresence, useInView } from 'framer-motion';
 import timelineData from '../data/timeline.json';
 import Footer from './Footer';
 import MusicPlayer from './MusicPlayer';
-import TourDatesWidget from './TourDatesWidget';
 import TimelineFilters from './TimelineFilters';
 import ArchiveSwitcher from './ArchiveSwitcher';
 import TimelineCard from './TimelineCard';
@@ -224,34 +223,52 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
   const visibleTimeline = filteredTimeline.slice(0, visibleCount);
 
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr_280px] gap-8">
-        {/* Left Sidebar: Music Player */}
-        <aside className="hidden lg:block space-y-6 lg:order-none">
-          <div className="sticky top-20 space-y-6">
+    <main className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+      <div className="grid grid-cols-1 lg:grid-cols-[296px_minmax(0,1fr)] gap-6 lg:gap-8 items-start">
+        {/* Left Sidebar: Brand, Music Player & Footer */}
+        <aside className="hidden lg:block">
+          <div className="sticky top-8 space-y-5">
+            <div className="px-1">
+              <div className="flex items-center gap-2.5">
+                <span className="w-2 h-2 rounded-full bg-rose-400" />
+                <span className="font-outfit font-bold text-lg tracking-tight text-white">Dive with IVE</span>
+              </div>
+              <p className="font-inter text-xs text-white/50 mt-1">
+                Curated real-time timeline &amp; media archive
+              </p>
+            </div>
             <MusicPlayer />
+            <Footer />
           </div>
         </aside>
 
         {/* Main Timeline */}
-        <div className="min-w-0 order-2 lg:order-none">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-2 h-2 rounded-full bg-emerald-400" />
-            <h2 className="font-outfit font-bold text-xl text-white/90">
-              {currentArchiveKey === 'recent' ? 'IVE Updates' : `${availableArchives.find(a => a.key === currentArchiveKey)?.label} Archive`}
-            </h2>
-            <div className="h-px flex-1 bg-white/5" />
-            <span className="font-inter text-xs text-white/30">Last updated: {formatLastUpdated(activeTimelineData[0])}</span>
-          </div>
+        <div className="min-w-0">
+          <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 lg:hidden shrink-0" />
+                <h1 className="font-outfit font-bold text-xl sm:text-2xl text-white tracking-tight truncate">
+                  {currentArchiveKey === 'recent' ? 'IVE Updates' : `${availableArchives.find(a => a.key === currentArchiveKey)?.label} Archive`}
+                </h1>
+                <span className="font-inter text-xs text-white/45 bg-white/[0.04] border border-white/[0.07] px-2 py-0.5 rounded-md tabular-nums shrink-0">
+                  {filteredTimeline.length}
+                </span>
+              </div>
+              <p className="font-inter text-xs text-white/45 mt-1">
+                Last updated {formatLastUpdated(activeTimelineData[0])}
+              </p>
+            </div>
 
-          <ArchiveSwitcher
-            availableArchives={availableArchives}
-            currentArchiveKey={currentArchiveKey}
-            isArchiveDropdownOpen={isArchiveDropdownOpen}
-            setIsArchiveDropdownOpen={setIsArchiveDropdownOpen}
-            handleArchiveChange={handleArchiveChange}
-            dropdownRef={dropdownRef}
-          />
+            <ArchiveSwitcher
+              availableArchives={availableArchives}
+              currentArchiveKey={currentArchiveKey}
+              isArchiveDropdownOpen={isArchiveDropdownOpen}
+              setIsArchiveDropdownOpen={setIsArchiveDropdownOpen}
+              handleArchiveChange={handleArchiveChange}
+              dropdownRef={dropdownRef}
+            />
+          </header>
 
           <TimelineFilters
             selectedMember={selectedMember}
@@ -260,27 +277,41 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
             setSelectedPlatform={setSelectedPlatform}
           />
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3.5">
             <AnimatePresence mode="popLayout">
               {isLoadingArchive ? (
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.95 }}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.97 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  className="card rounded-xl p-16 text-center flex flex-col items-center justify-center gap-4"
+                  exit={{ opacity: 0, scale: 0.97 }}
+                  className="card rounded-2xl p-14 text-center flex flex-col items-center justify-center gap-3.5"
                 >
-                  <div className="w-8 h-8 border-2 border-emerald-400/30 border-t-emerald-400 rounded-full animate-spin" />
-                  <p className="font-outfit text-base text-white/60">Loading timeline archive...</p>
+                  <div className="w-7 h-7 border-2 border-emerald-400/30 border-t-emerald-400 rounded-full animate-spin" />
+                  <p className="font-outfit text-base text-white/70">Loading timeline archive...</p>
                 </motion.div>
               ) : filteredTimeline.length === 0 ? (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="card rounded-xl p-12 text-center"
+                  className="card rounded-2xl p-12 text-center"
                 >
-                  <p className="font-outfit text-lg text-white/60 mb-2">No updates found for {selectedMember}</p>
-                  <p className="font-inter text-sm text-white/30">Check back later for more updates!</p>
+                  <p className="font-outfit text-lg text-white/80 mb-1.5">
+                    No updates found{selectedMember !== 'All' ? ` for ${selectedMember}` : ''}{selectedPlatform !== 'All' ? ` on ${selectedPlatform}` : ''}
+                  </p>
+                  <p className="font-inter text-sm text-white/45 mb-5">Try another period or clear active filters.</p>
+                  {(selectedMember !== 'All' || selectedPlatform !== 'All') && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedMember('All');
+                        setSelectedPlatform('All');
+                      }}
+                      className="font-inter text-xs font-medium px-4 py-2 rounded-lg bg-white text-[#0a0a0f] hover:bg-white/90 transition-colors cursor-pointer"
+                    >
+                      Reset filters
+                    </button>
+                  )}
                 </motion.div>
               ) : (
                 visibleTimeline.map((entry) => (
@@ -298,22 +329,19 @@ export default function Timeline({ onLightboxToggle }: TimelineProps) {
             {/* Infinite Scroll Trigger / Loading Indicator */}
             {visibleCount < filteredTimeline.length && (
               <div ref={loadMoreRef} className="py-8 flex justify-center items-center">
-                <div className="flex items-center gap-2 text-white/40 font-inter text-sm">
+                <div className="flex items-center gap-2 text-white/50 font-inter text-sm">
                   <div className="w-4 h-4 border-2 border-emerald-400/30 border-t-emerald-400 rounded-full animate-spin" />
                   <span>Loading more updates...</span>
                 </div>
               </div>
             )}
           </div>
-        </div>
 
-        {/* Right Sidebar: Tour Dates & Footer */}
-        <aside className="hidden lg:block space-y-6 lg:order-none">
-          <div className="sticky top-20 space-y-6">
-            <TourDatesWidget />
+          {/* Mobile Footer */}
+          <div className="mt-8 lg:hidden">
             <Footer />
           </div>
-        </aside>
+        </div>
       </div>
 
       <LightboxModal
