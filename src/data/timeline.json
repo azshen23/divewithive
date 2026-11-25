@@ -1,6 +1,26 @@
 [
   {
     "date": "Nov 25, 2026",
+    "last_updated": "2026-11-25T23:55:57.962Z",
+    "tag": "Member",
+    "tagColor": "text-violet-400 bg-violet-400/10",
+    "title": "Wonyoung Features in W Korea ASMR Video",
+    "body": "Wonyoung stars in a new ASMR video for W Korea, showcasing sherbet slime squishy sounds.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1y58scp/261125_jang_wonyoung_jang_wonyoungs_asmr_ears",
+    "videoId": "g44TqqCfZSg"
+  },
+  {
+    "date": "Nov 25, 2026",
+    "last_updated": "2026-11-25T23:55:57.962Z",
+    "tag": "Release",
+    "tagColor": "text-rose-400 bg-rose-400/10",
+    "title": "IVE Shares 'NOL FESTIVAL 2026' Behind-the-Scenes",
+    "body": "IVE has released a new [IVE ON] episode featuring behind-the-scenes moments from the NOL Festival 2026.",
+    "post_url": "https://www.reddit.com/r/ive/comments/1y582f2/261125_ive_ive_on_nol_festival_2026_behind",
+    "videoId": "3tmwdaRWAIU"
+  },
+  {
+    "date": "Nov 25, 2026",
     "last_updated": "2026-11-25T13:45:28.183Z",
     "tag": "Member",
     "tagColor": "text-violet-400 bg-violet-400/10",
@@ -1140,35 +1160,5 @@
     "body": "Rei is showcased in a new Instagram update from the brand FULLY.",
     "post_url": "https://www.reddit.com/r/ive/comments/1xlv57b/261102_fully_instagram_update_with_rei",
     "videoUrl": "https://cdn.divewithive.com/file/divewithive-media/videos/2026-11-02/vid_1793620469580.mp4"
-  },
-  {
-    "date": "Nov 2, 2026",
-    "last_updated": "2026-11-02T11:53:01.689Z",
-    "tag": "Release",
-    "tagColor": "text-rose-400 bg-rose-400/10",
-    "title": "PUBG x IVE Collaboration Website Now Open",
-    "body": "The official collaboration website for PUBG x IVE has launched, allowing fans to explore the special in-game room.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1xlv1tx/261102_ive_the_pubg_ive_room_finally_opens_its",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-11-02/img_1793620517367_1.webp",
-        "alt": "PUBG x IVE Collaboration Website Now Open"
-      }
-    ]
-  },
-  {
-    "date": "Nov 2, 2026",
-    "last_updated": "2026-11-02T11:53:01.689Z",
-    "tag": "Member",
-    "tagColor": "text-violet-400 bg-violet-400/10",
-    "title": "Gaeul Shares New Instagram Update (261102)",
-    "body": "Gaeul shares a new personal update with fans on her official Instagram account.",
-    "post_url": "https://www.reddit.com/r/ive/comments/1xluv5c/261102_gaeul_instagram_update",
-    "images": [
-      {
-        "src": "https://cdn.divewithive.com/file/divewithive-media/images/2026-11-02/img_1793620561892_1.webp",
-        "alt": "Gaeul Shares New Instagram Update (261102)"
-      }
-    ]
   }
 ]
