@@ -59,29 +59,12 @@ const TimelineCard = forwardRef<HTMLDivElement, TimelineCardProps>(({
       transition={{ duration: 0.25 }}
       className="card rounded-2xl p-5 sm:p-6 group"
     >
-      <div className="flex items-center justify-between gap-3 mb-2.5">
-        <div className="flex items-center gap-2.5 min-w-0">
-          <span className="font-inter text-xs text-white/50 font-medium">{entry.date}</span>
-          {entry.tag && (
-            <span className={`font-inter text-[11px] font-medium px-2 py-0.5 rounded-md border ${badgeClass}`}>
-              {entry.tag}
-            </span>
-          )}
-        </div>
-
-        {entry.post_url && (
-          <a
-            href={entry.post_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-inter text-xs text-white/40 hover:text-white/85 transition-colors inline-flex items-center gap-1 shrink-0"
-            aria-label={`View source post for ${entry.title}`}
-          >
-            <span>Source</span>
-            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M7 7h10v10" />
-            </svg>
-          </a>
+      <div className="flex items-center gap-2.5 mb-2.5 min-w-0">
+        <span className="font-inter text-xs text-white/50 font-medium">{entry.date}</span>
+        {entry.tag && (
+          <span className={`font-inter text-[11px] font-medium px-2 py-0.5 rounded-md border ${badgeClass}`}>
+            {entry.tag}
+          </span>
         )}
       </div>
 
